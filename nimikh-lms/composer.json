@@ -1,0 +1,27 @@
+{
+  "name": "nimikh/nimikh-lms",
+  "description": "Nimikh LMS: interactive video MCQs, anti-skip progress and verifiable certificates on top of Tutor LMS.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=8.1"
+  },
+  "suggest": {
+    "mpdf/mpdf": "Renders certificate PDFs in-process (or use a Gotenberg container).",
+    "endroid/qr-code": "Stamps a QR code on certificates."
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  },
+  "autoload": {
+    "psr-4": { "Nimikh\\LMS\\": "src/" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Nimikh\\LMS\\Tests\\": "tests/" }
+  },
+  "scripts": {
+    "test": "phpunit -c phpunit.xml.dist",
+    "lint": "find src migrations templates nimikh-lms.php -name '*.php' -print0 | xargs -0 -n1 php -l"
+  },
+  "config": { "optimize-autoloader": true }
+}

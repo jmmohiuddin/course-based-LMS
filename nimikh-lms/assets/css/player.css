@@ -1,0 +1,51 @@
+.nk-player { font-family: var(--nk-font); color: var(--nk-ink); line-height: 1.6; max-width: 960px; margin: 0 0 24px; }
+.nk-player__stage { position: relative; background: #000; border-radius: var(--nk-radius-card); overflow: hidden; }
+.nk-player video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; }
+.nk-player__watermark { position: absolute; pointer-events: none; font-size: 12px; color: rgba(255,255,255,.55); text-shadow: 0 0 2px rgba(0,0,0,.6); user-select: none; transition: top .6s, left .6s; }
+.nk-player__status { min-height: 24px; font-size: 14px; color: var(--nk-ink-muted); margin: 8px 0 0; }
+.nk-player__status[data-kind="success"] { color: var(--nk-success); font-weight: 600; }
+.nk-player__status[data-kind="warning"] { color: var(--nk-warning); }
+
+/* Question markers under the video */
+.nk-markers { position: relative; height: 22px; margin: 6px 0 0; background: var(--nk-surface-alt); border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); }
+.nk-marker { position: absolute; top: 4px; width: 12px; height: 12px; margin-left: -6px; transform: rotate(45deg); background: var(--nk-surface); border: 2px solid var(--nk-primary); }
+.nk-marker[data-state="answered"] { background: var(--nk-primary); }
+.nk-marker[data-state="current"] { background: var(--nk-warning); border-color: var(--nk-warning); }
+
+/* MCQ sheet: bottom sheet on mobile, centred modal on desktop */
+.nk-sheet { position: absolute; left: 0; right: 0; bottom: 0; max-height: 78%; overflow: auto; background: var(--nk-surface); color: var(--nk-ink);
+  border-radius: var(--nk-radius-sheet) var(--nk-radius-sheet) 0 0; padding: 16px; box-shadow: 0 -8px 32px rgba(15,23,42,.25);
+  animation: nk-slide-up .2s ease-out; }
+.nk-sheet__title { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--nk-primary); }
+.nk-sheet__stem { margin: 0 0 12px; font-size: 18px; font-weight: 600; line-height: 1.25; }
+.nk-options { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+.nk-option { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); cursor: pointer; }
+.nk-option input { width: 20px; height: 20px; flex: none; }
+.nk-option:has(input:checked) { background: var(--nk-primary-soft); border-color: var(--nk-primary); }
+.nk-option[data-state="correct"] { border-color: var(--nk-success); background: color-mix(in srgb, var(--nk-success) 12%, transparent); }
+.nk-option[data-state="wrong"] { border-color: var(--nk-danger); background: color-mix(in srgb, var(--nk-danger) 12%, transparent); }
+.nk-option__mark { margin-left: auto; font-weight: 700; }
+.nk-feedback { margin: 12px 0 0; padding: 10px 12px; border-radius: var(--nk-radius-input); font-size: 15px; }
+.nk-feedback[data-kind="correct"] { color: var(--nk-success); }
+.nk-feedback[data-kind="wrong"] { color: var(--nk-danger); }
+.nk-sheet__actions { display: flex; gap: 8px; margin-top: 12px; }
+.nk-btn { min-height: 44px; padding: 0 20px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-primary); background: var(--nk-primary); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.nk-btn:disabled { opacity: .5; cursor: not-allowed; }
+.nk-btn--ghost { background: transparent; color: var(--nk-primary); }
+.nk-btn:focus-visible, .nk-option:focus-within { outline: 3px solid var(--nk-primary); outline-offset: 2px; }
+
+@media (min-width: 1024px) {
+  .nk-sheet { left: 50%; right: auto; bottom: 50%; transform: translate(-50%, 50%); width: min(520px, 90%); border-radius: var(--nk-radius-sheet); animation: nk-fade .2s ease-out; }
+}
+@keyframes nk-slide-up { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes nk-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .nk-sheet { animation: none; } .nk-player__watermark { transition: none; } }
+
+/* Profile / certificates */
+.nk-dash { font-family: var(--nk-font); color: var(--nk-ink); }
+.nk-certs { list-style: none; padding: 0; display: grid; gap: 12px; }
+.nk-cert { padding: 12px 16px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); background: var(--nk-surface-alt); }
+.nk-badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+.nk-badge--valid { color: var(--nk-success); border: 1px solid var(--nk-success); }
+.nk-empty { color: var(--nk-ink-muted); }
+.nk-notice { padding: 12px 16px; background: var(--nk-primary-soft); border-radius: var(--nk-radius-input); }

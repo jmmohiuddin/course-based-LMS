@@ -1,0 +1,4 @@
+nimikh-lms/vendor/
+nimikh-lms/composer.lock
+nimikh-lms/.phpunit.cache/
+node_modules/

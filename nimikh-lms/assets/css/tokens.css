@@ -1,0 +1,43 @@
+/* Design tokens from the blueprint (section 9). Mirrored in theme/theme.json. */
+:root {
+  --nk-primary: #1E4FD8;
+  --nk-primary-soft: #E8EEFE;
+  --nk-success: #15803D;
+  --nk-danger: #B91C1C;
+  --nk-warning: #B45309;
+  --nk-ink: #0F172A;
+  --nk-ink-muted: #475569;
+  --nk-surface: #FFFFFF;
+  --nk-surface-alt: #F8FAFC;
+  --nk-border: #E2E8F0;
+  --nk-radius-input: 8px;
+  --nk-radius-card: 12px;
+  --nk-radius-sheet: 16px;
+  --nk-font: 'Hind Siliguri', 'Inter', system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --nk-primary: #6E93FF;
+    --nk-primary-soft: #1B2547;
+    --nk-success: #4ADE80;
+    --nk-danger: #F87171;
+    --nk-warning: #FBBF24;
+    --nk-ink: #E2E8F0;
+    --nk-ink-muted: #94A3B8;
+    --nk-surface: #0B1120;
+    --nk-surface-alt: #111827;
+    --nk-border: #1F2937;
+  }
+}
+:root[data-theme="dark"] {
+  --nk-primary: #6E93FF;
+  --nk-primary-soft: #1B2547;
+  --nk-success: #4ADE80;
+  --nk-danger: #F87171;
+  --nk-warning: #FBBF24;
+  --nk-ink: #E2E8F0;
+  --nk-ink-muted: #94A3B8;
+  --nk-surface: #0B1120;
+  --nk-surface-alt: #111827;
+  --nk-border: #1F2937;
+}

@@ -1,0 +1,18 @@
+.nk-editor { font-family: var(--nk-font, system-ui); }
+.nk-editor video { width: 100%; max-width: 720px; aspect-ratio: 16/9; background: #000; border-radius: 8px; display: block; }
+.nk-editor__track { position: relative; height: 28px; max-width: 720px; margin: 8px 0; background: #eef2f7; border: 1px solid #cbd5e1; border-radius: 8px; touch-action: none; }
+.nk-editor__playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: #1E4FD8; pointer-events: none; }
+.nk-editor__marker { position: absolute; top: 5px; width: 16px; height: 16px; margin-left: -8px; background: #fff; border: 2px solid #1E4FD8; transform: rotate(45deg); cursor: grab; }
+.nk-editor__marker[data-selected="1"] { background: #1E4FD8; }
+.nk-editor__bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+.nk-editor__form { max-width: 720px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; }
+.nk-editor__form label { display: block; margin: 8px 0 2px; font-weight: 600; }
+.nk-editor__form textarea, .nk-editor__form input[type="text"], .nk-editor__form input[type="number"] { width: 100%; }
+.nk-editor__opt { display: flex; gap: 8px; align-items: center; margin: 4px 0; }
+.nk-editor__opt input[type="text"] { flex: 1; }
+.nk-editor__list { max-width: 720px; padding-left: 0; list-style: none; }
+.nk-editor__list li { display: flex; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #e2e8f0; }
+.nk-editor__list li span { flex: 1; }
+.nk-editor__msg { min-height: 20px; margin: 4px 0; }
+.nk-editor__msg[data-kind="error"] { color: #B91C1C; }
+.nk-editor__msg[data-kind="ok"] { color: #15803D; }
