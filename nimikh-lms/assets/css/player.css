@@ -70,3 +70,11 @@
 .nk-checklist li { padding: 6px 0; color: var(--nk-ink-muted); }
 .nk-checklist li[data-done="1"] { color: var(--nk-success); }
 .nk-checklist__done { color: var(--nk-success); font-weight: 700; }
+
+/* Sign-in (phone code / Google) */
+.nk-auth { max-width: 360px; margin: 16px auto; padding: 16px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); }
+.nk-auth__step { display: grid; gap: 8px; margin-bottom: 12px; }
+.nk-auth input { min-height: 44px; padding: 0 12px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); font: inherit; background: var(--nk-surface); color: var(--nk-ink); }
+.nk-auth__or { text-align: center; color: var(--nk-ink-muted); }
+.nk-auth__status { min-height: 1.5em; color: var(--nk-ink-muted); }
+.nk-auth__step[hidden] { display: none; }

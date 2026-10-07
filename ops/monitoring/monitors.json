@@ -1,0 +1,37 @@
+{
+  "_comment": "Tool-neutral definition of the checks. NOT an import file for Uptime Kuma or Better Stack (their import schemas differ and were not verified); copy the values into the UI, or let check.sh run them. Replace lms.example.com and the sample codes.",
+  "base_url": "https://lms.example.com",
+  "interval_seconds": 60,
+  "monitors": [
+    {
+      "name": "Health endpoint",
+      "url": "https://lms.example.com/wp-json/nimikh/v1/health",
+      "method": "GET",
+      "expect_status": 200,
+      "timeout_seconds": 10,
+      "json_assertions": [
+        { "path": "status", "equals": "ok", "note": "\"degraded\" should alert too, but as a warning" },
+        { "path": "db", "equals": true },
+        { "path": "cron_lag_seconds", "less_than": 120, "note": "wp-cron every minute; certificates target < 60 s" },
+        { "path": "failed_jobs", "less_than": 5, "note": "failed Action Scheduler jobs" }
+      ]
+    },
+    {
+      "name": "Certificate verify page",
+      "url": "https://lms.example.com/verify/",
+      "method": "GET",
+      "expect_status": 200,
+      "keyword": null,
+      "timeout_seconds": 10,
+      "note": "Use a real issued code (https://lms.example.com/verify/ABCDE12345) with keyword set to the 'valid' wording once one exists in production. Cached by Cloudflare, so this proves the edge, not the origin; the health check proves the origin."
+    },
+    {
+      "name": "Lesson page",
+      "url": "https://lms.example.com/lessons/sample-lesson/",
+      "method": "GET",
+      "expect_status": 200,
+      "timeout_seconds": 10,
+      "note": "Point at one public/preview lesson. A logged-out visitor to a members-only lesson may get a redirect (302) to login: assert that instead if no public lesson exists."
+    }
+  ]
+}

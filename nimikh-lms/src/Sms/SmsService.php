@@ -50,6 +50,16 @@ final class SmsService {
 		$this->log($userId, $phone, $event, $status, $response);
 	}
 
+	/**
+	 * Send one message to a number regardless of the notification opt-in (used for sign-in codes).
+	 * The text is never logged, only the outcome.
+	 */
+	public function sendRaw(string $phone, string $message, string $event = 'otp'): bool {
+		[$status, $response] = $this->deliver($phone, $message);
+		$this->log(0, $phone, $event, $status, $response);
+		return $status === 'sent';
+	}
+
 	public function phoneFor(int $userId): ?string {
 		foreach (['nimikh_phone', 'billing_phone', 'phone'] as $key) {
 			$raw = (string) get_user_meta($userId, $key, true);

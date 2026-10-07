@@ -39,6 +39,7 @@ final class Metaboxes {
 			printf('<p><label>%s<br><input type="number" min="0" max="100" step="1" name="nimikh_rules[%s]" value="%s" class="small-text"></label></p>', esc_html($label), esc_attr($key), esc_attr((string) $r[$key]));
 		}
 		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_rules[certificate_template_id]" value="%d" class="small-text"></label></p>', esc_html__('Certificate template ID (0 = default)', 'nimikh-lms'), (int) $r['certificate_template_id']);
+		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_rules[exam_cooldown_hours]" value="%d" class="small-text"></label></p>', esc_html__('Wait between failed exam attempts (hours, 0 = none)', 'nimikh-lms'), (int) $r['exam_cooldown_hours']);
 		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_exam_quiz_id" value="%d" class="small-text"></label></p>', esc_html__('Final exam quiz ID (0 = last quiz)', 'nimikh-lms'), (int) get_post_meta($post->ID, 'nimikh_exam_quiz_id', true));
 	}
 

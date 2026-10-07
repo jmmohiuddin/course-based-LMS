@@ -161,6 +161,8 @@ final class PrivacyService {
 		}
 		delete_user_meta($uid, 'nimikh_profile_public');
 		delete_user_meta($uid, 'nimikh_phone');
+		delete_user_meta($uid, 'nimikh_google_sub');
+		$wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key LIKE %s", $uid, $wpdb->esc_like('nimikh_exam_last_attempt_') . '%')); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 		return ['removed' => $removed, 'retained' => $retained];
 	}
 

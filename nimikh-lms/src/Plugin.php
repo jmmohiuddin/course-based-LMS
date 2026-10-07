@@ -10,7 +10,13 @@ use Nimikh\LMS\Demo\DemoCommand;
 use Nimikh\LMS\Ai\QuestionGenerator;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Discussion\DiscussionService;
+use Nimikh\LMS\Auth\AuthService;
+use Nimikh\LMS\Ops\ErrorReporter;
+use Nimikh\LMS\Ops\WeeklyReport;
+use Nimikh\LMS\Rest\HealthController;
 use Nimikh\LMS\Frontend\ChecklistShortcode;
+use Nimikh\LMS\Frontend\LoginShortcode;
+use Nimikh\LMS\Rest\AuthController;
 use Nimikh\LMS\Frontend\Shortcodes;
 use Nimikh\LMS\Support\LoginLimiter;
 use Nimikh\LMS\Live\LiveService;
@@ -30,12 +36,15 @@ use Nimikh\LMS\Rest\SubscriptionController;
 use Nimikh\LMS\Sms\SmsService;
 use Nimikh\LMS\Subscriptions\SubscriptionService;
 use Nimikh\LMS\Admin\Metaboxes;
+use Nimikh\LMS\Certificates\CertificateEditor;
 use Nimikh\LMS\Certificates\CertificateRenderer;
 use Nimikh\LMS\Certificates\CertificateRepository;
 use Nimikh\LMS\Certificates\CertificateService;
 use Nimikh\LMS\Certificates\VerifyRoute;
 use Nimikh\LMS\Integrations\Tutor\TutorAdapter;
+use Nimikh\LMS\Integrations\Tutor\ExamGuard;
 use Nimikh\LMS\Integrations\Tutor\TutorHooks;
+use Nimikh\LMS\Exam\ExamService;
 use Nimikh\LMS\Profile\ProfileShortcodes;
 use Nimikh\LMS\Progress\ProgressRepository;
 use Nimikh\LMS\Progress\ProgressService;
@@ -63,6 +72,7 @@ final class Plugin {
 	public ProgressService $progress;
 	public BadgeService $badges;
 	public SubscriptionService $subscriptions;
+	public ExamService $exams;
 
 	public static function instance(): self {
 		return self::$instance ??= new self();
@@ -94,6 +104,7 @@ final class Plugin {
 		// Phase 2-3 services
 		$this->badges  = $badges = new BadgeService($certRepo, $this->progress, $this->tutor);
 		$sms           = new SmsService();
+		$auth          = new AuthService($sms);
 		$discussion    = new DiscussionService($this->tutor);
 		$this->subscriptions = $subscriptions = new SubscriptionService($this->tutor);
 		$orgRepo       = new OrgRepository();
@@ -101,19 +112,22 @@ final class Plugin {
 		$live          = new LiveService($this->tutor);
 		$ai            = new QuestionGenerator();
 		$notes         = new NoteService($this->progress);
+		$this->exams   = $exams = new ExamService($this->tutor, $progressRepo, $attemptsRepo);
 
 		$controllers = [
 			new PlayerController($this->tutor, $interactions, $progressRepo, $this->progress, $attempts),
 			new AuthoringController($this->tutor, $questions, $interactions),
 			new CertificateController($this->tutor, $certRepo, $this->certificates),
 			new ReportController($this->tutor, $reports),
-			new MeController($this->tutor, $badges, $subscriptions, $this->certificates),
+			new MeController($this->tutor, $badges, $subscriptions, $this->certificates, $exams),
 			new DiscussionController($this->tutor, $discussion),
 			new SubscriptionController($this->tutor, $subscriptions),
 			new OrgController($this->tutor, $orgRepo, $orgs),
 			new LiveController($this->tutor, $live),
 			new AiController($this->tutor, $ai),
 			new NoteController($this->tutor, $notes),
+			new AuthController($this->tutor, $auth),
+			new HealthController($this->tutor),
 		];
 		add_action('rest_api_init', static function () use ($controllers): void {
 			foreach ($controllers as $c) {
@@ -121,13 +135,17 @@ final class Plugin {
 			}
 		});
 
+		(new ExamGuard($this->tutor, $exams))->register();
 		(new TutorHooks($this->tutor, $this->certificates, $progressRepo))->register();
 		(new VerifyRoute($this->certificates, $certRepo))->register();
 		(new FrontendPlayer($this->tutor, $interactions))->register();
 		(new ProfileShortcodes($this->tutor, $certRepo, $this->certificates, $badges, $subscriptions))->register();
 		(new Shortcodes($this->tutor))->register();
-		(new ChecklistShortcode($this->tutor, $this->certificates))->register();
+		(new ChecklistShortcode($this->tutor, $this->certificates, $exams))->register();
 		(new LoginLimiter())->register();
+		(new ErrorReporter())->register();
+		(new WeeklyReport())->register();
+		(new LoginShortcode())->register();
 		$badges->register();
 		$sms->register();
 		$subscriptions->register();
@@ -142,6 +160,7 @@ final class Plugin {
 		if (is_admin()) {
 			(new AdminPages($this->tutor, $certRepo, $this->certificates))->register();
 			(new Metaboxes($this->tutor))->register();
+			(new CertificateEditor())->register();
 			(new Phase3Pages($this->tutor, $subscriptions, $orgRepo, $orgs, $live))->register();
 			(new DemoPage())->register();
 		}

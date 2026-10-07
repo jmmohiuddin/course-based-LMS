@@ -1,0 +1,8 @@
+zone_id  = "00000000000000000000000000000000"
+hostname = "lms.example.com"
+
+# Paid plans: uncomment for a 60-second window and a 10-minute block.
+# rate_limit_period_seconds     = 60
+# rate_limit_mitigation_seconds = 600
+# login_rate_limit_requests     = 10
+# attempt_rate_limit_requests   = 60

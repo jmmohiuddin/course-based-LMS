@@ -106,3 +106,4 @@ jobs:
           npx playwright install --with-deps chromium
       - run: node nimikh-lms/tests/browser/player.spec.cjs
       - run: node nimikh-lms/tests/browser/phase23.spec.cjs
+      - run: node nimikh-lms/tests/browser/admin-auth.spec.cjs

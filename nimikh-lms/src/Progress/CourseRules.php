@@ -11,11 +11,12 @@ final class CourseRules {
 		'min_mcq_percent'         => 0.0,   // 0 = rule off
 		'exam_pass_percent'       => 60.0,
 		'certificate_template_id' => 0,
+		'exam_cooldown_hours'     => 24,    // wait after a failed final-exam attempt; 0 = no cooldown
 	];
 
 	public const META_PREFIX = 'nimikh_';
 
-	/** @return array{min_watch_percent:float, min_mcq_percent:float, exam_pass_percent:float, certificate_template_id:int} */
+	/** @return array{min_watch_percent:float, min_mcq_percent:float, exam_pass_percent:float, certificate_template_id:int, exam_cooldown_hours:int} */
 	public static function forCourse(int $courseId): array {
 		$rules = [];
 		foreach (self::DEFAULTS as $key => $default) {

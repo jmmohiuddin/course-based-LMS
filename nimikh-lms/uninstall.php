@@ -35,7 +35,7 @@ if (is_dir($dir)) {
 foreach (['nimikh_lms_settings', 'nimikh_lms_db_version', 'nimikh_demo_manifest', 'nimikh_sms_template_enrolled', 'nimikh_sms_template_certificate_issued', 'nimikh_sms_template_exam_result', 'nimikh_sms_template_live_reminder'] as $opt) {
 	delete_option($opt);
 }
-foreach (['nimikh_expire_subscriptions', 'nimikh_live_reminders', 'nimikh_render_certificate'] as $hook) {
+foreach (['nimikh_expire_subscriptions', 'nimikh_live_reminders', 'nimikh_render_certificate', 'nimikh_weekly_report'] as $hook) {
 	wp_clear_scheduled_hook($hook);
 }
 remove_role('nimikh_instructor');
@@ -46,7 +46,7 @@ foreach (['administrator', 'tutor_instructor'] as $roleName) {
 		$role->remove_cap('nimikh_author_video');
 	}
 }
-$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ('nimikh_profile_public','nimikh_phone','nimikh_sms_optout','nimikh_demo') OR meta_key LIKE 'nimikh_demo_enrolled_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ('nimikh_profile_public','nimikh_phone','nimikh_google_sub','nimikh_sms_optout','nimikh_demo') OR meta_key LIKE 'nimikh_demo_enrolled_%' OR meta_key LIKE 'nimikh_exam_last_attempt_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE 'nimikh\\_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 foreach (get_posts(['post_type' => 'nimikh_cert_template', 'post_status' => 'any', 'numberposts' => -1, 'fields' => 'ids']) as $id) {
 	wp_delete_post((int) $id, true);

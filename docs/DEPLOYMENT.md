@@ -2,12 +2,15 @@
 
 Operational settings from blueprint sections 5.6, 6.1, 6.5–6.8. None of this is code in the plugin; it is what the servers need.
 
+Config files for most of it now live in [`ops/`](../ops/README.md) (dev stack, Nginx, cron, backups and restore drill, Cloudflare Terraform, monitoring, deploy scripts) with `.github/workflows/deploy.yml`. They have not been run against real servers; `ops/README.md` lists exactly what was and was not checked.
+
 ## Server (MVP: up to ~2,000 active learners)
 
 - 1 VPS, 4 vCPU / 8 GB, Singapore region; Ubuntu 24.04, Nginx, PHP-FPM 8.3, MySQL 8, Redis 7, behind Cloudflare.
 - WordPress: `define('DISABLE_WP_CRON', true);` and a real cron every minute:
   `* * * * * cd /var/www/site && php wp-cron.php >/dev/null 2>&1` (or `wp cron event run --due-now`).
   Certificate PDFs render through Action Scheduler, so a stopped cron means late certificates (target: < 60 s).
+- Cron line and Nginx site: `ops/cron/nimikh.crontab`, `ops/nginx/nimikh.conf`. Local dev stack: `ops/docker-compose.yml`.
 - Pretty permalinks are required (`/verify`, `/institute/{slug}`, the PWA files are rewrite rules).
 - Install the Redis object cache plugin; logged-in LMS pages depend on it. The plugin's rate limiter uses transients, which become
   cheap Redis keys once an object cache is present.
@@ -20,6 +23,8 @@ Operational settings from blueprint sections 5.6, 6.1, 6.5–6.8. None of this i
 - WAF rule: rate-limit `/wp-login.php` and `/wp-json/nimikh/v1/*/attempt`. The plugin also limits logins to 5/min/IP (filter
   `nimikh_lms_login_limit_per_minute`) and reads the client IP from `CF-Connecting-IP`; restrict origin access to Cloudflare's ranges so
   that header cannot be spoofed.
+
+Terraform for these rules: `ops/cloudflare/`.
 
 ## Video
 
@@ -38,14 +43,15 @@ on the pull zone. WordPress never serves video bytes.
 - Wordfence or Patchstack; updates pinned and tested on staging first (run `php tools/check-tutor-contract.php <tutor dir>` before any Tutor upgrade).
 - Daily off-site backups kept 30 days; restore drill monthly. Certificates under `uploads/nimikh-certificates` are part of the backup
   (or move them to R2); the `sha256` in the database detects tampering.
+  Scripts: `ops/backup/backup.sh` (nightly, off-site via rclone, optional age encryption) and `ops/backup/restore-drill.sh` (monthly).
 
 ## Monitoring
 
-- Uptime check every minute on one verify URL and one lesson page.
+- Uptime check every minute on `/wp-json/nimikh/v1/health`, one verify URL and one lesson page: `ops/monitoring/`. Sentry DSN goes in *Nimikh LMS -> Settings -> sentry_dsn*.
 - Sentry for PHP and JS; weekly report of slow queries (> 100 ms), failed Action Scheduler jobs and failed payments.
 - Heartbeat target: < 50 ms p95. If it climbs at ~2,000 concurrent learners, follow the growth stage of blueprint 5.6 (managed MySQL,
   Redis server, two app servers).
 
 ## Release
 
-`WITH_VENDOR=1 nimikh-lms/tools/build-zip.sh` builds the installable zip (mPDF and the QR library bundled). Deploy from Git through CI; do not edit in wp-admin.
+`WITH_VENDOR=1 nimikh-lms/tools/build-zip.sh` builds the installable zip (mPDF and the QR library bundled). Deploy from Git through CI (`.github/workflows/deploy.yml`: staging, then production after manual approval, with a health check and rollback); do not edit in wp-admin.

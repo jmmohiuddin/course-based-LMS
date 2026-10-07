@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0
+
+- Final-exam retake cooldown (per-course, default 24 h) and lessons-to-rewatch suggestions after a failed exam
+- Phone-OTP and Google sign-up/sign-in (`[nimikh_login]`); staff accounts are excluded
+- Drag-and-drop certificate layout editor with server-side validation
+- `GET /nimikh/v1/health`, optional Sentry error reporting, optional weekly operations email
+- `ops/` (local Docker env, Nginx, Cloudflare Terraform, backup + restore drill, monitoring, deploy workflow), `docs/discovery/` and `docs/prototype/`
+- 70 new strings, translated into Bangla; browser spec for the editor and sign-in form
+
 ## 0.1.1
 
 Blueprint audit follow-up (see `docs/BLUEPRINT-AUDIT.md`).

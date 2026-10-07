@@ -28,6 +28,10 @@ final class Settings {
 		'ai_enabled'          => 0,
 		'ai_api_key'          => '',
 		'ai_model'            => 'claude-sonnet-5-5',
+		'otp_login_enabled'   => 0,      // phone-OTP sign-in/sign-up; needs the SMS gateway
+		'google_client_id'    => '',     // Google Identity Services web client ID; empty = off
+		'sentry_dsn'          => '',     // optional error reporting; empty = off
+		'weekly_report_enabled' => 0,    // weekly operations email to the site admin
 		'pwa_enabled'         => 1,
 		'pwa_start_url'       => '',
 		'pwa_icon_url'        => '',
@@ -64,6 +68,10 @@ final class Settings {
 			'ai_enabled'          => empty($input['ai_enabled']) ? 0 : 1,
 			'ai_api_key'          => sanitize_text_field((string) ($input['ai_api_key'] ?? '')),
 			'ai_model'            => preg_replace('/[^a-zA-Z0-9._\-]/', '', (string) ($input['ai_model'] ?? 'claude-sonnet-5-5')) ?: 'claude-sonnet-5-5',
+			'otp_login_enabled'   => empty($input['otp_login_enabled']) ? 0 : 1,
+			'google_client_id'    => preg_match('/^[A-Za-z0-9._\-]{10,200}$/', (string) ($input['google_client_id'] ?? '')) === 1 ? (string) $input['google_client_id'] : '',
+			'sentry_dsn'          => \Nimikh\LMS\Ops\SentryDsn::parse((string) ($input['sentry_dsn'] ?? '')) !== null ? trim((string) $input['sentry_dsn']) : '',
+			'weekly_report_enabled' => empty($input['weekly_report_enabled']) ? 0 : 1,
 			'pwa_enabled'         => empty($input['pwa_enabled']) ? 0 : 1,
 			'pwa_start_url'       => esc_url_raw((string) ($input['pwa_start_url'] ?? '')),
 			'pwa_icon_url'        => esc_url_raw((string) ($input['pwa_icon_url'] ?? '')),
