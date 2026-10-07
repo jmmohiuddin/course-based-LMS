@@ -14,6 +14,7 @@ final class Installer {
 	/** @var array<int, string> schema version => migration file */
 	private const MIGRATIONS = [
 		1 => '001-initial.php',
+		2 => '002-phase2-3.php',
 	];
 
 	public static function migrate(): void {
