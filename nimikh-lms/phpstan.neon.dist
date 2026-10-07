@@ -1,0 +1,12 @@
+# Blueprint 6.7: PHPStan level 6. WordPress symbols come from szepeviktor/phpstan-wordpress (installed in CI).
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 6
+    paths:
+        - src
+        - migrations
+        - nimikh-lms.php
+    bootstrapFiles:
+        - tests/phpstan-bootstrap.php
+    treatPhpDocCommentsAsPhpDoc: true

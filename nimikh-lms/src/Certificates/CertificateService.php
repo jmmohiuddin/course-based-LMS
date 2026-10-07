@@ -43,6 +43,15 @@ final class CertificateService {
 		];
 	}
 
+	/** What is left before the learner earns the certificate (same rules as maybeIssue). */
+	public function checklist(int $userId, int $courseId): array {
+		$rules = CourseRules::forCourse($courseId);
+		return Checklist::build($this->courseProgress($userId, $courseId), [
+			'exam_pass_percent' => $rules['exam_pass_percent'],
+			'min_mcq_percent'   => $rules['min_mcq_percent'],
+		]) + ['certificate' => $this->certs->findValidFor($userId, $courseId) !== null];
+	}
+
 	/**
 	 * Run the rule engine and issue a certificate if everything is met. Idempotent.
 	 *

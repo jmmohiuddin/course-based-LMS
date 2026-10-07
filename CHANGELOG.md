@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1
+
+Blueprint audit follow-up (see `docs/BLUEPRINT-AUDIT.md`).
+
+- Certificate checklist: what is left before the certificate (`[nimikh_checklist]`, `GET /me/courses/{id}/checklist`), built on the same rule engine that issues certificates
+- Player: cancellable 5-second countdown to the next lesson after a lesson completes
+- Login rate limit of 5 attempts per minute per IP (filter `nimikh_lms_login_limit_per_minute`)
+- PHPCS and PHPStan level 6 configuration with an advisory CI job; deployment notes in `docs/DEPLOYMENT.md`
+- 10 new strings, translated into Bangla
+
 ## 0.1.0
 
 First release of the `nimikh-lms` plugin, built from the Nimikh LMS product & technical blueprint.

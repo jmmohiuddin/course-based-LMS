@@ -1279,3 +1279,33 @@ msgstr "পোর্টাল"
 #: src/Admin/Metaboxes.php:50
 msgid "…or direct video URL (dev / other CDN)"
 msgstr "…অথবা সরাসরি ভিডিও URL (ডেভ / অন্য CDN)"
+
+msgid "Certificate checklist"
+msgstr "সার্টিফিকেট চেকলিস্ট"
+
+msgid "Your path to the certificate"
+msgstr "সার্টিফিকেট পর্যন্ত আপনার পথ"
+
+msgid "You earned it"
+msgstr "আপনি এটি অর্জন করেছেন"
+
+msgid "Complete all lessons (%1$s of %2$s)"
+msgstr "সব পাঠ সম্পন্ন করুন (%2$s-এর মধ্যে %1$s)"
+
+msgid "Pass the final exam (%s%% needed)"
+msgstr "চূড়ান্ত পরীক্ষায় উত্তীর্ণ হন (%s%% প্রয়োজন)"
+
+msgid "Average at least %s%% on in-video questions"
+msgstr "ভিডিওর প্রশ্নে গড়ে কমপক্ষে %s%% পান"
+
+msgid "Too many login attempts. Please wait a minute and try again."
+msgstr "অনেকবার লগইনের চেষ্টা করা হয়েছে। এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।"
+
+msgid "Next lesson in %d s"
+msgstr "পরবর্তী পাঠ %d সেকেন্ডে"
+
+msgid "Go now"
+msgstr "এখনই যান"
+
+msgid "Stay here"
+msgstr "এখানেই থাকুন"

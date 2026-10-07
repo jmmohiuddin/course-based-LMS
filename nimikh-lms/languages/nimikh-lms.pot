@@ -23,7 +23,7 @@ msgid_plural "%d-day learning streak"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Certificates/CertificateService.php:167
+#: src/Certificates/CertificateService.php:176
 msgid "(learner data erased)"
 msgstr ""
 
@@ -71,7 +71,7 @@ msgstr ""
 msgid "Add member"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:71
+#: src/Video/FrontendPlayer.php:75
 msgid "Add note at"
 msgstr ""
 
@@ -127,6 +127,10 @@ msgstr ""
 msgid "At second"
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:60
+msgid "Average at least %s%% on in-video questions"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:91
 msgid "Awarded"
 msgstr ""
@@ -171,6 +175,10 @@ msgstr ""
 msgid "Certificate ID"
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:30
+msgid "Certificate checklist"
+msgstr ""
+
 #: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:86
 msgid "Certificate not found."
 msgstr ""
@@ -183,7 +191,7 @@ msgstr ""
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:158
+#: src/Plugin.php:162
 msgid "Certificate templates"
 msgstr ""
 
@@ -227,6 +235,10 @@ msgstr ""
 msgid "Class not found."
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:56
+msgid "Complete all lessons (%1$s of %2$s)"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:65
 msgid "Completed"
 msgstr ""
@@ -247,11 +259,11 @@ msgstr ""
 msgid "Correct"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:67
+#: src/Video/FrontendPlayer.php:71
 msgid "Could not load the video. Please refresh."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:74
+#: src/Video/FrontendPlayer.php:78
 msgid "Could not save the note."
 msgstr ""
 
@@ -295,7 +307,7 @@ msgstr ""
 msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:72
+#: src/Video/FrontendPlayer.php:76
 msgid "Delete note"
 msgstr ""
 
@@ -395,6 +407,10 @@ msgstr ""
 msgid "Give the class a title."
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:69
+msgid "Go now"
+msgstr ""
+
 #: src/Admin/AdminPages.php:54
 msgid "Gotenberg URL (optional PDF renderer)"
 msgstr ""
@@ -411,7 +427,7 @@ msgstr ""
 msgid "Heartbeat tolerance (0.10 = 10%)"
 msgstr ""
 
-#: src/Certificates/CertificateService.php:129
+#: src/Certificates/CertificateService.php:138
 msgid ""
 "Hi %1$s,\n"
 "\n"
@@ -654,7 +670,7 @@ msgstr ""
 msgid "Month streak"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:69
+#: src/Video/FrontendPlayer.php:73
 msgid "My notes"
 msgstr ""
 
@@ -668,6 +684,10 @@ msgstr ""
 
 #: src/Discussion/DiscussionService.php:151
 msgid "New question in %s"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:68
+msgid "Next lesson in %d s"
 msgstr ""
 
 #: src/Support/Roles.php:16
@@ -730,7 +750,7 @@ msgstr ""
 msgid "No live classes scheduled."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:73
+#: src/Video/FrontendPlayer.php:77
 msgid "No notes yet. Pause the video and jot something down."
 msgstr ""
 
@@ -780,6 +800,10 @@ msgstr ""
 
 #: src/Privacy/PrivacyService.php:70
 msgid "Option chosen"
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:58
+msgid "Pass the final exam (%s%% needed)"
 msgstr ""
 
 #: src/Ai/QuestionGenerator.php:35
@@ -834,7 +858,7 @@ msgstr ""
 msgid "Price label"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:68
+#: src/Video/FrontendPlayer.php:72
 msgid "Progress saved"
 msgstr ""
 
@@ -1006,6 +1030,10 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:70
+msgid "Stay here"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:94
 msgid "Subscriptions"
 msgstr ""
@@ -1106,6 +1134,10 @@ msgstr ""
 msgid "Too many answers. Please slow down."
 msgstr ""
 
+#: src/Support/LoginLimiter.php:27
+msgid "Too many login attempts. Please wait a minute and try again."
+msgstr ""
+
 #: src/Rest/CertificateController.php:56
 msgid "Too many lookups."
 msgstr ""
@@ -1202,7 +1234,7 @@ msgstr ""
 msgid "Write a little more."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:70
+#: src/Video/FrontendPlayer.php:74
 msgid "Write a note for this moment…"
 msgstr ""
 
@@ -1214,7 +1246,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Live/LiveService.php:120
+#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Rest/MeController.php:42
 msgid "You are not enrolled in this course."
 msgstr ""
 
@@ -1242,6 +1274,10 @@ msgstr ""
 msgid "You do not manage this course."
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:44
+msgid "You earned it"
+msgstr ""
+
 #: src/Notes/NoteService.php:50
 msgid "You have reached the note limit for this lesson."
 msgstr ""
@@ -1250,7 +1286,7 @@ msgstr ""
 msgid "You have used all AI suggestions for this hour."
 msgstr ""
 
-#: src/Certificates/CertificateService.php:126
+#: src/Certificates/CertificateService.php:135
 msgid "Your certificate for %s"
 msgstr ""
 
@@ -1266,6 +1302,10 @@ msgstr ""
 msgid ""
 "Your live class \"%1$s\" starts at %2$s.\n"
 "Open your course to join: %3$s"
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:31
+msgid "Your path to the certificate"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:140

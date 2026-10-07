@@ -49,6 +49,8 @@ jobs:
         run: php nimikh-lms/tests/integration/e2e-phase23.php
       - name: Notes, sharing, privacy, Bangla, demo data
         run: php nimikh-lms/tests/integration/e2e-features.php
+      - name: Integration (checklist, next lesson, login limit)
+        run: php nimikh-lms/tests/integration/e2e-gaps.php
       - name: Uninstall drops tables (destructive, runs last)
         run: php nimikh-lms/tests/integration/e2e-uninstall.php
 

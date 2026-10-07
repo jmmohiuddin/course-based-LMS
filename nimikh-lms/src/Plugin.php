@@ -10,7 +10,9 @@ use Nimikh\LMS\Demo\DemoCommand;
 use Nimikh\LMS\Ai\QuestionGenerator;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Discussion\DiscussionService;
+use Nimikh\LMS\Frontend\ChecklistShortcode;
 use Nimikh\LMS\Frontend\Shortcodes;
+use Nimikh\LMS\Support\LoginLimiter;
 use Nimikh\LMS\Live\LiveService;
 use Nimikh\LMS\Notes\NoteService;
 use Nimikh\LMS\Privacy\PrivacyService;
@@ -105,7 +107,7 @@ final class Plugin {
 			new AuthoringController($this->tutor, $questions, $interactions),
 			new CertificateController($this->tutor, $certRepo, $this->certificates),
 			new ReportController($this->tutor, $reports),
-			new MeController($this->tutor, $badges, $subscriptions),
+			new MeController($this->tutor, $badges, $subscriptions, $this->certificates),
 			new DiscussionController($this->tutor, $discussion),
 			new SubscriptionController($this->tutor, $subscriptions),
 			new OrgController($this->tutor, $orgRepo, $orgs),
@@ -124,6 +126,8 @@ final class Plugin {
 		(new FrontendPlayer($this->tutor, $interactions))->register();
 		(new ProfileShortcodes($this->tutor, $certRepo, $this->certificates, $badges, $subscriptions))->register();
 		(new Shortcodes($this->tutor))->register();
+		(new ChecklistShortcode($this->tutor, $this->certificates))->register();
+		(new LoginLimiter())->register();
 		$badges->register();
 		$sms->register();
 		$subscriptions->register();

@@ -73,6 +73,11 @@ final class PlayerController extends BaseController {
 			];
 		}
 
+		$courseId = $this->tutor->courseIdForLesson($lessonId);
+		$ids      = $this->tutor->lessonIdsForCourse($courseId);
+		$at       = array_search($lessonId, $ids, true);
+		$nextUrl  = $at !== false && isset($ids[$at + 1]) ? (string) get_permalink($ids[$at + 1]) : '';
+
 		$user  = wp_get_current_user();
 		$phone = (string) get_user_meta($userId, 'billing_phone', true);
 
@@ -87,6 +92,7 @@ final class PlayerController extends BaseController {
 			'percent'        => $state['percent'],
 			'completed'      => $state['completed'],
 			'gate'           => $state['gate'],
+			'next_url'       => $nextUrl !== '' ? esc_url_raw($nextUrl) : '',
 			'interactions'   => $items,
 			'watermark'      => $phone !== '' ? $phone : $user->user_email,
 			'settings'       => [

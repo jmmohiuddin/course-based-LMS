@@ -17,6 +17,24 @@ jobs:
       - run: composer install --no-interaction --prefer-dist
       - run: composer lint
       - run: composer test
+  static:
+    # Blueprint 6.7 asks for PHPCS and PHPStan level 6. Advisory until the first clean run: it reports, it does not block.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    defaults:
+      run:
+        working-directory: nimikh-lms
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer, phpcs, phpstan
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer require --dev --no-interaction --no-plugins phpstan/phpstan szepeviktor/phpstan-wordpress
+      - run: composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true && composer global require --no-interaction wp-coding-standards/wpcs dealerdirect/phpcodesniffer-composer-installer
+      - run: vendor/bin/phpstan analyse --no-progress
+      - run: phpcs -q
   js:
     runs-on: ubuntu-latest
     steps:
