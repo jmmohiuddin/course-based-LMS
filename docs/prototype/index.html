@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Nimikh LMS clickable prototype</title>
+<style>
+/* Design tokens: copied from nimikh-lms/assets/css/tokens.css (blueprint section 9). */
+:root {
+  --nk-primary: #1E4FD8; --nk-primary-soft: #E8EEFE; --nk-success: #15803D; --nk-danger: #B91C1C; --nk-warning: #B45309;
+  --nk-ink: #0F172A; --nk-ink-muted: #475569; --nk-surface: #FFFFFF; --nk-surface-alt: #F8FAFC; --nk-border: #E2E8F0;
+  --nk-radius-input: 8px; --nk-radius-card: 12px; --nk-radius-sheet: 16px;
+  /* No web font is requested: Hind Siliguri is used only if installed, then Inter/system fonts (Bangla falls back to the OS Bengali font). */
+  --nk-font: 'Hind Siliguri', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Bengali', 'Nirmala UI', sans-serif;
+  /* Prototype-only additions (not in tokens.css): text colour on the primary button and a dim layer. */
+  --nk-on-primary: #FFFFFF; --nk-scrim: rgba(15,23,42,.55);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --nk-primary: #6E93FF; --nk-primary-soft: #1B2547; --nk-success: #4ADE80; --nk-danger: #F87171; --nk-warning: #FBBF24;
+    --nk-ink: #E2E8F0; --nk-ink-muted: #94A3B8; --nk-surface: #0B1120; --nk-surface-alt: #111827; --nk-border: #1F2937;
+    --nk-on-primary: #0B1120; --nk-scrim: rgba(0,0,0,.65); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --nk-primary: #6E93FF; --nk-primary-soft: #1B2547; --nk-success: #4ADE80; --nk-danger: #F87171; --nk-warning: #FBBF24;
+  --nk-ink: #E2E8F0; --nk-ink-muted: #94A3B8; --nk-surface: #0B1120; --nk-surface-alt: #111827; --nk-border: #1F2937;
+  --nk-on-primary: #0B1120; --nk-scrim: rgba(0,0,0,.65); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--nk-surface); color: var(--nk-ink); font: 16px/1.6 var(--nk-font); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+h1, h2, h3 { line-height: 1.25; margin: 0 0 8px; }
+h1 { font-size: 22px; } h2 { font-size: 18px; } h3 { font-size: 16px; }
+p { margin: 0 0 8px; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--nk-primary); outline-offset: 2px; }
+h1:focus { outline: none; }
+
+#page { max-width: 480px; margin: 0 auto; min-height: 100vh; background: var(--nk-surface); }
+.bar { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--nk-primary-soft); border-bottom: 1px solid var(--nk-border); }
+.brand { font-weight: 700; flex: 1; font-size: 16px; }
+.chip { min-height: 44px; min-width: 44px; padding: 0 12px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-border); background: var(--nk-surface); cursor: pointer; font-size: 14px; font-weight: 600; }
+.tabs { display: flex; gap: 8px; overflow-x: auto; padding: 8px 16px; border-bottom: 1px solid var(--nk-border); scrollbar-width: thin; }
+.tabs button { flex: none; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--nk-border); background: var(--nk-surface); cursor: pointer; font-size: 14px; white-space: nowrap; }
+.tabs button[aria-current="page"] { background: var(--nk-primary); border-color: var(--nk-primary); color: var(--nk-on-primary); font-weight: 600; }
+main { padding: 16px; }
+
+/* Buttons and cards */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-primary); background: var(--nk-primary); color: var(--nk-on-primary); font-weight: 600; cursor: pointer; text-decoration: none; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn--ghost { background: transparent; color: var(--nk-primary); }
+.btn--block { width: 100%; }
+.card { border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); background: var(--nk-surface-alt); padding: 16px; margin: 0 0 12px; }
+.muted { color: var(--nk-ink-muted); font-size: 14px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; border: 1px solid var(--nk-border); background: var(--nk-surface); color: var(--nk-ink-muted); }
+.pill--req { color: var(--nk-warning); border-color: var(--nk-warning); }
+progress { width: 100%; height: 8px; accent-color: var(--nk-primary); }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.list li { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); background: var(--nk-surface); }
+.list li .grow { flex: 1; }
+.ok { color: var(--nk-success); font-weight: 700; } .no { color: var(--nk-danger); font-weight: 700; } .warn { color: var(--nk-warning); }
+.checklist li { background: transparent; border: 0; padding: 6px 0; min-height: 0; color: var(--nk-ink-muted); }
+.checklist li[data-done="1"] { color: var(--nk-success); }
+
+/* Player (mirrors nimikh-lms/assets/css/player.css) */
+.stage { position: relative; background: #000; border-radius: var(--nk-radius-card); overflow: hidden; aspect-ratio: 16/9; color: #fff; }
+.scene { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; padding: 12px; background: linear-gradient(135deg, #1E3A8A, #0F172A 70%); }
+.scene b { font-size: 20px; } .scene small { opacity: .8; }
+.scene .clock { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.watermark { position: absolute; font-size: 12px; color: rgba(255,255,255,.55); text-shadow: 0 0 2px rgba(0,0,0,.6); pointer-events: none; transition: top .6s, left .6s; }
+.paused-tag { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); padding: 2px 10px; border-radius: 999px; font-size: 13px; }
+.seekwrap { position: relative; margin-top: 4px; }
+.seek { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0; background: transparent; display: block; cursor: pointer; }
+.seek::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: linear-gradient(to right, var(--nk-primary) calc(10px + (100% - 20px) * var(--f, 0)), var(--nk-border) 0); }
+.seek::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -7px; border-radius: 50%; background: var(--nk-primary); border: 3px solid var(--nk-surface); box-shadow: 0 0 0 1px var(--nk-primary); }
+.seek::-moz-range-track { height: 6px; border-radius: 3px; background: var(--nk-border); }
+.seek::-moz-range-progress { height: 6px; border-radius: 3px; background: var(--nk-primary); }
+.seek::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--nk-primary); border: 3px solid var(--nk-surface); box-shadow: 0 0 0 1px var(--nk-primary); }
+.tip { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); max-width: 92%; text-align: center; width: max-content; background: var(--nk-ink); color: var(--nk-surface); padding: 6px 12px; border-radius: var(--nk-radius-input); font-size: 14px; font-weight: 600; pointer-events: none; z-index: 2; }
+.markers { position: relative; height: 22px; margin: 0 0 4px; }
+.marker { position: absolute; top: 4px; left: calc(10px + (100% - 20px) * var(--f)); width: 12px; height: 12px; margin-left: -6px; transform: rotate(45deg); background: var(--nk-surface); border: 2px solid var(--nk-primary); }
+.marker[data-req="0"] { border-style: dashed; }
+.marker[data-state="answered"] { background: var(--nk-primary); }
+.marker[data-state="current"] { background: var(--nk-warning); border-color: var(--nk-warning); }
+.ctrl { display: flex; align-items: center; gap: 12px; }
+.ctrl .time { font-variant-numeric: tabular-nums; font-weight: 600; }
+.status { min-height: 24px; font-size: 14px; color: var(--nk-ink-muted); margin: 8px 0 0; }
+.status[data-kind="success"] { color: var(--nk-success); font-weight: 600; }
+.status[data-kind="warning"] { color: var(--nk-warning); }
+.next { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; padding: 12px 16px; background: var(--nk-primary-soft); border-radius: var(--nk-radius-card); }
+.next .txt { flex: 1 1 100%; font-weight: 600; }
+.legend { font-size: 13px; color: var(--nk-ink-muted); margin-top: 12px; }
+
+/* MCQ bottom sheet */
+#sheet-root { position: fixed; inset: 0; z-index: 50; }
+.backdrop { position: absolute; inset: 0; background: var(--nk-scrim); }
+.sheet { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; max-width: 480px; max-height: 88vh; overflow: auto; background: var(--nk-surface); color: var(--nk-ink); border-radius: var(--nk-radius-sheet) var(--nk-radius-sheet) 0 0; padding: 12px 16px 16px; box-shadow: 0 -8px 32px rgba(15,23,42,.35); animation: nk-up .2s ease-out; }
+.grab { width: 40px; height: 4px; border-radius: 2px; background: var(--nk-border); margin: 0 auto 10px; }
+.sheet-title { display: flex; gap: 8px; align-items: center; margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--nk-primary); }
+.stem { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+.opts { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; min-width: 0; }
+.opt { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 10px 12px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); cursor: pointer; background: var(--nk-surface); }
+.opt input { width: 24px; height: 24px; flex: none; margin: 0; accent-color: var(--nk-primary); }
+.opt:has(input:checked) { background: var(--nk-primary-soft); border-color: var(--nk-primary); }
+.opt:focus-within { outline: 3px solid var(--nk-primary); outline-offset: 2px; }
+.opt[data-state="correct"] { border: 2px solid var(--nk-success); background: color-mix(in srgb, var(--nk-success) 12%, transparent); }
+.opt[data-state="wrong"] { border: 2px solid var(--nk-danger); background: color-mix(in srgb, var(--nk-danger) 12%, transparent); }
+.opt .otext { flex: 1; }
+.opt .mark { font-weight: 700; font-size: 14px; white-space: nowrap; }
+.opt[data-state="correct"] .mark { color: var(--nk-success); } .opt[data-state="wrong"] .mark { color: var(--nk-danger); }
+.feedback { margin: 12px 0 0; padding: 10px 12px; border-radius: var(--nk-radius-input); font-size: 15px; min-height: 0; }
+.feedback:empty { display: none; }
+.feedback[data-kind="correct"] { color: var(--nk-success); border: 1px solid var(--nk-success); }
+.feedback[data-kind="wrong"] { color: var(--nk-danger); border: 1px solid var(--nk-danger); }
+.actions { display: flex; gap: 8px; margin-top: 12px; align-items: center; flex-wrap: wrap; }
+.actions .auto { font-size: 14px; color: var(--nk-ink-muted); }
+
+/* Exam, certificate, verify */
+.seg { display: flex; gap: 8px; margin-bottom: 12px; }
+.seg button { flex: 1; min-height: 44px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-border); background: var(--nk-surface); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--nk-primary-soft); border-color: var(--nk-primary); font-weight: 700; }
+.score { font-size: 44px; font-weight: 700; line-height: 1.1; }
+.result-fail .score, .result-fail .verdict { color: var(--nk-danger); } .result-pass .score, .result-pass .verdict { color: var(--nk-success); }
+.verdict { font-weight: 700; font-size: 18px; }
+.cert { position: relative; border: 2px solid var(--nk-primary); border-radius: var(--nk-radius-card); padding: 20px 16px; text-align: center; background: var(--nk-surface-alt); }
+.cert::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--nk-border); border-radius: 8px; pointer-events: none; }
+.cert .name { font-size: 26px; font-weight: 700; margin: 4px 0; }
+.cert .qr { width: 72px; height: 72px; margin: 12px auto 4px; display: block; }
+.confetti-static { height: 14px; margin: 0 0 12px; background: radial-gradient(circle, var(--nk-primary) 3px, transparent 4px) 0 0/28px 14px, radial-gradient(circle, var(--nk-success) 3px, transparent 4px) 14px 7px/28px 14px, radial-gradient(circle, var(--nk-warning) 3px, transparent 4px) 7px 3px/28px 14px; opacity: .8; }
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 40; }
+.vbadge { display: flex; align-items: center; gap: 12px; padding: 16px; border-radius: var(--nk-radius-card); border: 2px solid; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.vbadge--valid { color: var(--nk-success); border-color: var(--nk-success); background: color-mix(in srgb, var(--nk-success) 10%, transparent); }
+.vbadge--revoked { color: var(--nk-danger); border-color: var(--nk-danger); background: color-mix(in srgb, var(--nk-danger) 10%, transparent); }
+.vbadge .ic { font-size: 28px; }
+dl.kv { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+dl.kv dt { color: var(--nk-ink-muted); font-size: 14px; } dl.kv dd { margin: 0; font-weight: 600; word-break: break-word; }
+#toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); max-width: 90%; background: var(--nk-ink); color: var(--nk-surface); padding: 10px 16px; border-radius: var(--nk-radius-input); font-size: 14px; z-index: 60; }
+@keyframes nk-up { from { transform: translate(-50%, 100%); } to { transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } .watermark { transition: none; } * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div id="page">
+  <header class="bar">
+    <span class="brand" data-i18n="brand">Nimikh LMS prototype</span>
+    <button class="chip" id="btn-theme" type="button"></button>
+    <button class="chip" id="btn-lang" type="button" lang="bn"></button>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Prototype screens"></nav>
+  <main id="main">
+
+    <section id="s-home" data-screen="home" hidden>
+      <h1 tabindex="-1" id="home-h"></h1>
+      <div class="card" id="home-cont"></div>
+      <h2 data-i18n="myCourses">My courses</h2>
+      <div id="home-courses"></div>
+    </section>
+
+    <section id="s-course" data-screen="course" hidden>
+      <h1 tabindex="-1" data-i18n="courseTitle">Web Development Basics</h1>
+      <p class="muted" data-i18n="courseBy">by Sample Instructor</p>
+      <div class="row" style="margin-bottom:12px">
+        <span class="pill" data-i18n="priceSample">Sample price: BDT 1,490 (not validated)</span>
+        <span class="pill" data-i18n="paySample">bKash / Nagad / card (placeholder)</span>
+      </div>
+      <h2 data-i18n="lessons">Lessons</h2>
+      <ul class="list" id="course-lessons"></ul>
+      <div class="card checklist-box" style="margin-top:16px" id="course-check"></div>
+    </section>
+
+    <section id="s-player" data-screen="player" hidden>
+      <h1 tabindex="-1" id="pl-title"></h1>
+      <div class="stage" id="stage">
+        <div class="scene"><small data-i18n="simVideo">Simulated video (no real media)</small><b id="scene-title"></b><span class="clock" id="scene-clock">0:00</span></div>
+        <div class="watermark" id="wm" aria-hidden="true">rahim@example.com</div>
+        <span class="paused-tag" id="paused-tag" data-i18n="paused">Paused</span>
+      </div>
+      <div class="seekwrap">
+        <input type="range" class="seek" id="seek" min="0" max="60" step="1" value="0" data-i18n-aria="seekLabel" aria-label="Seek">
+        <div class="tip" id="tip" role="status" hidden></div>
+      </div>
+      <div class="markers" id="markers" aria-hidden="true"></div>
+      <div class="ctrl">
+        <button class="btn" id="btn-play" type="button" style="min-width:120px"></button>
+        <span class="time" id="time" aria-hidden="true">0:00 / 1:00</span>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <div class="next" id="nextbar" hidden>
+        <span class="txt" id="next-txt" role="status"></span>
+        <button class="btn" id="next-go" type="button"></button>
+        <button class="btn btn--ghost" id="next-stay" type="button"></button>
+      </div>
+      <p class="legend" data-i18n="legend">Diamonds mark questions: solid = answered, dashed = optional.</p>
+    </section>
+
+    <section id="s-exam" data-screen="exam" hidden>
+      <h1 tabindex="-1" data-i18n="examTitle">Final exam result</h1>
+      <div class="seg" role="group" data-i18n-aria="demoState" aria-label="Demo state">
+        <button type="button" id="seg-fail" aria-pressed="true" data-i18n="segFail">Show: Fail</button>
+        <button type="button" id="seg-pass" aria-pressed="false" data-i18n="segPass">Show: Pass</button>
+      </div>
+      <div id="exam-body"></div>
+    </section>
+
+    <section id="s-cert" data-screen="cert" hidden>
+      <div class="confetti-static" id="confetti-static" aria-hidden="true" hidden></div>
+      <h1 tabindex="-1" data-i18n="certTitle">You earned a certificate</h1>
+      <div class="cert">
+        <p class="muted" data-i18n="certOf">Certificate of completion</p>
+        <p class="name" id="cert-name"></p>
+        <p data-i18n="certFor">has completed</p>
+        <h2 data-i18n="courseTitle">Web Development Basics</h2>
+        <svg class="qr" viewBox="0 0 9 9" aria-hidden="true" shape-rendering="crispEdges"><g fill="currentColor"><path d="M0 0h3v3H0zM6 0h3v3H6zM0 6h3v3H0zM4 0h1v1H4zM4 2h1v2H4zM0 4h2v1H0zM3 4h1v1H3zM6 4h1v2H6zM8 4h1v1H8zM4 6h2v1H4zM7 7h2v2H7zM4 8h1v1H4z"/></g><path d="M1 1h1v1H1zM7 1h1v1H7zM1 7h1v1H1z" fill="var(--nk-surface-alt)"/></svg>
+        <p class="muted">ID: NK-2026-000123</p>
+        <p class="muted" data-i18n="certIssued">Issued 07 Oct 2026 (sample data)</p>
+      </div>
+      <div class="row" style="margin-top:16px">
+        <button class="btn" type="button" id="cert-dl" data-i18n="download">Download PDF</button>
+        <button class="btn btn--ghost" type="button" id="cert-share" data-i18n="share">Share link</button>
+        <button class="btn btn--ghost" type="button" id="cert-verify" data-i18n="viewVerify">View public verify page</button>
+      </div>
+    </section>
+
+    <section id="s-valid" data-screen="valid" hidden>
+      <p class="muted" data-i18n="verifyHead">Nimikh certificate verification (public page)</p>
+      <h1 tabindex="-1" data-i18n="verifyTitle">Certificate check</h1>
+      <div class="vbadge vbadge--valid"><span class="ic" aria-hidden="true">&#10004;</span><span data-i18n="validTxt">Valid certificate</span></div>
+      <dl class="kv card">
+        <dt data-i18n="kvName">Holder</dt><dd id="v-name1"></dd>
+        <dt data-i18n="kvCourse">Course</dt><dd data-i18n="courseTitle">Web Development Basics</dd>
+        <dt data-i18n="kvIssued">Issued</dt><dd>07 Oct 2026</dd>
+        <dt data-i18n="kvId">Certificate ID</dt><dd>NK-2026-000123</dd>
+        <dt data-i18n="kvStatus">Status</dt><dd class="ok"><span aria-hidden="true">&#10004; </span><span data-i18n="validShort">Valid</span></dd>
+      </dl>
+      <p class="muted" data-i18n="sampleData">Sample data for the prototype.</p>
+    </section>
+
+    <section id="s-revoked" data-screen="revoked" hidden>
+      <p class="muted" data-i18n="verifyHead">Nimikh certificate verification (public page)</p>
+      <h1 tabindex="-1" data-i18n="verifyTitle">Certificate check</h1>
+      <div class="vbadge vbadge--revoked"><span class="ic" aria-hidden="true">&#10006;</span><span data-i18n="revokedTxt">Revoked certificate</span></div>
+      <dl class="kv card">
+        <dt data-i18n="kvName">Holder</dt><dd id="v-name2"></dd>
+        <dt data-i18n="kvCourse">Course</dt><dd data-i18n="courseTitle">Web Development Basics</dd>
+        <dt data-i18n="kvId">Certificate ID</dt><dd>NK-2026-000099</dd>
+        <dt data-i18n="kvStatus">Status</dt><dd class="no"><span aria-hidden="true">&#10006; </span><span data-i18n="revokedShort">Revoked</span></dd>
+        <dt data-i18n="kvRevoked">Revoked on</dt><dd>02 Nov 2026</dd>
+        <dt data-i18n="kvReason">Reason</dt><dd data-i18n="reasonTxt">Issued in error</dd>
+      </dl>
+      <p data-i18n="revokedHelp">Do not accept this certificate. Contact the issuing institute to confirm.</p>
+    </section>
+  </main>
+  <div id="toast" role="status" hidden></div>
+</div>
+<div id="sheet-root" hidden></div>
+<canvas id="confetti" aria-hidden="true" hidden></canvas>
+
+<script>
+(function () {
+'use strict';
+var $ = function (s, r) { return (r || document).querySelector(s); };
+var SPEED = parseFloat(new URLSearchParams(location.search).get('speed')) || 1; // test hook: scales the fake video clock only
+var SCREENS = ['home', 'course', 'player', 'exam', 'cert', 'valid', 'revoked'];
+
+/* ---------- storage (localStorage can throw: private mode, blocked) ---------- */
+var mem = {};
+var store = {
+  get: function (k) { try { var v = localStorage.getItem(k); return v == null ? (k in mem ? mem[k] : null) : JSON.parse(v); } catch (e) { return k in mem ? mem[k] : null; } },
+  set: function (k, v) { mem[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } },
+  del: function (k) { delete mem[k]; try { localStorage.removeItem(k); } catch (e) { /* ignore */ } }
+};
+
+/* ---------- i18n ---------- */
+var I18N = {
+ en: {
+  brand: 'Nimikh LMS prototype', themeAuto: 'Theme: Auto', themeLight: 'Theme: Light', themeDark: 'Theme: Dark', langBtn: 'বাংলা', langAria: 'Switch to Bangla',
+  tab_home: 'Home', tab_course: 'Course', tab_player: 'Player', tab_exam: 'Exam result', tab_cert: 'Certificate', tab_valid: 'Verify: Valid', tab_revoked: 'Verify: Revoked', reset: 'Reset demo', resetDone: 'Demo reset.',
+  hello: 'Hello, Rahim', continueTitle: 'Continue learning', lessonN: 'Lesson %n', cont: 'Continue', myCourses: 'My courses', notStarted: 'Not started', pctDone: '%n% complete', open: 'Open',
+  courseTitle: 'Web Development Basics', courseBy: 'by Sample Instructor', priceSample: 'Sample price: BDT 1,490 (not validated)', paySample: 'bKash / Nagad / card (placeholder)',
+  lessons: 'Lessons', done: 'Done', todo: 'To do', exam: 'Final exam', l1: 'Introduction', l2: 'HTML structure', l3: 'CSS selectors', l4: 'Box model',
+  certProg: 'Certificate checklist', ckLessons: 'Watch all lessons (%n of 4)', ckQs: 'Answer the required questions', ckExam: 'Pass the final exam (pass mark 70%)', ckCert: 'Certificate issued',
+  simVideo: 'Simulated video (no real media)', paused: 'Paused', seekLabel: 'Seek', play: 'Play', pause: 'Pause', replay: 'Replay', legend: 'Diamonds mark questions: solid = answered, dashed = optional.',
+  cantSkip: 'Answer the question to continue', cantAhead: 'Watch up to here first', resumed: 'Welcome back. We moved you 5 seconds before the question.', complete: 'Lesson complete.',
+  nextIn: 'Next lesson in %n s', examIn: 'Exam in %n s', goNow: 'Go now', stay: 'Stay here',
+  quick: 'Quick check', req: 'Required', opt: 'Optional', choose: 'Choose one answer', submit: 'Submit answer', skip: 'Skip', correct: 'Correct', tryAgain: 'Not quite. Try again.',
+  rewind: 'Not quite. Rewatch from %s and try again.', rewindBtn: 'Rewind and rewatch', answerIs: 'The answer is', markOk: 'Correct', markNo: 'Wrong', autoIn: 'Continuing in %n s', attempt: 'Attempt %a of 2',
+  examTitle: 'Final exam result', demoState: 'Demo state', segFail: 'Show: Fail', segPass: 'Show: Pass', score: 'Your score', passMark: 'Pass mark: 70%', failed: 'Not passed yet', passed: 'You passed',
+  topics: 'By topic', suggest: 'Rewatch these lessons', suggestWhy: 'Based on the questions you missed.', rewatch: 'Rewatch from %s', retake: 'Retake exam (demo: jumps to Pass)', getCert: 'Get your certificate',
+  certTitle: 'You earned a certificate', certOf: 'Certificate of completion', certFor: 'has completed', certIssued: 'Issued 07 Oct 2026 (sample data)', download: 'Download PDF', share: 'Share link', viewVerify: 'View public verify page',
+  dlMsg: 'Prototype: the PDF download is not built.', shareMsg: 'Prototype: link copied (simulated).',
+  verifyHead: 'Nimikh certificate verification (public page)', verifyTitle: 'Certificate check', validTxt: 'Valid certificate', validShort: 'Valid', revokedTxt: 'Revoked certificate', revokedShort: 'Revoked',
+  kvName: 'Holder', kvCourse: 'Course', kvIssued: 'Issued', kvId: 'Certificate ID', kvStatus: 'Status', kvRevoked: 'Revoked on', kvReason: 'Reason', reasonTxt: 'Issued in error',
+  sampleData: 'Sample data for the prototype.', revokedHelp: 'Do not accept this certificate. Contact the issuing institute to confirm.', holder: 'Rahim Uddin', pctUnit: '%'
+ },
+ bn: {
+  brand: 'নিমিখ এলএমএস প্রোটোটাইপ', themeAuto: 'থিম: অটো', themeLight: 'থিম: হালকা', themeDark: 'থিম: গাঢ়', langBtn: 'English', langAria: 'ইংরেজিতে বদলান',
+  tab_home: 'হোম', tab_course: 'কোর্স', tab_player: 'প্লেয়ার', tab_exam: 'পরীক্ষার ফল', tab_cert: 'সনদ', tab_valid: 'যাচাই: বৈধ', tab_revoked: 'যাচাই: বাতিল', reset: 'ডেমো রিসেট', resetDone: 'ডেমো রিসেট হয়েছে।',
+  hello: 'হ্যালো, রহিম', continueTitle: 'পড়া চালিয়ে যান', lessonN: 'পাঠ %n', cont: 'চালিয়ে যান', myCourses: 'আমার কোর্স', notStarted: 'শুরু হয়নি', pctDone: '%n% সম্পন্ন', open: 'খুলুন',
+  courseTitle: 'ওয়েব ডেভেলপমেন্ট বেসিক', courseBy: 'নমুনা ইনস্ট্রাক্টর', priceSample: 'নমুনা মূল্য: ১,৪৯০ টাকা (যাচাই হয়নি)', paySample: 'বিকাশ / নগদ / কার্ড (নমুনা)',
+  lessons: 'পাঠসমূহ', done: 'শেষ', todo: 'বাকি', exam: 'চূড়ান্ত পরীক্ষা', l1: 'ভূমিকা', l2: 'HTML কাঠামো', l3: 'CSS সিলেক্টর', l4: 'বক্স মডেল',
+  certProg: 'সনদের চেকলিস্ট', ckLessons: 'সব পাঠ দেখুন (৪টির মধ্যে %n)', ckQs: 'আবশ্যিক প্রশ্নের উত্তর দিন', ckExam: 'চূড়ান্ত পরীক্ষায় পাস করুন (পাস নম্বর ৭০%)', ckCert: 'সনদ ইস্যু হয়েছে',
+  simVideo: 'নকল ভিডিও (আসল মিডিয়া নেই)', paused: 'থামানো', seekLabel: 'এগিয়ে বা পিছিয়ে যান', play: 'চালান', pause: 'থামান', replay: 'আবার চালান', legend: 'হীরার চিহ্ন প্রশ্ন বোঝায়: ভরাট = উত্তর দেওয়া, ড্যাশ = ঐচ্ছিক।',
+  cantSkip: 'এগিয়ে যেতে প্রশ্নের উত্তর দিন', cantAhead: 'আগে এই পর্যন্ত দেখুন', resumed: 'আবার স্বাগতম। প্রশ্নের ৫ সেকেন্ড আগে নিয়ে আসা হয়েছে।', complete: 'পাঠ সম্পন্ন।',
+  nextIn: 'পরের পাঠ %n সেকেন্ডে', examIn: 'পরীক্ষা %n সেকেন্ডে', goNow: 'এখনই যান', stay: 'এখানেই থাকুন',
+  quick: 'দ্রুত যাচাই', req: 'আবশ্যক', opt: 'ঐচ্ছিক', choose: 'একটি উত্তর বাছুন', submit: 'উত্তর দিন', skip: 'এড়িয়ে যান', correct: 'সঠিক', tryAgain: 'ঠিক হয়নি। আবার চেষ্টা করুন।',
+  rewind: 'ঠিক হয়নি। %s থেকে আবার দেখে চেষ্টা করুন।', rewindBtn: 'পিছিয়ে আবার দেখুন', answerIs: 'সঠিক উত্তর হলো', markOk: 'সঠিক', markNo: 'ভুল', autoIn: '%n সেকেন্ডে এগিয়ে যাবে', attempt: 'চেষ্টা %a / ২',
+  examTitle: 'চূড়ান্ত পরীক্ষার ফল', demoState: 'ডেমো অবস্থা', segFail: 'দেখান: ফেল', segPass: 'দেখান: পাস', score: 'আপনার নম্বর', passMark: 'পাস নম্বর: ৭০%', failed: 'এখনো পাস হয়নি', passed: 'আপনি পাস করেছেন',
+  topics: 'বিষয় অনুযায়ী', suggest: 'এই পাঠগুলো আবার দেখুন', suggestWhy: 'যে প্রশ্নগুলো ভুল হয়েছে তার ভিত্তিতে।', rewatch: '%s থেকে আবার দেখুন', retake: 'আবার পরীক্ষা দিন (ডেমো: পাসে যাবে)', getCert: 'সনদ নিন',
+  certTitle: 'আপনি সনদ অর্জন করেছেন', certOf: 'সমাপ্তির সনদ', certFor: 'সম্পন্ন করেছেন', certIssued: 'ইস্যু ০৭ অক্টোবর ২০২৬ (নমুনা তথ্য)', download: 'PDF নামান', share: 'লিংক শেয়ার', viewVerify: 'যাচাইয়ের পাতা দেখুন',
+  dlMsg: 'প্রোটোটাইপ: PDF ডাউনলোড তৈরি হয়নি।', shareMsg: 'প্রোটোটাইপ: লিংক কপি হয়েছে (নকল)।',
+  verifyHead: 'নিমিখ সনদ যাচাই (পাবলিক পাতা)', verifyTitle: 'সনদ যাচাই', validTxt: 'বৈধ সনদ', validShort: 'বৈধ', revokedTxt: 'বাতিল সনদ', revokedShort: 'বাতিল',
+  kvName: 'ধারক', kvCourse: 'কোর্স', kvIssued: 'ইস্যুর তারিখ', kvId: 'সনদ নম্বর', kvStatus: 'অবস্থা', kvRevoked: 'বাতিলের তারিখ', kvReason: 'কারণ', reasonTxt: 'ভুলবশত ইস্যু হয়েছিল',
+  sampleData: 'প্রোটোটাইপের নমুনা তথ্য।', revokedHelp: 'এই সনদ গ্রহণ করবেন না। নিশ্চিত হতে ইস্যুকারী প্রতিষ্ঠানের সঙ্গে যোগাযোগ করুন।', holder: 'রহিম উদ্দিন', pctUnit: '%'
+ }
+};
+var lang = 'en';
+function t(k, v) {
+  var s = (I18N[lang] && I18N[lang][k] != null) ? I18N[lang][k] : (I18N.en[k] != null ? I18N.en[k] : k);
+  if (v) { Object.keys(v).forEach(function (n) { s = s.replace('%' + n, v[n]); }); }
+  return s;
+}
+function pick(o) { return o[lang] || o.en; }
+
+/* ---------- lesson content (bilingual) ---------- */
+var LESSONS = [
+ { no: 3, key: 'l3', dur: 60, qs: [
+   { id: 'q1', at: 12, req: true, ok: 1, rewind: null,
+     stem: { en: 'Which selector targets elements with the class "card"?', bn: '"card" ক্লাসযুক্ত এলিমেন্ট কোন সিলেক্টর বাছে?' },
+     opts: [{ en: '#card', bn: '#card' }, { en: '.card', bn: '.card' }, { en: 'card', bn: 'card' }, { en: '*card', bn: '*card' }],
+     why: { en: 'A dot selects by class. A hash (#) selects by id.', bn: 'ডট (.) ক্লাস দিয়ে বাছে। হ্যাশ (#) আইডি দিয়ে বাছে।' } },
+   { id: 'q2', at: 30, req: false, ok: 2, rewind: null,
+     stem: { en: 'Which property changes the text colour?', bn: 'লেখার রং বদলাতে কোন প্রপার্টি লাগে?' },
+     opts: [{ en: 'font-color', bn: 'font-color' }, { en: 'text-style', bn: 'text-style' }, { en: 'color', bn: 'color' }],
+     why: { en: 'The color property sets the text colour.', bn: 'color প্রপার্টি লেখার রং ঠিক করে।' } },
+   { id: 'q3', at: 48, req: true, ok: 0, rewind: 36,
+     stem: { en: 'What does the selector "ul li" select?', bn: '"ul li" সিলেক্টর কী বাছে?' },
+     opts: [{ en: 'Every li inside a ul', bn: 'ul-এর ভেতরের প্রতিটি li' }, { en: 'Only the first li', bn: 'শুধু প্রথম li' }, { en: 'Every ul inside an li', bn: 'li-এর ভেতরের প্রতিটি ul' }],
+     why: { en: 'A space means "descendant": any li inside a ul.', bn: 'স্পেস মানে "বংশধর": ul-এর ভেতরের যেকোনো li।' } }
+ ]},
+ { no: 4, key: 'l4', dur: 40, qs: [
+   { id: 'q4', at: 20, req: true, ok: 2, rewind: null,
+     stem: { en: 'Which part of the box model is outside the border?', bn: 'বক্স মডেলের কোন অংশ বর্ডারের বাইরে থাকে?' },
+     opts: [{ en: 'Content', bn: 'কন্টেন্ট' }, { en: 'Padding', bn: 'প্যাডিং' }, { en: 'Margin', bn: 'মার্জিন' }],
+     why: { en: 'Margin is the space outside the border.', bn: 'মার্জিন হলো বর্ডারের বাইরের ফাঁকা জায়গা।' } }
+ ]}
+];
+
+/* ---------- player state ---------- */
+var KEY = 'nk-proto-player';
+function freshState() { return { cur: 0, open: null, L: [{ t: 0, furthest: 0, res: {}, att: {}, skip: {}, done: false }, { t: 0, furthest: 0, res: {}, att: {}, skip: {}, done: false }] }; }
+var S = store.get(KEY);
+if (!S || !S.L || S.L.length !== 2) { S = freshState(); }
+function save() { store.set(KEY, S); }
+function cur() { return S.L[S.cur]; }
+function lesson() { return LESSONS[S.cur]; }
+function fmt(sec) { sec = Math.max(0, Math.floor(sec)); return Math.floor(sec / 60) + ':' + ('0' + (sec % 60)).slice(-2); }
+function gate(i) { var ls = LESSONS[i], L = S.L[i], g = null; ls.qs.forEach(function (q) { if (g === null && q.req && !L.res[q.id]) { g = q.at; } }); return g; }
+function allowedMax() { var g = gate(S.cur), L = cur(), m = Math.max(L.furthest, L.t); return g === null ? m : Math.min(m, g); }
+
+var playing = false, sheetState = null, nextTimer = null, last = performance.now(), statusKey = null, statusKind = '', tipTimer = null, toastTimer = null, examMode = 'fail', screen = 'home';
+
+/* ---------- theme / language ---------- */
+var theme = store.get('nk-proto-theme') || 'auto';
+function applyTheme() {
+  var r = document.documentElement;
+  if (theme === 'auto') { r.removeAttribute('data-theme'); } else { r.setAttribute('data-theme', theme); }
+  $('#btn-theme').textContent = t(theme === 'auto' ? 'themeAuto' : theme === 'light' ? 'themeLight' : 'themeDark');
+}
+$('#btn-theme').addEventListener('click', function () { theme = theme === 'auto' ? 'light' : theme === 'light' ? 'dark' : 'auto'; store.set('nk-proto-theme', theme); applyTheme(); });
+function setLang(l) {
+  lang = l; store.set('nk-proto-lang', l);
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-i18n]').forEach(function (n) { n.textContent = t(n.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-aria]').forEach(function (n) { n.setAttribute('aria-label', t(n.getAttribute('data-i18n-aria'))); });
+  $('#btn-lang').textContent = t('langBtn'); $('#btn-lang').setAttribute('aria-label', t('langAria'));
+  applyTheme(); buildTabs(); renderAll();
+}
+$('#btn-lang').addEventListener('click', function () { setLang(lang === 'en' ? 'bn' : 'en'); });
+
+/* ---------- tabs and routing ---------- */
+function buildTabs() {
+  var nav = $('#tabs'); nav.textContent = '';
+  SCREENS.forEach(function (s) {
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-go', s); b.textContent = t('tab_' + s);
+    if (s === screen) { b.setAttribute('aria-current', 'page'); }
+    b.addEventListener('click', function () { go(s); });
+    nav.appendChild(b);
+  });
+  var r = document.createElement('button'); r.type = 'button'; r.id = 'btn-reset'; r.textContent = t('reset');
+  r.addEventListener('click', function () { stopNext(); playing = false; S = freshState(); save(); examMode = 'fail'; renderAll(); toast(t('resetDone')); });
+  nav.appendChild(r);
+}
+function go(s, noFocus) {
+  if (SCREENS.indexOf(s) < 0) { s = 'home'; }
+  if (screen === 'player' && s !== 'player') { playing = false; stopNext(); save(); }
+  if (screen === 'cert' && s !== 'cert') { stopConfetti(); }
+  screen = s;
+  if (location.hash !== '#' + s) { history.replaceState(null, '', location.pathname + location.search + '#' + s); }
+  document.querySelectorAll('[data-screen]').forEach(function (n) { n.hidden = n.getAttribute('data-screen') !== s; });
+  document.querySelectorAll('#tabs [data-go]').forEach(function (b) { if (b.getAttribute('data-go') === s) { b.setAttribute('aria-current', 'page'); } else { b.removeAttribute('aria-current'); } });
+  renderAll();
+  window.scrollTo(0, 0);
+  if (!noFocus) { var h = $('[data-screen="' + s + '"] h1'); if (h) { h.focus({ preventScroll: true }); } }
+  if (s === 'cert') { startConfetti(); }
+}
+window.addEventListener('hashchange', function () { var s = location.hash.replace('#', ''); if (s && s !== screen) { go(s, true); } });
+document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('[data-nav]'); if (b) { go(b.getAttribute('data-nav')); } });
+
+/* ---------- renderers ---------- */
+function completedCount() { return S.L.filter(function (l) { return l.done; }).length; }
+function renderAll() { renderHome(); renderCourse(); renderPlayer(); renderExam(); renderCertNames(); }
+function lessonName(i) { return t(LESSONS[i].key); }
+function renderHome() {
+  $('#home-h').textContent = t('hello');
+  var L = cur(), ls = lesson(), pct = Math.round(L.t / ls.dur * 100);
+  $('#home-cont').innerHTML = '<p class="muted">' + t('continueTitle') + '</p><h2>' + t('lessonN', { n: ls.no }) + ' &middot; ' + lessonName(S.cur) + '</h2>' +
+    '<progress max="100" value="' + pct + '" aria-label="' + t('pctDone', { n: pct }) + '"></progress><p class="muted">' + t('pctDone', { n: pct }) + '</p>' +
+    '<button class="btn btn--block" type="button" data-nav="player" id="home-continue">' + t('cont') + '</button>';
+  var done = 2 + completedCount(), cp = Math.round(done / 4 * 100);
+  $('#home-courses').innerHTML = '<div class="card"><h3>' + t('courseTitle') + '</h3><progress max="100" value="' + cp + '"></progress><p class="muted">' + t('pctDone', { n: cp }) + '</p><button class="btn btn--ghost" type="button" data-nav="course">' + t('open') + '</button></div>' +
+    '<div class="card"><h3>Spoken English</h3><p class="muted">' + t('notStarted') + '</p></div>';
+}
+function lessonRow(no, name, done, nav) {
+  return '<li><span class="' + (done ? 'ok' : 'muted') + '" aria-hidden="true">' + (done ? '&#10004;' : '&#9675;') + '</span><span class="grow">' + t('lessonN', { n: no }) + ' &middot; ' + name + '</span><span class="pill">' + (done ? t('done') : t('todo')) + '</span>' +
+    (nav ? '<button class="btn btn--ghost" type="button" data-lesson="' + nav + '">' + t('open') + '</button>' : '') + '</li>';
+}
+function renderCourse() {
+  $('#course-lessons').innerHTML = lessonRow(1, t('l1'), true) + lessonRow(2, t('l2'), true) + lessonRow(3, t('l3'), S.L[0].done, '1') + lessonRow(4, t('l4'), S.L[1].done, '2') +
+    '<li><span class="muted" aria-hidden="true">&#9675;</span><span class="grow">' + t('exam') + '</span><button class="btn btn--ghost" type="button" data-nav="exam">' + t('open') + '</button></li>';
+  document.querySelectorAll('[data-lesson]').forEach(function (b) { b.addEventListener('click', function () { setLesson(parseInt(b.getAttribute('data-lesson'), 10) - 1); go('player'); }); });
+  var n = 2 + completedCount(), qs = S.L.every(function (l) { return l.done; });
+  var items = [[n === 4, t('ckLessons', { n: n })], [qs, t('ckQs')], [examPassedOnce, t('ckExam')], [false, t('ckCert')]];
+  var doneCount = items.filter(function (i) { return i[0]; }).length;
+  $('#course-check').innerHTML = '<h2>' + t('certProg') + '</h2><progress max="4" value="' + doneCount + '"></progress><ul class="list checklist" style="margin-top:8px">' +
+    items.map(function (i) { return '<li data-done="' + (i[0] ? 1 : 0) + '"><span aria-hidden="true">' + (i[0] ? '&#10004;' : '&#9675;') + '</span> ' + i[1] + ' <span class="sr">' + (i[0] ? t('done') : t('todo')) + '</span></li>'; }).join('') + '</ul>';
+}
+var examPassedOnce = false;
+function renderExam() {
+  $('#seg-fail').setAttribute('aria-pressed', examMode === 'fail'); $('#seg-pass').setAttribute('aria-pressed', examMode === 'pass');
+  var b = $('#exam-body');
+  if (examMode === 'fail') {
+    b.innerHTML = '<div class="card result-fail"><p class="muted">' + t('score') + '</p><p class="score">58%</p><p class="verdict"><span aria-hidden="true">&#10006; </span>' + t('failed') + '</p><p class="muted">' + t('passMark') + '</p></div>' +
+      '<h2>' + t('topics') + '</h2><ul class="list"><li><span class="grow">' + t('l3') + '</span><b>40%</b></li><li><span class="grow">' + t('l4') + '</span><b>75%</b></li></ul>' +
+      '<h2 style="margin-top:16px">' + t('suggest') + '</h2><p class="muted">' + t('suggestWhy') + '</p><ul class="list">' +
+      '<li><span class="grow">' + t('lessonN', { n: 3 }) + ' &middot; ' + t('l3') + '</span><button class="btn btn--ghost" type="button" data-rw="0:36">' + t('rewatch', { s: '0:36' }) + '</button></li>' +
+      '<li><span class="grow">' + t('lessonN', { n: 3 }) + ' &middot; ' + t('l3') + '</span><button class="btn btn--ghost" type="button" data-rw="0:12">' + t('rewatch', { s: '0:12' }) + '</button></li></ul>' +
+      '<button class="btn btn--block" style="margin-top:16px" type="button" id="exam-retake">' + t('retake') + '</button>';
+    b.querySelectorAll('[data-rw]').forEach(function (x) { x.addEventListener('click', function () { var p = x.getAttribute('data-rw').split(':'); rewatch(0, parseInt(p[0], 10) * 60 + parseInt(p[1], 10)); }); });
+    $('#exam-retake').addEventListener('click', function () { examMode = 'pass'; examPassedOnce = true; renderAll(); });
+  } else {
+    b.innerHTML = '<div class="card result-pass"><p class="muted">' + t('score') + '</p><p class="score">82%</p><p class="verdict"><span aria-hidden="true">&#10004; </span>' + t('passed') + '</p><p class="muted">' + t('passMark') + '</p></div>' +
+      '<button class="btn btn--block" type="button" data-nav="cert" id="exam-cert">' + t('getCert') + '</button>';
+  }
+}
+function renderCertNames() { var n = t('holder'); ['#cert-name', '#v-name1', '#v-name2'].forEach(function (s) { $(s).textContent = n; }); }
+$('#seg-fail').addEventListener('click', function () { examMode = 'fail'; renderAll(); });
+$('#seg-pass').addEventListener('click', function () { examMode = 'pass'; examPassedOnce = true; renderAll(); });
+function rewatch(i, ts) { setLesson(i); var L = cur(); L.t = Math.min(ts, L.furthest); save(); go('player'); }
+$('#cert-dl').addEventListener('click', function () { toast(t('dlMsg')); });
+$('#cert-share').addEventListener('click', function () { toast(t('shareMsg')); });
+$('#cert-verify').addEventListener('click', function () { go('valid'); });
+
+function toast(msg) { var el = $('#toast'); el.textContent = msg; el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(function () { el.hidden = true; }, 3000); }
+
+/* ---------- player ---------- */
+function setStatus(key, kind) { statusKey = key; statusKind = kind || ''; paintStatus(); }
+function paintStatus() { var s = $('#status'); s.textContent = statusKey ? t(statusKey) : ''; s.setAttribute('data-kind', statusKind); }
+function renderPlayer() {
+  var ls = lesson(), L = cur();
+  $('#pl-title').textContent = t('lessonN', { n: ls.no }) + ' · ' + lessonName(S.cur);
+  $('#scene-title').textContent = lessonName(S.cur);
+  var seek = $('#seek'); seek.max = ls.dur;
+  var mk = $('#markers'); mk.textContent = '';
+  ls.qs.forEach(function (q) {
+    var m = document.createElement('span'); m.className = 'marker'; m.style.setProperty('--f', q.at / ls.dur);
+    m.setAttribute('data-req', q.req ? '1' : '0');
+    m.setAttribute('data-state', L.res[q.id] || L.skip[q.id] ? 'answered' : (sheetState && sheetState.q.id === q.id ? 'current' : 'pending'));
+    mk.appendChild(m);
+  });
+  paintNext(); paintStatus(); paintTime();
+}
+function paintTime() {
+  var ls = lesson(), L = cur(), seek = $('#seek');
+  seek.value = Math.floor(L.t);
+  seek.style.setProperty('--f', L.t / ls.dur);
+  seek.setAttribute('aria-valuetext', fmt(L.t) + ' / ' + fmt(ls.dur));
+  $('#time').textContent = fmt(L.t) + ' / ' + fmt(ls.dur);
+  $('#scene-clock').textContent = fmt(L.t);
+  var ended = L.t >= ls.dur;
+  $('#btn-play').textContent = playing ? t('pause') : (ended ? t('replay') : t('play'));
+  $('#paused-tag').hidden = playing;
+}
+$('#btn-play').addEventListener('click', function () {
+  var L = cur(), ls = lesson();
+  if (playing) { playing = false; save(); paintTime(); return; }
+  if (L.t >= ls.dur) { L.t = 0; }
+  stopNext(); playing = true; last = performance.now(); setStatus(null); paintTime();
+});
+$('#seek').addEventListener('input', function (e) {
+  var L = cur(), v = parseInt(e.target.value, 10), max = allowedMax();
+  if (v > max + 1) {
+    var blocked = gate(S.cur) !== null && v > gate(S.cur);
+    e.target.value = Math.floor(L.t);
+    showTip(blocked ? t('cantSkip') : t('cantAhead'), L.t);
+    paintTime();
+    return;
+  }
+  L.t = v; stopNext(); save(); paintTime();
+});
+function showTip(msg, atSec) {
+  var tip = $('#tip');
+  tip.textContent = msg; tip.hidden = false;
+  clearTimeout(tipTimer); tipTimer = setTimeout(function () { tip.hidden = true; }, 2500);
+}
+function dueQ() {
+  var L = cur(), qs = lesson().qs;
+  for (var i = 0; i < qs.length; i++) { var q = qs[i]; if (!L.res[q.id] && !L.skip[q.id] && L.t >= q.at) { return q; } }
+  return null;
+}
+setInterval(function () {
+  var now = performance.now(), dt = Math.min(0.5, (now - last) / 1000); last = now;
+  if (!playing || sheetState || screen !== 'player') { return; }
+  var L = cur(), ls = lesson();
+  L.t = Math.min(ls.dur, L.t + dt * SPEED);
+  if (L.t > L.furthest) { L.furthest = L.t; }
+  var q = dueQ();
+  if (q) { L.t = q.at; paintTime(); ask(q); return; }
+  paintTime();
+  if (L.t >= ls.dur) { endLesson(); }
+}, 100);
+setInterval(function () { if (playing) { save(); } }, 1000);
+function endLesson() {
+  var L = cur(); playing = false; L.furthest = lesson().dur;
+  if (!L.done) { L.done = true; }
+  save(); setStatus('complete', 'success'); paintTime(); offerNext();
+}
+function setLesson(i) { stopNext(); playing = false; S.cur = i; S.open = null; save(); setStatus(null); renderAll(); }
+function offerNext() {
+  stopNext();
+  var left = 5, toExam = S.cur === LESSONS.length - 1;
+  $('#next-go').textContent = t('goNow'); $('#next-stay').textContent = t('stay');
+  nextState = { left: left, toExam: toExam }; $('#nextbar').hidden = false; paintNext();
+  nextTimer = setInterval(function () { nextState.left -= 1; if (nextState.left <= 0) { goNext(); } else { paintNext(); } }, 1000);
+  $('#next-go').focus();
+}
+var nextState = null;
+function paintNext() {
+  if (!nextState) { $('#nextbar').hidden = true; return; }
+  $('#nextbar').hidden = false; $('#next-go').textContent = t('goNow'); $('#next-stay').textContent = t('stay');
+  $('#next-txt').textContent = t(nextState.toExam ? 'examIn' : 'nextIn', { n: nextState.left });
+}
+function stopNext() { clearInterval(nextTimer); nextTimer = null; nextState = null; $('#nextbar').hidden = true; }
+function goNext() { var toExam = nextState && nextState.toExam; stopNext(); if (toExam) { go('exam'); } else { setLesson(S.cur + 1); go('player'); } }
+$('#next-go').addEventListener('click', goNext);
+$('#next-stay').addEventListener('click', function () { stopNext(); $('#btn-play').focus(); });
+
+/* watermark drift, as in the real player */
+setInterval(function () { var w = $('#wm'); w.style.top = (8 + Math.random() * 70) + '%'; w.style.left = (4 + Math.random() * 55) + '%'; }, 15000);
+$('#wm').style.top = '60%'; $('#wm').style.left = '8%';
+
+/* ---------- MCQ bottom sheet (accessible dialog) ---------- */
+function ask(q) {
+  playing = false; $('#toast').hidden = true;
+  var L = cur();
+  S.open = { l: S.cur, id: q.id }; save();
+  var root = $('#sheet-root'), tries = L.att[q.id] || 0;
+  sheetState = { q: q, tries: tries, autoTimer: null, returnFocus: $('#btn-play') };
+  root.hidden = false;
+  root.innerHTML = '<div class="backdrop"></div><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="q-stem" id="sheet">' +
+    '<div class="grab" aria-hidden="true"></div>' +
+    '<p class="sheet-title"><span>' + t('quick') + '</span><span class="pill ' + (q.req ? 'pill--req' : '') + '">' + t(q.req ? 'req' : 'opt') + '</span><span class="pill" id="q-att" ' + (tries ? '' : 'hidden') + '>' + t('attempt', { a: Math.min(2, tries + 1) }) + '</span></p>' +
+    '<h2 class="stem" id="q-stem">' + pick(q.stem) + '</h2>' +
+    '<fieldset class="opts"><legend class="sr">' + t('choose') + '</legend>' +
+    q.opts.map(function (o, i) { return '<label class="opt"><input type="radio" name="q-opt" value="' + i + '"><span class="otext">' + pick(o) + '</span><span class="mark" aria-hidden="true"></span></label>'; }).join('') +
+    '</fieldset><p class="feedback" id="q-fb" role="status" aria-live="polite"></p>' +
+    '<div class="actions" id="q-actions"><button class="btn" type="button" id="q-submit" disabled>' + t('submit') + '</button>' + (q.req ? '' : '<button class="btn btn--ghost" type="button" id="q-skip">' + t('skip') + '</button>') + '</div></div>';
+  $('#page').inert = true;
+  renderPlayer();
+  var sheet = $('#sheet'), radios = sheet.querySelectorAll('input[type=radio]');
+  radios[0].focus();
+  radios.forEach(function (r) { r.addEventListener('change', function () {
+    $('#q-submit').disabled = false;
+    sheet.querySelectorAll('.opt').forEach(function (o) { o.removeAttribute('data-state'); o.querySelector('.mark').textContent = ''; });
+    var fb = $('#q-fb'); if (fb.getAttribute('data-kind') === 'wrong') { fb.textContent = ''; fb.removeAttribute('data-kind'); }
+  }); });
+  $('#q-submit').addEventListener('click', function () { submitAnswer(sheet, radios); });
+  if (!q.req) { $('#q-skip').addEventListener('click', function () { skipQ(); }); }
+  sheet.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { e.preventDefault(); if (!q.req && !L.res[q.id]) { skipQ(); } return; } // Esc closes optional questions only
+    if (e.key === 'Tab') { trapTab(e, sheet); }
+  });
+}
+function trapTab(e, sheet) {
+  var list = [], seen = false;
+  sheet.querySelectorAll('input[type=radio], button').forEach(function (el) {
+    if (el.disabled) { return; }
+    if (el.type === 'radio') { if (!seen) { seen = true; list.push(sheet.querySelector('input[type=radio]:checked') || el); } }
+    else { list.push(el); }
+  });
+  if (!list.length) { return; }
+  var first = list[0], lastEl = list[list.length - 1], a = document.activeElement;
+  if (!sheet.contains(a)) { e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && a === first) { e.preventDefault(); lastEl.focus(); }
+  else if (!e.shiftKey && a === lastEl) { e.preventDefault(); first.focus(); }
+}
+function mark(sheet, i, state) {
+  var o = sheet.querySelectorAll('.opt')[i]; o.setAttribute('data-state', state);
+  o.querySelector('.mark').textContent = state === 'correct' ? '✔ ' + t('markOk') : '✖ ' + t('markNo');
+}
+function submitAnswer(sheet, radios) {
+  var st = sheetState, q = st.q, L = cur(), chosen = -1;
+  radios.forEach(function (r, i) { if (r.checked) { chosen = i; } });
+  if (chosen < 0) { return; }
+  L.att[q.id] = (L.att[q.id] || 0) + 1; save();
+  var fb = $('#q-fb'), actions = $('#q-actions'), ok = chosen === q.ok, why = pick(q.why);
+  if (ok) {
+    mark(sheet, chosen, 'correct'); fb.setAttribute('data-kind', 'correct'); fb.textContent = '✔ ' + t('correct') + ' — ' + why;
+    return resolveQ(sheet, radios, true);
+  }
+  mark(sheet, chosen, 'wrong'); fb.setAttribute('data-kind', 'wrong');
+  if (L.att[q.id] >= 2) {
+    mark(sheet, q.ok, 'correct'); fb.textContent = '✖ ' + t('answerIs') + ' “' + pick(q.opts[q.ok]) + '”. ' + why;
+    return resolveQ(sheet, radios, false);
+  }
+  $('#q-att').hidden = false; $('#q-att').textContent = t('attempt', { a: 2 });
+  if (q.rewind !== null) {
+    fb.textContent = '✖ ' + t('rewind', { s: fmt(q.rewind) });
+    radios.forEach(function (r) { r.disabled = true; });
+    actions.innerHTML = '<button class="btn" type="button" id="q-rewind">' + t('rewindBtn') + '</button>';
+    var rb = $('#q-rewind'); rb.focus();
+    rb.addEventListener('click', function () { L.t = q.rewind; closeSheet(true); });
+  } else {
+    fb.textContent = '✖ ' + t('tryAgain');
+    radios.forEach(function (r) { r.checked = false; }); $('#q-submit').disabled = true; radios[0].focus();
+  }
+}
+function resolveQ(sheet, radios, auto) {
+  var q = sheetState.q, L = cur(); L.res[q.id] = auto ? 'ok' : 'shown'; save();
+  radios.forEach(function (r) { r.disabled = true; });
+  var actions = $('#q-actions'); actions.innerHTML = '<button class="btn" type="button" id="q-cont">' + t('cont') + '</button>' + (auto ? '<span class="auto" id="q-auto"></span>' : '');
+  var c = $('#q-cont'); c.focus(); c.addEventListener('click', function () { closeSheet(true); });
+  if (auto) {
+    var left = 3, lab = $('#q-auto'); lab.textContent = t('autoIn', { n: left });
+    sheetState.autoTimer = setInterval(function () { left -= 1; if (left <= 0) { closeSheet(true); } else { lab.textContent = t('autoIn', { n: left }); } }, 1000);
+  }
+}
+function skipQ() { var q = sheetState.q; cur().skip[q.id] = true; save(); closeSheet(true); }
+function closeSheet(resume) {
+  if (!sheetState) { return; }
+  clearInterval(sheetState.autoTimer);
+  var rf = sheetState.returnFocus; sheetState = null; S.open = null; save();
+  var root = $('#sheet-root'); root.hidden = true; root.textContent = '';
+  $('#page').inert = false;
+  renderPlayer();
+  if (rf) { rf.focus(); }
+  if (resume) { last = performance.now(); playing = true; setStatus(null); paintTime(); }
+}
+
+/* ---------- reload / tab close: resume 5 s before the open question ---------- */
+function persistNow() { if (sheetState) { S.open = { l: S.cur, id: sheetState.q.id }; } save(); }
+window.addEventListener('pagehide', persistNow);
+document.addEventListener('visibilitychange', function () { if (document.hidden) { persistNow(); } });
+
+/* ---------- confetti (calm; off under prefers-reduced-motion) ---------- */
+var confettiRaf = 0;
+function reduced() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+function stopConfetti() { cancelAnimationFrame(confettiRaf); confettiRaf = 0; var c = $('#confetti'); c.hidden = true; $('#confetti-static').hidden = true; }
+function startConfetti() {
+  stopConfetti();
+  if (reduced()) { $('#confetti-static').hidden = false; return; }
+  var c = $('#confetti'), ctx = c.getContext('2d'), dpr = window.devicePixelRatio || 1;
+  c.hidden = false; c.width = innerWidth * dpr; c.height = innerHeight * dpr; ctx.scale(dpr, dpr);
+  var cs = getComputedStyle(document.documentElement), colors = ['--nk-primary', '--nk-success', '--nk-warning', '--nk-danger'].map(function (v) { return cs.getPropertyValue(v).trim(); });
+  var ps = [], i; for (i = 0; i < 70; i++) { ps.push({ x: Math.random() * innerWidth, y: -20 - Math.random() * innerHeight * 0.6, w: 6 + Math.random() * 6, h: 3 + Math.random() * 4, vy: 45 + Math.random() * 55, ph: Math.random() * 6, sw: 12 + Math.random() * 18, c: colors[i % colors.length] }); }
+  var t0 = performance.now(), DUR = 4500;
+  (function frame(now) {
+    var el = now - t0; ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.globalAlpha = el > DUR - 800 ? Math.max(0, (DUR - el) / 800) : 1;
+    ps.forEach(function (p) { var y = p.y + p.vy * el / 1000, x = p.x + Math.sin(el / 700 + p.ph) * p.sw; ctx.fillStyle = p.c; ctx.fillRect(x, y, p.w, p.h); });
+    if (el < DUR) { confettiRaf = requestAnimationFrame(frame); } else { stopConfetti(); }
+  })(t0);
+}
+
+/* ---------- boot ---------- */
+(function boot() {
+  var l = store.get('nk-proto-lang'); lang = (l === 'bn' || l === 'en') ? l : 'en';
+  var start = location.hash.replace('#', '');
+  if (S.open && S.open.l != null && LESSONS[S.open.l]) {
+    var q = LESSONS[S.open.l].qs.filter(function (x) { return x.id === S.open.id; })[0];
+    S.cur = S.open.l;
+    if (q) { var L = cur(); L.t = Math.max(0, q.at - 5); L.furthest = Math.max(L.furthest, q.at); statusKey = 'resumed'; statusKind = 'warning'; }
+    S.open = null; save(); start = 'player';
+  }
+  if (SCREENS.indexOf(start) < 0) { start = 'home'; }
+  setLang(lang);
+  go(start, true);
+})();
+})();
+</script>
+</body>
+</html>
