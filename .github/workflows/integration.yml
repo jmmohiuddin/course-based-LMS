@@ -1,0 +1,106 @@
+name: Integration (MySQL, real Tutor, browsers)
+
+# These jobs need network access (WordPress, Tutor LMS, Chromium) and so could not be run where this plugin was written.
+# They are what verifies the plugin on MySQL and against the real Tutor LMS. Run them before every release.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 1'   # weekly: catches Tutor / WordPress releases that break the adapter
+
+env:
+  WP_ROOT: ${{ github.workspace }}/wp
+
+jobs:
+  mysql-stub:
+    name: WordPress on MySQL (Tutor stand-in)
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wp
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot" --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli, mbstring, zip, curl
+          tools: composer, wp-cli
+      - name: Install WordPress
+        run: |
+          wp core download --path="$WP_ROOT" --quiet
+          cd "$WP_ROOT"
+          wp config create --dbname=wp --dbuser=root --dbpass=root --dbhost=127.0.0.1 --skip-check
+          wp core install --url=http://localhost --title=Test --admin_user=admin --admin_password=pass --admin_email=a@example.com --skip-email
+          ln -s "$GITHUB_WORKSPACE/nimikh-lms" wp-content/plugins/nimikh-lms
+          mkdir -p wp-content/mu-plugins
+          cp "$GITHUB_WORKSPACE/nimikh-lms/tests/integration/tutor-stub.php" wp-content/mu-plugins/
+          wp plugin activate nimikh-lms
+      - name: Phase 1 flow
+        run: php nimikh-lms/tests/integration/e2e.php
+      - name: Phase 2-3 modules
+        run: php nimikh-lms/tests/integration/e2e-phase23.php
+      - name: Notes, sharing, privacy, Bangla, demo data
+        run: php nimikh-lms/tests/integration/e2e-features.php
+      - name: Uninstall drops tables (destructive, runs last)
+        run: php nimikh-lms/tests/integration/e2e-uninstall.php
+
+  real-tutor:
+    name: WordPress on MySQL with real Tutor LMS
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wp
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot" --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli, mbstring, zip, curl
+          tools: composer, wp-cli
+      - name: Install WordPress + Tutor LMS
+        run: |
+          wp core download --path="$WP_ROOT" --quiet
+          cd "$WP_ROOT"
+          wp config create --dbname=wp --dbuser=root --dbpass=root --dbhost=127.0.0.1 --skip-check
+          wp core install --url=http://localhost --title=Test --admin_user=admin --admin_password=pass --admin_email=a@example.com --skip-email
+          wp plugin install tutor --activate
+          ln -s "$GITHUB_WORKSPACE/nimikh-lms" wp-content/plugins/nimikh-lms
+          wp plugin activate nimikh-lms
+          wp plugin list
+      - name: Contract check (every Tutor hook, meta key, table and column we rely on exists)
+        run: php nimikh-lms/tools/check-tutor-contract.php "$WP_ROOT/wp-content/plugins/tutor"
+      - name: Adapter, player flow and demo seeder against real Tutor
+        run: php nimikh-lms/tests/integration/e2e-tutor.php
+
+  browser:
+    name: Browser tests (Chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Install ffmpeg and Playwright
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - run: node nimikh-lms/tests/browser/player.spec.cjs
+      - run: node nimikh-lms/tests/browser/phase23.spec.cjs

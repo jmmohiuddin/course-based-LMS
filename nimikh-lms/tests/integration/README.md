@@ -25,3 +25,7 @@ that driver's `ON DUPLICATE KEY` parsing. On MySQL/MariaDB that filter is a no-o
 
 `e2e-features.php` defines `NIMIKH_ALLOW_DEMO` to exercise the demo seeder, which creates and then deletes ~35 posts and 14 users;
 run it on a throwaway site. The Tutor stand-in decides enrolment from `tutor_enrolled` posts like Tutor does.
+
+**On MySQL / real Tutor.** `e2e-tutor.php` expects real Tutor LMS (no stub) and `e2e-uninstall.php` expects MySQL/MariaDB and is
+destructive; both are driven by `.github/workflows/integration.yml`. `tutor-stub.php` is only for the stub jobs: on SQLite it
+carries a test-only query rewrite, on MySQL it just registers post types and creates a minimal `tutor_quiz_attempts` table.

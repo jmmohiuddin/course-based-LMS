@@ -10,6 +10,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Domain: nimikh-lms\n"
 
+#: src/Admin/AdminPages.php:167
+msgid "%1$d enrolled, %2$d created, %3$d skipped."
+msgstr "%1$dজন ভর্তি, %2$dটি অ্যাকাউন্ট তৈরি, %3$dটি বাদ।"
+
 #: src/Profile/ProfileShortcodes.php:159
 msgid "%1$s — active until %2$s"
 msgstr "%1$s — %2$s পর্যন্ত সক্রিয়"
@@ -28,6 +32,18 @@ msgstr "(শিক্ষার্থীর তথ্য মুছে ফেল�
 msgid "3-day streak"
 msgstr "৩ দিনের ধারাবাহিকতা"
 
+#: src/Rest/SubscriptionController.php:35
+msgid "A plan needs a name, at least one course and a duration."
+msgstr "একটি প্ল্যানে নাম, অন্তত একটি কোর্স এবং মেয়াদ থাকতে হবে।"
+
+#: src/Admin/Phase3Pages.php:143
+msgid "A plan needs a name, courses and a duration."
+msgstr "একটি প্ল্যানে নাম, কোর্স এবং মেয়াদ থাকতে হবে।"
+
+#: src/Admin/Phase3Pages.php:94
+msgid "A plan unlocks courses for a number of days. Payment gateways grant access by firing do_action( 'nimikh_subscription_paid', $user_id, $plan_id, $reference )."
+msgstr "একটি প্ল্যান নির্দিষ্ট কয়েক দিনের জন্য কোর্স আনলক করে। পেমেন্ট গেটওয়ে do_action( 'nimikh_subscription_paid', $user_id, $plan_id, $reference ) চালিয়ে অ্যাক্সেস দেয়।"
+
 #: src/Questions/QuestionRepository.php:29
 msgid "A question needs 2 to 6 options."
 msgstr "একটি প্রশ্নে ২ থেকে ৬টি অপশন থাকতে হবে।"
@@ -35,6 +51,26 @@ msgstr "একটি প্রশ্নে ২ থেকে ৬টি অপশ�
 #: src/Questions/QuestionRepository.php:26
 msgid "A question needs text."
 msgstr "প্রশ্নের লেখা দিতে হবে।"
+
+#: src/Rest/CertificateController.php:68
+msgid "A reason is required."
+msgstr "একটি কারণ দিতে হবে।"
+
+#: src/Admin/AdminPages.php:64
+msgid "AI model ID"
+msgstr "এআই মডেল আইডি"
+
+#: src/Admin/AdminPages.php:62
+msgid "AI question suggestions (sends transcripts to Anthropic)"
+msgstr "এআই প্রশ্ন প্রস্তাবনা (ট্রান্সক্রিপ্ট Anthropic-এ পাঠানো হয়)"
+
+#: src/Ai/QuestionGenerator.php:23
+msgid "AI suggestions are not enabled. An administrator can turn them on in the settings."
+msgstr "এআই প্রস্তাবনা চালু নেই। অ্যাডমিন সেটিংসে এটি চালু করতে পারেন।"
+
+#: src/Admin/Phase3Pages.php:190
+msgid "Add member"
+msgstr "সদস্য যোগ করুন"
 
 #: src/Video/FrontendPlayer.php:71
 msgid "Add note at"
@@ -44,6 +80,18 @@ msgstr "নোট যোগ করুন"
 msgid "Add to LinkedIn"
 msgstr "লিংকডইনে যোগ করুন"
 
+#: src/Rest/BaseController.php:59
+msgid "Admin access required."
+msgstr "অ্যাডমিনের অনুমতি প্রয়োজন।"
+
+#: src/Admin/Phase3Pages.php:180
+msgid "Admin email"
+msgstr "অ্যাডমিনের ইমেইল"
+
+#: src/Orgs/OrgRepository.php:16
+msgid "An institute needs a name."
+msgstr "প্রতিষ্ঠানের একটি নাম দিতে হবে।"
+
 #: src/Video/FrontendPlayer.php:64
 msgid "Answer the question to continue"
 msgstr "এগিয়ে যেতে প্রশ্নটির উত্তর দিন"
@@ -52,6 +100,18 @@ msgstr "এগিয়ে যেতে প্রশ্নটির উত্ত
 msgid "Answered at"
 msgstr "উত্তরের সময়"
 
+#: src/Admin/AdminPages.php:63
+msgid "Anthropic API key"
+msgstr "Anthropic এপিআই কী"
+
+#: src/Admin/AdminPages.php:67
+msgid "App icon URL (optional, SVG or PNG)"
+msgstr "অ্যাপ আইকনের URL (ঐচ্ছিক, SVG বা PNG)"
+
+#: src/Admin/AdminPages.php:66
+msgid "App start URL (e.g. the dashboard page)"
+msgstr "অ্যাপ শুরুর URL (যেমন ড্যাশবোর্ড পেজ)"
+
 #: src/Frontend/Shortcodes.php:65
 msgid "Ask"
 msgstr "জিজ্ঞাসা করুন"
@@ -59,6 +119,10 @@ msgstr "জিজ্ঞাসা করুন"
 #: src/Frontend/Shortcodes.php:64
 msgid "Ask a question about this lesson…"
 msgstr "এই পাঠ সম্পর্কে প্রশ্ন করুন…"
+
+#: src/Admin/Phase3Pages.php:196
+msgid "Assign course"
+msgstr "কোর্স নির্ধারণ করুন"
 
 #: src/Privacy/PrivacyService.php:82
 msgid "At second"
@@ -76,6 +140,30 @@ msgstr "ব্যাজ"
 msgid "Badges"
 msgstr "ব্যাজ"
 
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:161
+msgid "Batch enrolment"
+msgstr "ব্যাচ ভর্তি"
+
+#: src/Admin/Phase3Pages.php:178
+msgid "Brand colour"
+msgstr "ব্র্যান্ডের রং"
+
+#: src/Admin/AdminPages.php:48
+msgid "Bunny pull-zone hostname"
+msgstr "Bunny পুল-জোনের হোস্টনেম"
+
+#: src/Admin/AdminPages.php:49
+msgid "Bunny token authentication key"
+msgstr "Bunny টোকেন অথেন্টিকেশন কী"
+
+#: src/Admin/Metaboxes.php:49
+msgid "Bunny video ID"
+msgstr "Bunny ভিডিও আইডি"
+
+#: src/Admin/Phase3Pages.php:129 src/Admin/Phase3Pages.php:262
+msgid "Cancel"
+msgstr "বাতিল করুন"
+
 #: templates/verify.php:12
 msgid "Cannot be verified"
 msgstr "যাচাই করা যায়নি"
@@ -88,7 +176,19 @@ msgstr "সনদ আইডি"
 msgid "Certificate not found."
 msgstr "সনদ পাওয়া যায়নি।"
 
-#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:111 src/Privacy/PrivacyService.php:75
+#: src/Admin/AdminPages.php:114
+msgid "Certificate revoked."
+msgstr "সনদ বাতিল করা হয়েছে।"
+
+#: src/Admin/Metaboxes.php:41
+msgid "Certificate template ID (0 = default)"
+msgstr "সনদ টেমপ্লেট আইডি (০ = ডিফল্ট)"
+
+#: src/Plugin.php:158
+msgid "Certificate templates"
+msgstr "সনদ টেমপ্লেট"
+
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:112 src/Privacy/PrivacyService.php:75
 msgid "Certificates"
 msgstr "সনদ"
 
@@ -111,6 +211,10 @@ msgstr "আপনার ইন্টারনেট সংযোগ পরীক
 #: src/Profile/ProfileShortcodes.php:76
 msgid "Check your email to confirm your request."
 msgstr "আপনার অনুরোধ নিশ্চিত করতে ইমেইল দেখুন।"
+
+#: src/Live/LiveService.php:49
+msgid "Choose a start time in the future."
+msgstr "ভবিষ্যতের একটি শুরুর সময় বেছে নিন।"
 
 #: src/Rest/AuthoringController.php:196
 msgid "Choose a time for the question."
@@ -152,21 +256,73 @@ msgstr "ভিডিও লোড করা যায়নি। অনুগ�
 msgid "Could not save the note."
 msgstr "নোটটি সংরক্ষণ করা যায়নি।"
 
-#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
 msgid "Course"
 msgstr "কোর্স"
+
+#: src/Admin/AdminPages.php:176
+msgid "Course ID"
+msgstr "কোর্স আইডি"
 
 #: src/Rest/OrgController.php:74 src/Support/BatchEnrol.php:23
 msgid "Course not found."
 msgstr "কোর্স পাওয়া যায়নি।"
 
+#: src/Admin/Phase3Pages.php:86
+msgid "Course reports"
+msgstr "কোর্স রিপোর্ট"
+
+#: src/Admin/Phase3Pages.php:100 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:186
+msgid "Courses"
+msgstr "কোর্স"
+
+#: src/Admin/Phase3Pages.php:181
+msgid "Create institute"
+msgstr "প্রতিষ্ঠান তৈরি করুন"
+
+#: src/Admin/Phase3Pages.php:103
+msgid "Create plan"
+msgstr "প্ল্যান তৈরি করুন"
+
+#: src/Admin/Phase3Pages.php:106
+msgid "Days"
+msgstr "দিন"
+
 #: src/Frontend/Shortcodes.php:68
 msgid "Delete"
 msgstr "মুছুন"
 
+#: src/Admin/AdminPages.php:68
+msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
+msgstr "প্লাগইন মুছে ফেললে নিমিখের সব তথ্য (টেবিল, সনদ, ফাইল) মুছে ফেলুন"
+
 #: src/Video/FrontendPlayer.php:72
 msgid "Delete note"
 msgstr "নোট মুছুন"
+
+#: src/Admin/DemoPage.php:19 src/Admin/DemoPage.php:23
+msgid "Demo data"
+msgstr "ডেমো তথ্য"
+
+#: src/Demo/DemoSeeder.php:98
+msgid "Demo data could not be completed: %s. Use \"Remove demo data\" to clean up."
+msgstr "ডেমো তথ্য সম্পূর্ণ করা যায়নি: %s। পরিষ্কার করতে \"ডেমো তথ্য সরান\" ব্যবহার করুন।"
+
+#: src/Demo/DemoSeeder.php:61
+msgid "Demo data is already loaded. Remove it first."
+msgstr "ডেমো তথ্য ইতিমধ্যে লোড করা আছে। আগে এটি সরান।"
+
+#: src/Demo/DemoSeeder.php:47
+msgid "Demo data is blocked on production sites. Set WP_ENVIRONMENT_TYPE to \"staging\" or \"local\", or define NIMIKH_ALLOW_DEMO as true in wp-config.php."
+msgstr "প্রোডাকশন সাইটে ডেমো তথ্য নিষিদ্ধ। WP_ENVIRONMENT_TYPE-কে \"staging\" বা \"local\" করুন, অথবা wp-config.php-তে NIMIKH_ALLOW_DEMO true হিসেবে সংজ্ঞায়িত করুন।"
+
+#: src/Admin/DemoPage.php:45
+msgid "Demo data is loaded."
+msgstr "ডেমো তথ্য লোড করা আছে।"
+
+#: src/Admin/DemoPage.php:31
+msgid "Demo data loaded. These passwords are shown once:"
+msgstr "ডেমো তথ্য লোড হয়েছে। এই পাসওয়ার্ডগুলো একবারই দেখানো হবে:"
 
 #: src/Frontend/Shortcodes.php:39
 msgid "Discussion"
@@ -184,6 +340,10 @@ msgstr "আলোচনার পোস্ট"
 msgid "Download"
 msgstr "ডাউনলোড"
 
+#: src/Admin/Phase3Pages.php:101
+msgid "Duration (days)"
+msgstr "মেয়াদ (দিন)"
+
 #: src/Badges/BadgeCatalog.php:17
 msgid "Earned 3 certificates."
 msgstr "৩টি সনদ অর্জন করেছেন।"
@@ -192,6 +352,18 @@ msgstr "৩টি সনদ অর্জন করেছেন।"
 msgid "Earned your first certificate."
 msgstr "আপনার প্রথম সনদ অর্জন করেছেন।"
 
+#: src/Admin/AdminPages.php:81
+msgid "Enabled"
+msgstr "চালু"
+
+#: src/Admin/AdminPages.php:178
+msgid "Enrol learners"
+msgstr "শিক্ষার্থী ভর্তি করুন"
+
+#: src/Live/LiveService.php:29
+msgid "Every five minutes"
+msgstr "প্রতি পাঁচ মিনিটে"
+
 #: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
 msgid "Expires"
 msgstr "মেয়াদ শেষ"
@@ -199,6 +371,14 @@ msgstr "মেয়াদ শেষ"
 #: src/Profile/ProfileShortcodes.php:174
 msgid "Facebook"
 msgstr "ফেসবুক"
+
+#: src/Admin/Metaboxes.php:36
+msgid "Final exam pass mark %"
+msgstr "চূড়ান্ত পরীক্ষায় পাসের নম্বর %"
+
+#: src/Admin/Metaboxes.php:42
+msgid "Final exam quiz ID (0 = last quiz)"
+msgstr "চূড়ান্ত পরীক্ষার কুইজ আইডি (০ = শেষ কুইজ)"
 
 #: src/Integrations/Tutor/TutorHooks.php:96
 msgid "Finish watching the video and answer its questions to complete this lesson."
@@ -211,6 +391,26 @@ msgstr "প্রথম পদক্ষেপ"
 #: src/Discussion/DiscussionService.php:132
 msgid "Former learner"
 msgstr "সাবেক শিক্ষার্থী"
+
+#: src/Live/LiveService.php:45
+msgid "Give the class a title."
+msgstr "ক্লাসের একটি শিরোনাম দিন।"
+
+#: src/Admin/AdminPages.php:54
+msgid "Gotenberg URL (optional PDF renderer)"
+msgstr "Gotenberg URL (ঐচ্ছিক পিডিএফ রেন্ডারার)"
+
+#: src/Admin/Phase3Pages.php:121
+msgid "Grant"
+msgstr "প্রদান করুন"
+
+#: src/Admin/Phase3Pages.php:114
+msgid "Grant a subscription"
+msgstr "সাবস্ক্রিপশন প্রদান করুন"
+
+#: src/Admin/AdminPages.php:52
+msgid "Heartbeat tolerance (0.10 = 10%)"
+msgstr "হার্টবিট সহনসীমা (০.১০ = ১০%)"
 
 #: src/Certificates/CertificateService.php:129
 msgid "Hi %1$s,\n\nCongratulations, you earned your certificate for \"%2$s\".\nAnyone can verify it here: %3$s\n\nCertificate ID: %4$s\n"
@@ -232,6 +432,10 @@ msgstr "লুকান"
 msgid "I earned a certificate in %s:"
 msgstr "আমি %s কোর্সে সনদ অর্জন করেছি:"
 
+#: src/Admin/AdminPages.php:117
+msgid "ID"
+msgstr "আইডি"
+
 #: src/Privacy/PrivacyService.php:69
 msgid "In-video question answers"
 msgstr "ভিডিও-প্রশ্নের উত্তর"
@@ -240,23 +444,55 @@ msgstr "ভিডিও-প্রশ্নের উত্তর"
 msgid "Install the app"
 msgstr "অ্যাপ ইনস্টল করুন"
 
+#: src/Admin/AdminPages.php:65
+msgid "Installable app (PWA)"
+msgstr "ইনস্টলযোগ্য অ্যাপ (PWA)"
+
 #: src/Privacy/PrivacyService.php:105
 msgid "Institute"
 msgstr "প্রতিষ্ঠান"
+
+#: src/Admin/Phase3Pages.php:189
+msgid "Institute admin"
+msgstr "প্রতিষ্ঠানের অ্যাডমিন"
+
+#: src/Rest/OrgController.php:38
+msgid "Institute admin access required."
+msgstr "প্রতিষ্ঠানের অ্যাডমিনের অনুমতি প্রয়োজন।"
 
 #: src/Privacy/PrivacyService.php:105
 msgid "Institute memberships"
 msgstr "প্রতিষ্ঠানের সদস্যপদ"
 
+#: src/Rest/OrgController.php:34 src/Orgs/PortalRoute.php:35
+msgid "Institute not found."
+msgstr "প্রতিষ্ঠান পাওয়া যায়নি।"
+
+#: src/Admin/Phase3Pages.php:37 src/Admin/Phase3Pages.php:171
+msgid "Institutes"
+msgstr "প্রতিষ্ঠান"
+
 #: src/Frontend/Shortcodes.php:71
 msgid "Instructor"
 msgstr "প্রশিক্ষক"
+
+#: src/Rest/BaseController.php:41 src/Rest/BaseController.php:53
+msgid "Instructor access required."
+msgstr "প্রশিক্ষকের অনুমতি প্রয়োজন।"
+
+#: src/Rest/AuthoringController.php:152 src/Rest/AuthoringController.php:179
+msgid "Interaction not found."
+msgstr "ইন্টারঅ্যাকশন পাওয়া যায়নি।"
+
+#: src/Admin/Metaboxes.php:27
+msgid "Interactive video"
+msgstr "ইন্টারঅ্যাক্টিভ ভিডিও"
 
 #: src/Questions/AttemptService.php:39
 msgid "Invalid option."
 msgstr "অবৈধ অপশন।"
 
-#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:70
 msgid "Issued"
 msgstr "প্রদানের তারিখ"
 
@@ -268,9 +504,25 @@ msgstr "প্রদানকারী: %s"
 msgid "Issuer"
 msgstr "প্রদানকারী"
 
+#: src/Admin/AdminPages.php:47
+msgid "Issuer name (on certificates)"
+msgstr "প্রদানকারীর নাম (সনদে)"
+
+#: src/Admin/AdminPages.php:56
+msgid "Jitsi host for live classes"
+msgstr "লাইভ ক্লাসের জন্য Jitsi হোস্ট"
+
 #: src/Frontend/Shortcodes.php:76
 msgid "Join class"
 msgstr "ক্লাসে যোগ দিন"
+
+#: src/Admin/Phase3Pages.php:248
+msgid "Join link (not needed for Jitsi)"
+msgstr "যোগদানের লিংক (Jitsi-র জন্য লাগবে না)"
+
+#: src/Live/LiveService.php:63
+msgid "Join link must be an https URL."
+msgstr "যোগদানের লিংক অবশ্যই https URL হতে হবে।"
 
 #: src/Privacy/PrivacyService.php:99
 msgid "Joined"
@@ -292,6 +544,14 @@ msgstr "টানা ৩০ দিন শিখেছেন।"
 msgid "Learned 7 days in a row."
 msgstr "টানা ৭ দিন শিখেছেন।"
 
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124
+msgid "Learner"
+msgstr "শিক্ষার্থী"
+
+#: src/Admin/Phase3Pages.php:246
+msgid "Length (minutes)"
+msgstr "সময়কাল (মিনিট)"
+
 #: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:87
 msgid "Lesson"
 msgstr "পাঠ"
@@ -299,6 +559,10 @@ msgstr "পাঠ"
 #: src/Video/FrontendPlayer.php:66
 msgid "Lesson complete"
 msgstr "পাঠ সম্পন্ন"
+
+#: src/Admin/AdminPages.php:55
+msgid "Lesson discussion"
+msgstr "পাঠ আলোচনা"
 
 #: src/Rest/BaseController.php:30
 msgid "Lesson not found."
@@ -312,6 +576,18 @@ msgstr "পাঠের অগ্রগতি"
 msgid "Let's watch that part again"
 msgstr "চলুন অংশটি আবার দেখি"
 
+#: src/Support/BatchEnrol.php:47
+msgid "Line %1$d: %2$s"
+msgstr "লাইন %1$d: %2$s"
+
+#: src/Support/BatchEnrol.php:60
+msgid "Line %d: could not enrol (is Tutor LMS active?)"
+msgstr "লাইন %d: ভর্তি করা যায়নি (Tutor LMS কি চালু আছে?)"
+
+#: src/Support/BatchEnrol.php:34
+msgid "Line %d: invalid email"
+msgstr "লাইন %d: অবৈধ ইমেইল"
+
 #: src/Privacy/PrivacyService.php:99
 msgid "Live class attendance"
 msgstr "লাইভ ক্লাসে উপস্থিতি"
@@ -320,13 +596,53 @@ msgstr "লাইভ ক্লাসে উপস্থিতি"
 msgid "Live class soon: %s"
 msgstr "শীঘ্রই লাইভ ক্লাস: %s"
 
+#: src/Admin/Phase3Pages.php:35 src/Admin/Phase3Pages.php:238 src/Frontend/Shortcodes.php:50
+msgid "Live classes"
+msgstr "লাইভ ক্লাস"
+
 #: src/Frontend/Shortcodes.php:78
 msgid "Live now"
 msgstr "এখন লাইভ"
 
+#: src/Admin/DemoPage.php:48
+msgid "Load demo data"
+msgstr "ডেমো তথ্য লোড করুন"
+
+#: src/Admin/DemoPage.php:37
+msgid "Loads a sample institute, 3 bilingual courses with in-video questions, 2 instructors and 12 learners with realistic progress, certificates, badges, discussion, a subscription plan and live classes. Demo users have no phone numbers and no email is sent. Everything it creates is tracked and can be removed in one click."
+msgstr "একটি নমুনা প্রতিষ্ঠান, ভিডিও-প্রশ্নসহ ৩টি দ্বিভাষিক কোর্স, ২ জন প্রশিক্ষক এবং বাস্তবসম অগ্রগতি, সনদ, ব্যাজ, আলোচনা, সাবস্ক্রিপশন প্ল্যান ও লাইভ ক্লাসসহ ১২ জন শিক্ষার্থী লোড করে। ডেমো ব্যবহারকারীদের ফোন নম্বর নেই এবং কোনো ইমেইল পাঠানো হয় না। এটি যা কিছু তৈরি করে সবই ট্র্যাক করা হয় এবং এক ক্লিকে সরানো যায়।"
+
+#: src/Admin/Phase3Pages.php:179
+msgid "Logo URL (https)"
+msgstr "লোগোর URL (https)"
+
+#: src/Admin/AdminPages.php:53
+msgid "MCQ answers per minute per learner"
+msgstr "প্রতি শিক্ষার্থীর প্রতি মিনিটে MCQ উত্তর"
+
 #: src/Questions/QuestionRepository.php:32
 msgid "Mark one option as correct."
 msgstr "একটি অপশনকে সঠিক হিসেবে চিহ্নিত করুন।"
+
+#: src/Admin/AdminPages.php:51
+msgid "Max playback speed"
+msgstr "সর্বোচ্চ প্লেব্যাক গতি"
+
+#: src/Admin/Phase3Pages.php:189
+msgid "Member"
+msgstr "সদস্য"
+
+#: src/Admin/Phase3Pages.php:186
+msgid "Members"
+msgstr "সদস্য"
+
+#: src/Admin/Metaboxes.php:34
+msgid "Min % of each video watched"
+msgstr "প্রতিটি ভিডিওর ন্যূনতম দেখার %"
+
+#: src/Admin/Metaboxes.php:35
+msgid "Min average in-video MCQ % (0 = off)"
+msgstr "ভিডিও-প্রশ্নে ন্যূনতম গড় MCQ % (০ = বন্ধ)"
 
 #: src/Badges/BadgeCatalog.php:15
 msgid "Month streak"
@@ -340,13 +656,53 @@ msgstr "আমার নোট"
 msgid "Name"
 msgstr "নাম"
 
+#: src/Admin/Phase3Pages.php:96
+msgid "New plan"
+msgstr "নতুন প্ল্যান"
+
 #: src/Discussion/DiscussionService.php:151
 msgid "New question in %s"
 msgstr "%s-এ নতুন প্রশ্ন"
 
+#: src/Support/Roles.php:16
+msgid "Nimikh Institute Admin"
+msgstr "নিমিখ প্রতিষ্ঠান অ্যাডমিন"
+
+#: src/Support/Roles.php:12
+msgid "Nimikh Instructor"
+msgstr "নিমিখ প্রশিক্ষক"
+
+#: src/Admin/AdminPages.php:28
+msgid "Nimikh LMS"
+msgstr "নিমিখ LMS"
+
+#: src/Privacy/PrivacyService.php:30 src/Privacy/PrivacyService.php:35
+msgid "Nimikh LMS learning data"
+msgstr "নিমিখ LMS-এর শেখার তথ্য"
+
+#: src/Admin/AdminPages.php:70
+msgid "Nimikh LMS settings"
+msgstr "নিমিখ LMS সেটিংস"
+
+#: src/Admin/Metaboxes.php:26
+msgid "Nimikh completion rules"
+msgstr "নিমিখ সম্পন্ন করার নিয়ম"
+
 #: src/Privacy/PrivacyService.php:71
 msgid "No"
 msgstr "না"
+
+#: src/Admin/Phase3Pages.php:154
+msgid "No account with that email."
+msgstr "এই ইমেইলে কোনো অ্যাকাউন্ট নেই।"
+
+#: src/Orgs/OrgService.php:34
+msgid "No account with that email. Use batch enrolment to create accounts."
+msgstr "এই ইমেইলে কোনো অ্যাকাউন্ট নেই। অ্যাকাউন্ট তৈরি করতে ব্যাচ ভর্তি ব্যবহার করুন।"
+
+#: src/Rest/SubscriptionController.php:54
+msgid "No active subscription with that ID."
+msgstr "এই আইডির কোনো সক্রিয় সাবস্ক্রিপশন নেই।"
 
 #: templates/verify.php:63
 msgid "No certificate matches that ID. Check the code on the certificate and try again."
@@ -360,6 +716,10 @@ msgstr "এখনো কোনো সনদ নেই। একটি কোর�
 msgid "No courses are published yet."
 msgstr "এখনো কোনো কোর্স প্রকাশিত হয়নি।"
 
+#: src/Admin/AdminPages.php:200
+msgid "No file uploaded."
+msgstr "কোনো ফাইল আপলোড করা হয়নি।"
+
 #: src/Frontend/Shortcodes.php:75
 msgid "No live classes scheduled."
 msgstr "কোনো লাইভ ক্লাস নির্ধারিত নেই।"
@@ -371,6 +731,10 @@ msgstr "এখনো কোনো নোট নেই। ভিডিও থা�
 #: src/Frontend/Shortcodes.php:73
 msgid "No questions yet. Be the first to ask."
 msgstr "এখনো কোনো প্রশ্ন নেই। প্রথম প্রশ্নটি আপনিই করুন।"
+
+#: src/Admin/AdminPages.php:148 src/Admin/AdminPages.php:185 src/Admin/DemoPage.php:64
+msgid "Not allowed."
+msgstr "অনুমতি নেই।"
 
 #: templates/verify.php:13
 msgid "Not found"
@@ -400,6 +764,10 @@ msgstr "দারুণ এগোচ্ছেন"
 msgid "Only course staff can moderate."
 msgstr "শুধু কোর্সের স্টাফরা মডারেট করতে পারেন।"
 
+#: src/Ai/QuestionGenerator.php:30
+msgid "Open the video in the editor once so its length is known, and use a video of at least 90 seconds."
+msgstr "ভিডিওর দৈর্ঘ্য জানার জন্য একবার এডিটরে ভিডিওটি খুলুন, এবং অন্তত ৯০ সেকেন্ডের ভিডিও ব্যবহার করুন।"
+
 #: src/Frontend/Shortcodes.php:77
 msgid "Opens 10 minutes before start"
 msgstr "শুরুর ১০ মিনিট আগে খুলবে"
@@ -408,6 +776,10 @@ msgstr "শুরুর ১০ মিনিট আগে খুলবে"
 msgid "Option chosen"
 msgstr "নির্বাচিত অপশন"
 
+#: src/Ai/QuestionGenerator.php:35
+msgid "Paste a transcript or add captions to this lesson first."
+msgstr "আগে একটি ট্রান্সক্রিপ্ট পেস্ট করুন বা এই পাঠে ক্যাপশন যোগ করুন।"
+
 #: src/Privacy/PrivacyService.php:64
 msgid "Percent watched"
 msgstr "দেখা হয়েছে (%)"
@@ -415,6 +787,18 @@ msgstr "দেখা হয়েছে (%)"
 #: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
 msgid "Plan"
 msgstr "প্ল্যান"
+
+#: src/Subscriptions/SubscriptionService.php:87
+msgid "Plan not found."
+msgstr "প্ল্যান পাওয়া যায়নি।"
+
+#: src/Admin/Phase3Pages.php:106
+msgid "Plans"
+msgstr "প্ল্যান"
+
+#: src/Admin/Phase3Pages.php:36 src/Admin/Phase3Pages.php:92
+msgid "Plans & subscriptions"
+msgstr "প্ল্যান ও সাবস্ক্রিপশন"
 
 #: src/Video/FrontendPlayer.php:65
 msgid "Playback speed is limited for this course"
@@ -440,9 +824,17 @@ msgstr "পোস্ট"
 msgid "Posted"
 msgstr "পোস্টের সময়"
 
+#: src/Admin/Phase3Pages.php:102
+msgid "Price label"
+msgstr "মূল্যের লেবেল"
+
 #: src/Video/FrontendPlayer.php:68
 msgid "Progress saved"
 msgstr "অগ্রগতি সংরক্ষিত"
+
+#: src/Admin/Phase3Pages.php:247
+msgid "Provider"
+msgstr "সেবাদাতা"
 
 #: src/Privacy/PrivacyService.php:70
 msgid "Question"
@@ -456,13 +848,25 @@ msgstr "প্রশ্ন পাওয়া যায়নি।"
 msgid "Quick check!"
 msgstr "দ্রুত যাচাই!"
 
-#: src/Admin/AdminPages.php:134 templates/verify.php:77
+#: src/Admin/AdminPages.php:135 templates/verify.php:77
 msgid "Reason"
 msgstr "কারণ"
+
+#: src/Admin/Phase3Pages.php:124
+msgid "Recent subscriptions"
+msgstr "সাম্প্রতিক সাবস্ক্রিপশন"
+
+#: src/Admin/DemoPage.php:46
+msgid "Remove demo data"
+msgstr "ডেমো তথ্য সরান"
 
 #: src/Frontend/Shortcodes.php:66
 msgid "Reply"
 msgstr "উত্তর দিন"
+
+#: src/Admin/Phase3Pages.php:34
+msgid "Reports"
+msgstr "রিপোর্ট"
 
 #: src/Profile/ProfileShortcodes.php:72
 msgid "Request a copy of my data"
@@ -472,6 +876,10 @@ msgstr "আমার তথ্যের একটি কপি চাই"
 msgid "Request deletion of my data"
 msgstr "আমার তথ্য মুছে ফেলার অনুরোধ"
 
+#: src/Admin/AdminPages.php:136
+msgid "Revoke"
+msgstr "সনদ বাতিল করুন"
+
 #: templates/verify.php:11
 msgid "Revoked"
 msgstr "বাতিল"
@@ -480,15 +888,51 @@ msgstr "বাতিল"
 msgid "Role"
 msgstr "ভূমিকা"
 
+#: src/Admin/AdminPages.php:60
+msgid "SMS API key"
+msgstr "এসএমএস এপিআই কী"
+
+#: src/Admin/AdminPages.php:58
+msgid "SMS gateway URL (https; use {to} {message} {sender} {api_key})"
+msgstr "এসএমএস গেটওয়ে URL (https; {to} {message} {sender} {api_key} ব্যবহার করুন)"
+
 #: src/Privacy/PrivacyService.php:102
 msgid "SMS notifications"
 msgstr "এসএমএস বিজ্ঞপ্তি"
+
+#: src/Admin/AdminPages.php:59
+msgid "SMS request method (GET or POST)"
+msgstr "এসএমএস রিকোয়েস্ট মেথড (GET বা POST)"
+
+#: src/Admin/AdminPages.php:61
+msgid "SMS sender ID"
+msgstr "এসএমএস প্রেরক আইডি"
+
+#: src/Admin/AdminPages.php:98
+msgid "SMS template: %s"
+msgstr "এসএমএস টেমপ্লেট: %s"
 
 #: src/Profile/ProfileShortcodes.php:62
 msgid "Save"
 msgstr "সংরক্ষণ করুন"
 
-#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:72
+#: src/Admin/Metaboxes.php:52
+msgid "Save the lesson once to enable the timeline editor."
+msgstr "টাইমলাইন এডিটর চালু করতে পাঠটি একবার সংরক্ষণ করুন।"
+
+#: src/Admin/Metaboxes.php:50
+msgid "Save the lesson, then add questions below. Duration is detected automatically."
+msgstr "পাঠটি সংরক্ষণ করুন, তারপর নিচে প্রশ্ন যোগ করুন। সময়কাল স্বয়ংক্রিয়ভাবে শনাক্ত হবে।"
+
+#: src/Admin/Phase3Pages.php:63
+msgid "Saved."
+msgstr "সংরক্ষিত হয়েছে।"
+
+#: src/Admin/Phase3Pages.php:249
+msgid "Schedule class"
+msgstr "ক্লাস নির্ধারণ করুন"
+
+#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:72
 msgid "Score"
 msgstr "স্কোর"
 
@@ -500,9 +944,17 @@ msgstr "একটি কোর্সের ভিডিও-প্রশ্নে
 msgid "Send"
 msgstr "পাঠান"
 
+#: src/Admin/AdminPages.php:57
+msgid "Send SMS notifications"
+msgstr "এসএমএস বিজ্ঞপ্তি পাঠান"
+
 #: src/Privacy/PrivacyService.php:102
 msgid "Sent"
 msgstr "পাঠানো হয়েছে"
+
+#: src/Admin/AdminPages.php:31
+msgid "Settings"
+msgstr "সেটিংস"
 
 #: src/Profile/ProfileShortcodes.php:177
 msgid "Share"
@@ -520,6 +972,10 @@ msgstr "তীক্ষ্ণ মেধা"
 msgid "Show my certificates on a public profile"
 msgstr "আমার সনদ পাবলিক প্রোফাইলে দেখান"
 
+#: src/Admin/AdminPages.php:50
+msgid "Signed URL lifetime (seconds)"
+msgstr "সাইন করা URL-এর মেয়াদ (সেকেন্ড)"
+
 #: src/Video/FrontendPlayer.php:59
 msgid "Skip"
 msgstr "এড়িয়ে যান"
@@ -536,13 +992,21 @@ msgstr "কিছু একটা ভুল হয়েছে। অনুগ�
 msgid "Starts"
 msgstr "শুরু"
 
-#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+#: src/Admin/Phase3Pages.php:250
+msgid "State"
+msgstr "অবস্থা"
+
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
 msgid "Status"
 msgstr "অবস্থা"
 
 #: src/Privacy/PrivacyService.php:94
 msgid "Subscriptions"
 msgstr "সাবস্ক্রিপশন"
+
+#: src/Orgs/OrgService.php:48
+msgid "That course is not assigned to this institute."
+msgstr "এই কোর্সটি এই প্রতিষ্ঠানে নির্ধারিত নয়।"
 
 #: templates/verify.php:52
 msgid "That does not look like a certificate ID."
@@ -560,6 +1024,10 @@ msgstr "নোটটি অনেক বড়।"
 msgid "That time is outside the video."
 msgstr "এই সময়টি ভিডিওর বাইরে।"
 
+#: src/Orgs/OrgRepository.php:19
+msgid "That web address is taken."
+msgstr "এই ওয়েব ঠিকানাটি নেওয়া হয়ে গেছে।"
+
 #: src/Ai/QuestionGenerator.php:59
 msgid "The AI service did not respond. Try again in a moment."
 msgstr "এআই সেবা সাড়া দেয়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।"
@@ -567,6 +1035,18 @@ msgstr "এআই সেবা সাড়া দেয়নি। কিছ�
 #: src/Video/FrontendPlayer.php:63
 msgid "The correct answer is highlighted."
 msgstr "সঠিক উত্তরটি চিহ্নিত করা হয়েছে।"
+
+#: src/Rest/AuthoringController.php:199
+msgid "The question must appear before the video ends."
+msgstr "প্রশ্নটি ভিডিও শেষ হওয়ার আগে আসতে হবে।"
+
+#: src/Rest/AuthoringController.php:203
+msgid "The rewind point must be before the question."
+msgstr "রিওয়াইন্ডের সময় প্রশ্নের আগে হতে হবে।"
+
+#: src/Demo/DemoSeeder.php:130
+msgid "There is no demo data to remove."
+msgstr "সরানোর মতো কোনো ডেমো তথ্য নেই।"
 
 #: src/Profile/ProfileShortcodes.php:73
 msgid "This asks the site to permanently delete your learning data, progress and certificates. Continue?"
@@ -588,6 +1068,10 @@ msgstr "এই ক্লাস এখনো খোলেনি। শুরু�
 msgid "This class is over."
 msgstr "এই ক্লাস শেষ হয়ে গেছে।"
 
+#: src/Rest/AuthoringController.php:104
+msgid "This is not your question."
+msgstr "এটি আপনার প্রশ্ন নয়।"
+
 #: src/Progress/ProgressService.php:85
 msgid "This lesson has no video duration set."
 msgstr "এই পাঠের ভিডিওর সময়কাল নির্ধারণ করা নেই।"
@@ -599,6 +1083,18 @@ msgstr "এই পাঠে এখনো কোনো ভিডিও নেই�
 #: src/Profile/ProfileShortcodes.php:88
 msgid "This profile is not available."
 msgstr "এই প্রোফাইলটি পাওয়া যাচ্ছে না।"
+
+#: src/Rest/AuthoringController.php:92
+msgid "This question is used in a video. Remove it from the timeline first."
+msgstr "এই প্রশ্নটি একটি ভিডিওতে ব্যবহৃত হচ্ছে। আগে টাইমলাইন থেকে সরান।"
+
+#: src/Admin/DemoPage.php:38
+msgid "Tip: lesson videos use a public HLS test stream. Open a lesson in the editor once so its real duration is detected, or set the nimikh_lms_demo_video_url filter before loading."
+msgstr "টিপ: পাঠের ভিডিওগুলো একটি পাবলিক HLS টেস্ট স্ট্রিম ব্যবহার করে। এডিটরে একবার পাঠ খুলে এর আসল সময়কাল শনাক্ত করুন, অথবা লোড করার আগে nimikh_lms_demo_video_url ফিল্টার সেট করুন।"
+
+#: src/Admin/Phase3Pages.php:244 src/Admin/Phase3Pages.php:250
+msgid "Title"
+msgstr "শিরোনাম"
 
 #: src/Questions/AttemptService.php:26
 msgid "Too many answers. Please slow down."
@@ -631,6 +1127,22 @@ msgstr "ধরন"
 #: src/Frontend/Shortcodes.php:70
 msgid "Unhide"
 msgstr "দেখান"
+
+#: src/Admin/Phase3Pages.php:250
+msgid "Upcoming"
+msgstr "আসন্ন"
+
+#: src/Admin/AdminPages.php:172
+msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
+msgstr "এই কলামগুলো সহ একটি CSV আপলোড করুন: email, name (name ঐচ্ছিক)। অজানা ইমেইলের জন্য নতুন শিক্ষার্থী অ্যাকাউন্ট ও পাসওয়ার্ড রিসেট ইমেইল পাঠানো হয়।"
+
+#: src/Admin/AdminPages.php:109
+msgid "Use the course builder to add questions to your videos."
+msgstr "ভিডিওতে প্রশ্ন যোগ করতে কোর্স বিল্ডার ব্যবহার করুন।"
+
+#: src/Admin/Metaboxes.php:48
+msgid "Use the interactive player (anti-skip + MCQ pop-ups) for this lesson"
+msgstr "এই পাঠে ইন্টারঅ্যাক্টিভ প্লেয়ার ব্যবহার করুন (স্কিপ-প্রতিরোধ + MCQ পপ-আপ)"
 
 #: src/Rest/SubscriptionController.php:45 src/Subscriptions/SubscriptionService.php:90
 msgid "User not found."
@@ -668,6 +1180,10 @@ msgstr "ভিডিও নোট"
 msgid "View my public profile"
 msgstr "আমার পাবলিক প্রোফাইল দেখুন"
 
+#: src/Admin/Phase3Pages.php:177
+msgid "Web address"
+msgstr "ওয়েব ঠিকানা"
+
 #: src/Badges/BadgeCatalog.php:14
 msgid "Week streak"
 msgstr "সাপ্তাহিক ধারাবাহিকতা"
@@ -700,6 +1216,10 @@ msgstr "আপনি এই কোর্সে ভর্তি নন।"
 msgid "You are offline"
 msgstr "আপনি অফলাইনে আছেন"
 
+#: src/Rest/OrgController.php:77
+msgid "You can only add courses you manage."
+msgstr "আপনি শুধু আপনার পরিচালিত কোর্স যোগ করতে পারবেন।"
+
 #: src/Discussion/DiscussionService.php:38
 msgid "You can only reply to a question in this lesson."
 msgstr "আপনি শুধু এই পাঠের কোনো প্রশ্নের উত্তর দিতে পারবেন।"
@@ -708,9 +1228,21 @@ msgstr "আপনি শুধু এই পাঠের কোনো প্র�
 msgid "You cannot delete that."
 msgstr "আপনি এটি মুছতে পারবেন না।"
 
+#: src/Rest/LiveController.php:54 src/Rest/LiveController.php:59
+msgid "You do not manage this class."
+msgstr "আপনি এই ক্লাস পরিচালনা করেন না।"
+
+#: src/Rest/ReportController.php:26 src/Rest/BaseController.php:45 src/Live/LiveService.php:41
+msgid "You do not manage this course."
+msgstr "আপনি এই কোর্স পরিচালনা করেন না।"
+
 #: src/Notes/NoteService.php:50
 msgid "You have reached the note limit for this lesson."
 msgstr "এই পাঠে নোটের সীমা শেষ হয়েছে।"
+
+#: src/Ai/QuestionGenerator.php:26
+msgid "You have used all AI suggestions for this hour."
+msgstr "এই ঘণ্টার সব এআই প্রস্তাবনা আপনি ব্যবহার করে ফেলেছেন।"
 
 #: src/Certificates/CertificateService.php:126
 msgid "Your certificate for %s"
@@ -739,3 +1271,11 @@ msgstr "এখনো উত্তীর্ণ হননি"
 #: src/Integrations/Tutor/TutorHooks.php:70
 msgid "passed"
 msgstr "উত্তীর্ণ"
+
+#: src/Admin/Phase3Pages.php:185
+msgid "portal"
+msgstr "পোর্টাল"
+
+#: src/Admin/Metaboxes.php:50
+msgid "…or direct video URL (dev / other CDN)"
+msgstr "…অথবা সরাসরি ভিডিও URL (ডেভ / অন্য CDN)"

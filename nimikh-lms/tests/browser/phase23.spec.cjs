@@ -77,7 +77,7 @@ const server = http.createServer((req, res) => {
   let chromium; try { ({ chromium } = require('playwright')); } catch { ({ chromium } = require(path.join(execFileSync('npm', ['root', '-g']).toString().trim(), 'playwright'))); }
   await new Promise((r) => server.listen(0, r));
   const base = `http://127.0.0.1:${server.address().port}`;
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || '/opt/pw-browsers/chromium', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: [process.env.CHROMIUM, '/opt/pw-browsers/chromium'].find((x) => x && require('fs').existsSync(x)), args: ['--no-sandbox'] });
   let failed = 0; const check = (c, l, x = '') => { console.log(`  ${c ? 'ok  ' : 'FAIL'} ${l} ${c ? '' : x}`); if (!c) failed++; };
 
   // ---------------- PWA ----------------

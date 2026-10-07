@@ -1,6 +1,20 @@
 <?php
 add_action('init', function () {
-	foreach (['courses','lesson','tutor_quiz','tutor_enrolled'] as $pt) register_post_type($pt, ['public'=>true]);
+	foreach (['courses','lesson','topics','tutor_quiz','tutor_enrolled'] as $pt) { if (!post_type_exists($pt)) { register_post_type($pt, ['public'=>true]); } }
+	if (!defined('FQDB')) { // MySQL/MariaDB: create the attempts table Tutor would own (SQLite site creates it by hand)
+		global $wpdb;
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta("CREATE TABLE {$wpdb->prefix}tutor_quiz_attempts (
+  attempt_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  course_id bigint(20) unsigned DEFAULT NULL,
+  quiz_id bigint(20) unsigned DEFAULT NULL,
+  user_id bigint(20) unsigned DEFAULT NULL,
+  total_marks decimal(9,2) DEFAULT NULL,
+  earned_marks decimal(9,2) DEFAULT NULL,
+  attempt_status varchar(50) DEFAULT NULL,
+  PRIMARY KEY  (attempt_id)
+) {$wpdb->get_charset_collate()};");
+	}
 }, 1);
 add_filter('nimikh_lms_is_enrolled', function ($e, $u, $c) { return $e || (bool) get_user_meta($u, 'stub_enrolled_' . $c, true); }, 10, 3);
 
@@ -8,6 +22,7 @@ add_filter('nimikh_lms_is_enrolled', function ($e, $u, $c) { return $e || (bool)
 // (the JSON ranges). Translate that one statement shape into INSERT OR IGNORE + UPDATE.
 add_filter('query', function ($sql) {
 	static $busy = false;
+	if (!defined('FQDB')) { return $sql; } // only the SQLite test driver needs this
 	if ($busy || stripos($sql, 'ON DUPLICATE KEY UPDATE') === false || strpos($sql, '_nimikh_watch_progress') === false) { return $sql; }
 	[$insert, $update] = preg_split('/ON DUPLICATE KEY UPDATE/i', $sql, 2);
 	if (!preg_match('/VALUES\s*\(\s*(\d+)\s*,\s*(\d+)/', $insert, $m)) { return $sql; }

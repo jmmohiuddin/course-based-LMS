@@ -15,6 +15,10 @@ First release of the `nimikh-lms` plugin, built from the Nimikh LMS product & te
 **Phase 3**
 - Institute portals with branded certificates, live classes (Jitsi/Zoom/Meet, attendance, reminders), AI question suggestions (Anthropic API, drafts only), installable PWA with offline-safe progress
 
+**Quality and tooling**
+- Complete Bangla translation (all 317 strings), PHP-only tools to build it, and unit tests guarding it
+- Tutor contract checker (`tools/check-tutor-contract.php`) and a CI workflow for MySQL, real Tutor LMS, uninstall and browser tests
+
 **Also**
 - Timestamped video notes, LinkedIn/Facebook/WhatsApp sharing, privacy export/erase, Bangla (bn_BD) translation, demo-data seeder, `uninstall.php` (data kept unless explicitly opted in)
 

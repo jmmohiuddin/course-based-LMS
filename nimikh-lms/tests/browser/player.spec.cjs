@@ -71,7 +71,7 @@ const server = http.createServer((req, res) => {
   let chromium; try { ({ chromium } = require('playwright')); } catch { ({ chromium } = require(path.join(execFileSync('npm', ['root', '-g']).toString().trim(), 'playwright'))); }
   await new Promise((r) => server.listen(0, r));
   const url = `http://127.0.0.1:${server.address().port}/`;
-  const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || '/opt/pw-browsers/chromium', args: ['--autoplay-policy=no-user-gesture-required', '--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: [process.env.CHROMIUM, '/opt/pw-browsers/chromium'].find((x) => x && require('fs').existsSync(x)), args: ['--autoplay-policy=no-user-gesture-required', '--no-sandbox'] });
   const pg = await browser.newPage({ viewport: { width: 390, height: 800 } });
   let failed = 0; const check = (c, l, x = '') => { console.log(`  ${c ? 'ok  ' : 'FAIL'} ${l} ${c ? '' : x}`); if (!c) failed++; };
   pg.on('pageerror', (e) => { console.log('  PAGE ERROR', e.message); failed++; });

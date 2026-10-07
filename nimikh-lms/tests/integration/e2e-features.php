@@ -27,7 +27,7 @@ add_filter('pre_wp_mail', '__return_true');
 $P = \Nimikh\LMS\Plugin::instance();
 
 echo "== schema 003\n";
-ok((bool) $wpdb->get_var("SELECT name FROM sqlite_master WHERE name = '{$wpdb->prefix}nimikh_notes'"), 'table nimikh_notes');
+ok((bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($wpdb->prefix . 'nimikh_notes'))), 'table nimikh_notes');
 ok((int) get_option('nimikh_lms_db_version') === 3, 'schema version is 3');
 
 $inst = user('inst', 'nimikh_instructor'); $rafi = user('rafi'); $sara = user('sara'); $stranger = user('stranger');
@@ -128,7 +128,8 @@ unload_textdomain('nimikh-lms'); load_textdomain('nimikh-lms', $mo, 'bn_BD');
 ok(__('Quick check!', 'nimikh-lms') === 'দ্রুত যাচাই!' && __('Verify a certificate', 'nimikh-lms') === 'সনদ যাচাই করুন', 'learner strings come out in Bangla');
 ok(sprintf(__('Your certificate for %s', 'nimikh-lms'), 'Excel') === 'Excel-এর জন্য আপনার সনদ', 'placeholders survive translation');
 ok(sprintf(_n('%d-day learning streak', '%d-day learning streak', 5, 'nimikh-lms'), 5) === '5 দিনের শেখার ধারা', 'plural strings work');
-ok(__('Admin access required.', 'nimikh-lms') === 'Admin access required.', 'untranslated admin strings fall back to English');
+ok(__('Admin access required.', 'nimikh-lms') === 'অ্যাডমিনের অনুমতি প্রয়োজন।', 'admin-facing strings are translated too');
+ok(__('A string nobody has translated yet', 'nimikh-lms') === 'A string nobody has translated yet', 'unknown strings fall back to English');
 $result = $P->certificates->verify(\Nimikh\LMS\Certificates\CodeGenerator::generate()); $result = ['status' => 'not_found']; $status = 'not_found'; $invalid = false;
 ob_start(); include NIMIKH_LMS_DIR . 'templates/verify.php'; $page = ob_get_clean();
 ok(str_contains($page, 'সনদ যাচাই করুন') && str_contains($page, 'পাওয়া যায়নি'), 'verify page renders in Bangla');

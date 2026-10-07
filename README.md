@@ -57,6 +57,15 @@ nimikh-lms/
 5. **Nimikh LMS → Settings**: Bunny pull-zone host + token key, issuer name, optional Gotenberg URL.
    Set `DISABLE_WP_CRON` and run a real cron every minute (certificate rendering uses Action Scheduler).
 
+## Continuous integration
+
+`.github/workflows/ci.yml` runs lint, unit tests and JS syntax checks. `.github/workflows/integration.yml` (also weekly, to catch
+Tutor/WordPress releases) runs: all three integration suites on **MySQL 8**, the **Tutor contract check and the real-Tutor
+test** against the latest Tutor LMS from wordpress.org, the destructive uninstall test, and both browser specs in Chromium.
+**These workflows could not be executed where the plugin was written (no network to wordpress.org), so their first run is the
+first time the plugin meets MySQL and real Tutor.** Expect to fix small things: the contract check names exactly what
+is missing. Run it before upgrading Tutor on production.
+
 ## Release build and uninstall
 
 `nimikh-lms/tools/build-zip.sh [dir]` builds `nimikh-lms-<version>.zip` (needs only bash, cp, zip; no tests, tools or dev files).
@@ -65,8 +74,8 @@ test site and passed all 211 integration checks. See `CHANGELOG.md`.
 
 Deleting the plugin **keeps all data by default** (certificates are verifiable records). To wipe everything, tick *Delete ALL
 Nimikh data* in Settings first; `uninstall.php` then removes the tables, certificate files, options, roles, cron jobs and meta.
-The keep-by-default path and the file/role/option removal were tested; dropping the tables could not be (the SQLite test
-driver ignores `DROP TABLE`), so check that step once on a MySQL staging site.
+The keep-by-default path and the file/role/option removal were tested locally; dropping the tables needs MySQL and is covered
+by `e2e-uninstall.php` in the integration workflow.
 
 ## Authoring (instructor)
 
@@ -144,9 +153,9 @@ three live classes (one past, with attendance), so every report and page has som
   Erasure deletes progress, answers, notes, badges, streaks, attendance, SMS log and memberships; discussion questions others
   replied to are anonymised; certificates and subscription records are **kept anonymised** (the certificate is revoked, its file
   deleted, and the public page shows no name). Mention this in your privacy policy. Tutor's own data is Tutor's to erase.
-- **Bangla:** set the site language to Bangla (বাংলা). 182 learner-facing strings are translated (player, questions, verify page,
-  dashboard, badges, discussion, live classes, emails). wp-admin and instructor-facing error messages stay English. **The
-  translation is a draft: please have a native speaker review it.** To add or change strings: `php tools/make-pot.php`, edit
+- **Bangla:** set the site language to Bangla (বাংলা). All 317 strings are translated: the learner experience (player, questions,
+  verify page, dashboard, badges, discussion, live classes, emails) and also wp-admin screens and instructor-facing messages.
+  **The translation is a draft: please have a native speaker review it.** To add or change strings: `php tools/make-pot.php`, edit
   `languages/nimikh-lms-bn_BD.po`, then `php tools/compile-mo.php languages/nimikh-lms-bn_BD.po`. A unit test fails if the
   `.mo`/`.pot` are stale or a placeholder is broken. The player loads Hind Siliguri + Inter from Google Fonts; return `false`
   from the `nimikh_lms_google_fonts_url` filter to self-host instead.
@@ -169,12 +178,15 @@ authenticated and capability-checked.
 
 ```bash
 cd nimikh-lms && composer install
-vendor/bin/phpunit -c phpunit.xml.dist                          # 31 unit tests (pure logic + translation guards)
+vendor/bin/phpunit -c phpunit.xml.dist                          # 35 unit tests (pure logic, translation guards, Tutor contract checker)
 NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 28 browser checks: player incl. notes (needs ffmpeg + Playwright Chromium)
 NODE_PATH=$(npm root -g) node tests/browser/phase23.spec.cjs     # 23 browser checks: PWA offline, discussion, live, reports
 php tests/integration/e2e.php                                    # 52 checks on a real WordPress (phase 1)
 php tests/integration/e2e-phase23.php                            # 95 checks on a real WordPress (phase 2-3)
-php tests/integration/e2e-features.php                           # 64 checks: notes, sharing, privacy, Bangla, demo-data lifecycle
+php tests/integration/e2e-features.php                           # 65 checks: notes, sharing, privacy, Bangla, demo-data lifecycle
+php tools/check-tutor-contract.php /path/to/plugins/tutor        # verifies every Tutor hook/meta/table/column we rely on exists
+php tests/integration/e2e-tutor.php                              # real Tutor + MySQL (CI), 35 checks (also dry-run on the stub site)
+php tests/integration/e2e-uninstall.php                          # MySQL only: uninstall really drops the tables (destructive, run last)
 ```
 
 ## Blueprint coverage
@@ -195,8 +207,9 @@ php tests/integration/e2e-features.php                           # 64 checks: no
 
 - **Tutor hook names and storage keys** (`tutor_quiz/attempt_ended`, `tutor_lesson_completed_after`,
   `tutor_action_tutor_complete_lesson`, `_tutor_course_id_for_lesson`, `tutor_quiz_attempts`, …) follow
-  Tutor 2.x/3.x conventions but were not run against a real Tutor install (it was not available). All Tutor
-  access is isolated in `Integrations/Tutor/`; verify on staging and pin the Tutor version.
+  Tutor 2.x/3.x conventions but were not run against a real Tutor install (it was not available where this was built).
+  All Tutor access is isolated in `Integrations/Tutor/`. `tools/check-tutor-contract.php` and the `real-tutor` CI job check
+  every one of these against an actual Tutor; run them, then pin the Tutor version.
 - The heartbeat rule is the blueprint's (progress ≤ elapsed × max-rate × 1.1 + 15 s). A learner can still
   idle with the page open and later claim that elapsed time as watched; stricter proof needs a signed
   segment-level scheme.

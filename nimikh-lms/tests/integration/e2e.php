@@ -23,7 +23,7 @@ ok(is_plugin_active('nimikh-lms/nimikh-lms.php'), 'plugin active');
 \Nimikh\LMS\Activator::activate();
 global $wpdb;
 foreach (['questions','video_interactions','watch_progress','interaction_attempts','certificates'] as $t) {
-	$exists = $wpdb->get_var("SELECT name FROM sqlite_master WHERE name = '{$wpdb->prefix}nimikh_$t'");
+	$exists = $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($wpdb->prefix . "nimikh_$t")));
 	ok((bool) $exists, "table nimikh_$t");
 }
 do_action('init'); do_action('rest_api_init');
