@@ -35,7 +35,8 @@
       var t = s('text', { x: x(dur * f), y: H - 8, 'text-anchor': f === 0 ? 'start' : (f === 1 ? 'end' : 'middle') }); t.textContent = mmss(Math.round(dur * f)); svg.appendChild(t);
     });
     var d = pts.map(function (p, i) { return (i ? 'L' : 'M') + x(p.start).toFixed(1) + ' ' + y(p.percent).toFixed(1); }).join(' ');
-    svg.appendChild(s('path', { 'class': 'area', d: d + ' L' + x(dur).toFixed(1) + ' ' + y(0) + ' L' + x(0) + ' ' + y(0) + ' Z' }));
+    var lastX = x(pts[pts.length - 1].start).toFixed(1);
+    svg.appendChild(s('path', { 'class': 'area', d: d + ' L' + lastX + ' ' + y(0) + ' L' + x(0) + ' ' + y(0) + ' Z' }));
     svg.appendChild(s('path', { 'class': 'line', d: d }));
     lesson.questions.forEach(function (q) {
       svg.appendChild(s('line', { 'class': 'q', x1: x(q.at_second), x2: x(q.at_second), y1: T, y2: H - B }));

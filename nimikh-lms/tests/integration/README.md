@@ -13,6 +13,7 @@ It also expects a `wp_tutor_quiz_attempts` table (see the stub for columns).
 cd /path/to/wordpress   # or set WP_ROOT=/path/to/wordpress
 php wp-content/plugins/nimikh-lms/tests/integration/e2e.php           # phase 1 flow
 php wp-content/plugins/nimikh-lms/tests/integration/e2e-phase23.php   # badges, SMS, discussion, subscriptions, institutes, live, AI, PWA
+php wp-content/plugins/nimikh-lms/tests/integration/e2e-features.php  # notes, sharing, privacy export/erase, Bangla, demo-data seed/remove
 ```
 
 `e2e-phase23.php` mocks every outbound HTTP call (`pre_http_request`), mail (`pre_wp_mail`) and SMS delivery
@@ -21,3 +22,6 @@ php wp-content/plugins/nimikh-lms/tests/integration/e2e-phase23.php   # badges, 
 The script resets the plugin's own tables at the start of each run, so run it only against a throwaway site.
 It was developed against WordPress 6.9 on SQLite; the stub contains a small test-only query filter for
 that driver's `ON DUPLICATE KEY` parsing. On MySQL/MariaDB that filter is a no-op and can be removed.
+
+`e2e-features.php` defines `NIMIKH_ALLOW_DEMO` to exercise the demo seeder, which creates and then deletes ~35 posts and 14 users;
+run it on a throwaway site. The Tutor stand-in decides enrolment from `tutor_enrolled` posts like Tutor does.

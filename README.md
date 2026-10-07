@@ -19,8 +19,16 @@ Phase 2–3 additions (all inside the same plugin):
 - **PWA** (manifest, service worker, offline page, install button, offline-safe watch progress)
 - **Analytics dashboard** (KPI tiles, retention curve with question markers, per-question accuracy)
 
+Also built: **timestamped video notes**, **"Add to LinkedIn / Facebook / WhatsApp" certificate sharing**,
+**privacy export & erase** (WordPress Tools + account deletion), a **Bangla (bn_BD) translation** of every learner-facing
+string, and a one-click **demo-data seeder**.
+
 Everything else in the blueprint (courses, enrolment, checkout, quizzes/exams, instructor dashboard)
 is Tutor LMS configuration, not custom code.
+
+| Instructor reports (demo data) | Public verify page in Bangla | Institute portal |
+| --- | --- | --- |
+| ![Reports](docs/screenshots/reports-dashboard.png) | ![Verify](docs/screenshots/verify-bangla.png) | ![Institute](docs/screenshots/institute-portal.png) |
 
 ## Layout
 
@@ -29,7 +37,8 @@ nimikh-lms/
   nimikh-lms.php          bootstrap
   src/                    PSR-4 Nimikh\LMS  (Video, Questions, Progress, Certificates, Rest, Admin, Reports, Profile, Integrations/Tutor, Support,
                           Badges, Sms, Discussion, Subscriptions, Orgs, Live, Ai, Pwa, Frontend)
-  migrations/             versioned dbDelta schema (001: blueprint 5.3 tables, 002: phase 2-3 tables)
+  migrations/             versioned dbDelta schema (001: blueprint 5.3 tables, 002: phase 2-3 tables, 003: notes)
+  languages/              nimikh-lms.pot + Bangla (bn_BD) .po/.mo;  tools/ make-pot.php, compile-mo.php (PHP only, no gettext)
   templates/              default certificate + public verify page
   assets/js, assets/css   vanilla-JS player + instructor timeline editor, design tokens (blueprint 9)
   theme/theme.json        the same tokens for the block theme / child theme
@@ -96,6 +105,41 @@ install button when the browser offers one. Caching is deliberately narrow: plug
 calls, video, wp-admin and login are never cached. Watch progress is kept in `localStorage` until the server acknowledges
 it, so a lesson watched on a train syncs when the connection returns.
 
+## Demo data
+
+Nimikh LMS → **Demo data** → *Load demo data* (or `wp nimikh demo seed` / `remove` / `status`). It creates a sample institute
+("Dhaka Digital Skills Institute"), 3 bilingual courses (10 lessons, 23 in-video questions, final exams), 2 instructors, and
+12 learners who behave differently: finishers (with certificates and badges), mid-course learners, a learner who fails the
+exam, drop-offs and starters. You also get discussion threads, learner notes, a subscription plan with two subscribers, and
+three live classes (one past, with attendance), so every report and page has something real to show.
+
+- It **refuses to run on a production environment** (set `WP_ENVIRONMENT_TYPE` to `staging`/`local`, or define
+  `NIMIKH_ALLOW_DEMO` as `true`).
+- Demo users have **no phone numbers** (an SMS gateway can never message a real person), use `example.test` emails, get random
+  passwords (shown once), and no email is sent.
+- Everything created is recorded, so **Remove demo data** deletes exactly that: users, courses, lessons, questions, enrolments
+  (including ones created by the demo subscription), certificates and their files, and the institute and plan. Other content is untouched.
+- Lesson videos use a public HLS test stream; override it with the `nimikh_lms_demo_video_url` filter. Open a lesson in the
+  editor once to detect its real duration.
+
+## Notes, sharing, privacy, Bangla
+
+- **Notes:** under every interactive video, learners write a note pinned to the current second; clicking a note jumps there
+  (never past what they have unlocked). Notes are private, limited to 500 characters and 200 per lesson.
+- **Sharing:** the dashboard offers *Add to LinkedIn* (pre-filled certification form), Facebook and WhatsApp for each valid
+  certificate. The public verify page carries Open Graph tags and share links for valid certificates only, and stays `noindex`.
+- **Privacy:** learners can request their data or its deletion from the dashboard (WordPress's standard request flow, confirmed
+  by email and processed under Tools → Export/Erase Personal Data). Deleting a WordPress account erases the same data.
+  Erasure deletes progress, answers, notes, badges, streaks, attendance, SMS log and memberships; discussion questions others
+  replied to are anonymised; certificates and subscription records are **kept anonymised** (the certificate is revoked, its file
+  deleted, and the public page shows no name). Mention this in your privacy policy. Tutor's own data is Tutor's to erase.
+- **Bangla:** set the site language to Bangla (বাংলা). 182 learner-facing strings are translated (player, questions, verify page,
+  dashboard, badges, discussion, live classes, emails). wp-admin and instructor-facing error messages stay English. **The
+  translation is a draft: please have a native speaker review it.** To add or change strings: `php tools/make-pot.php`, edit
+  `languages/nimikh-lms-bn_BD.po`, then `php tools/compile-mo.php languages/nimikh-lms-bn_BD.po`. A unit test fails if the
+  `.mo`/`.pot` are stale or a placeholder is broken. The player loads Hind Siliguri + Inter from Google Fonts; return `false`
+  from the `nimikh_lms_google_fonts_url` filter to self-host instead.
+
 ## Learner / public pages
 
 `[nimikh_dashboard]` (streak, badges, active subscriptions, certificates, public-profile toggle), `[nimikh_discussion]`,
@@ -114,11 +158,12 @@ authenticated and capability-checked.
 
 ```bash
 cd nimikh-lms && composer install
-vendor/bin/phpunit -c phpunit.xml.dist                          # 26 unit tests (pure logic)
-NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 23 browser checks: player (needs ffmpeg + Playwright Chromium)
+vendor/bin/phpunit -c phpunit.xml.dist                          # 31 unit tests (pure logic + translation guards)
+NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 28 browser checks: player incl. notes (needs ffmpeg + Playwright Chromium)
 NODE_PATH=$(npm root -g) node tests/browser/phase23.spec.cjs     # 23 browser checks: PWA offline, discussion, live, reports
 php tests/integration/e2e.php                                    # 52 checks on a real WordPress (phase 1)
 php tests/integration/e2e-phase23.php                            # 95 checks on a real WordPress (phase 2-3)
+php tests/integration/e2e-features.php                           # 64 checks: notes, sharing, privacy, Bangla, demo-data lifecycle
 ```
 
 ## Blueprint coverage
@@ -155,5 +200,9 @@ php tests/integration/e2e-phase23.php                            # 95 checks on 
 - Instructor editor lives on the lesson edit screen. Tutor's React course builder has no stable hook for a
   custom tab, so embedding it there is future work.
 - Question text is plain text (no rich text/LaTeX) in this version.
-- Not built: native mobile apps (the PWA is the mobile story), leaderboards, WordPress-multisite white-labelling,
+- Not built: native mobile apps (the PWA is the mobile story), **leaderboards (deliberately skipped: ranking learners
+  publicly is a privacy and motivation trade-off that needs a product decision)**, WordPress-multisite white-labelling,
   SCORM import, DevOps (Cloudflare, Redis, CI deploy, Sentry).
+- The demo seeder writes Tutor-style data (courses, topics, lessons, quizzes, enrolment posts, quiz attempts limited to the
+  columns your Tutor schema has) but was run against a Tutor stand-in, not real Tutor. Review it on staging first.
+- Privacy erasure covers this plugin's tables. If you log extra personal data elsewhere (analytics, gateway records), erase it there.

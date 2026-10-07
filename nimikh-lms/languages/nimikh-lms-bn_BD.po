@@ -1,0 +1,741 @@
+# Bangla (Bangladesh) translation of Nimikh LMS. Learner-facing strings only; wp-admin screens fall back to English.
+# Machine-assisted draft: please have a native speaker review before launch.
+msgid ""
+msgstr ""
+"Project-Id-Version: Nimikh LMS\n"
+"Language: bn_BD\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: nimikh-lms\n"
+
+#: src/Profile/ProfileShortcodes.php:159
+msgid "%1$s — active until %2$s"
+msgstr "%1$s — %2$s পর্যন্ত সক্রিয়"
+
+#: src/Profile/ProfileShortcodes.php:138
+msgid "%d-day learning streak"
+msgid_plural "%d-day learning streak"
+msgstr[0] "%d দিনের শেখার ধারা"
+msgstr[1] "%d দিনের শেখার ধারা"
+
+#: src/Certificates/CertificateService.php:167
+msgid "(learner data erased)"
+msgstr "(শিক্ষার্থীর তথ্য মুছে ফেলা হয়েছে)"
+
+#: src/Badges/BadgeCatalog.php:13
+msgid "3-day streak"
+msgstr "৩ দিনের ধারাবাহিকতা"
+
+#: src/Questions/QuestionRepository.php:29
+msgid "A question needs 2 to 6 options."
+msgstr "একটি প্রশ্নে ২ থেকে ৬টি অপশন থাকতে হবে।"
+
+#: src/Questions/QuestionRepository.php:26
+msgid "A question needs text."
+msgstr "প্রশ্নের লেখা দিতে হবে।"
+
+#: src/Video/FrontendPlayer.php:71
+msgid "Add note at"
+msgstr "নোট যোগ করুন"
+
+#: src/Profile/ProfileShortcodes.php:173
+msgid "Add to LinkedIn"
+msgstr "লিংকডইনে যোগ করুন"
+
+#: src/Video/FrontendPlayer.php:64
+msgid "Answer the question to continue"
+msgstr "এগিয়ে যেতে প্রশ্নটির উত্তর দিন"
+
+#: src/Privacy/PrivacyService.php:71
+msgid "Answered at"
+msgstr "উত্তরের সময়"
+
+#: src/Frontend/Shortcodes.php:65
+msgid "Ask"
+msgstr "জিজ্ঞাসা করুন"
+
+#: src/Frontend/Shortcodes.php:64
+msgid "Ask a question about this lesson…"
+msgstr "এই পাঠ সম্পর্কে প্রশ্ন করুন…"
+
+#: src/Privacy/PrivacyService.php:82
+msgid "At second"
+msgstr "সেকেন্ডে"
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Awarded"
+msgstr "অর্জনের তারিখ"
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Badge"
+msgstr "ব্যাজ"
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Badges"
+msgstr "ব্যাজ"
+
+#: templates/verify.php:12
+msgid "Cannot be verified"
+msgstr "যাচাই করা যায়নি"
+
+#: src/Privacy/PrivacyService.php:76 templates/verify.php:45 templates/verify.php:75
+msgid "Certificate ID"
+msgstr "সনদ আইডি"
+
+#: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:86
+msgid "Certificate not found."
+msgstr "সনদ পাওয়া যায়নি।"
+
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:111 src/Privacy/PrivacyService.php:75
+msgid "Certificates"
+msgstr "সনদ"
+
+#: src/Privacy/PrivacyService.php:119
+msgid "Certificates and subscription records were kept in anonymised form (they no longer identify you). Their files were deleted."
+msgstr "সনদ ও সাবস্ক্রিপশনের রেকর্ড পরিচয়হীন আকারে রাখা হয়েছে (এগুলো আর আপনাকে শনাক্ত করে না)। সংশ্লিষ্ট ফাইল মুছে ফেলা হয়েছে।"
+
+#: src/Badges/BadgeCatalog.php:16
+msgid "Certified"
+msgstr "সনদপ্রাপ্ত"
+
+#: src/Video/FrontendPlayer.php:58
+msgid "Check answer"
+msgstr "উত্তর যাচাই করুন"
+
+#: src/Pwa/Pwa.php:99
+msgid "Check your connection. Your video progress is saved on this device and will sync when you are back online."
+msgstr "আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন। আপনার ভিডিও অগ্রগতি এই ডিভাইসে সংরক্ষিত আছে এবং অনলাইনে ফিরলে সিঙ্ক হবে।"
+
+#: src/Profile/ProfileShortcodes.php:76
+msgid "Check your email to confirm your request."
+msgstr "আপনার অনুরোধ নিশ্চিত করতে ইমেইল দেখুন।"
+
+#: src/Rest/AuthoringController.php:196
+msgid "Choose a time for the question."
+msgstr "প্রশ্নটি কোন সময়ে আসবে তা বেছে নিন।"
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Class"
+msgstr "ক্লাস"
+
+#: src/Live/LiveService.php:116
+msgid "Class not found."
+msgstr "ক্লাস পাওয়া যায়নি।"
+
+#: src/Privacy/PrivacyService.php:65
+msgid "Completed"
+msgstr "সম্পন্ন"
+
+#: src/Badges/BadgeCatalog.php:12
+msgid "Completed 25 lessons."
+msgstr "২৫টি পাঠ সম্পন্ন করেছেন।"
+
+#: src/Badges/BadgeCatalog.php:11
+msgid "Completed your first lesson."
+msgstr "আপনার প্রথম পাঠ সম্পন্ন করেছেন।"
+
+#: src/Video/FrontendPlayer.php:57
+msgid "Continue"
+msgstr "চালিয়ে যান"
+
+#: src/Privacy/PrivacyService.php:71 src/Video/FrontendPlayer.php:60
+msgid "Correct"
+msgstr "সঠিক"
+
+#: src/Video/FrontendPlayer.php:67
+msgid "Could not load the video. Please refresh."
+msgstr "ভিডিও লোড করা যায়নি। অনুগ্রহ করে পেজটি রিফ্রেশ করুন।"
+
+#: src/Video/FrontendPlayer.php:74
+msgid "Could not save the note."
+msgstr "নোটটি সংরক্ষণ করা যায়নি।"
+
+#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+msgid "Course"
+msgstr "কোর্স"
+
+#: src/Rest/OrgController.php:74 src/Support/BatchEnrol.php:23
+msgid "Course not found."
+msgstr "কোর্স পাওয়া যায়নি।"
+
+#: src/Frontend/Shortcodes.php:68
+msgid "Delete"
+msgstr "মুছুন"
+
+#: src/Video/FrontendPlayer.php:72
+msgid "Delete note"
+msgstr "নোট মুছুন"
+
+#: src/Frontend/Shortcodes.php:39
+msgid "Discussion"
+msgstr "আলোচনা"
+
+#: src/Rest/DiscussionController.php:30
+msgid "Discussion is turned off."
+msgstr "আলোচনা বন্ধ আছে।"
+
+#: src/Privacy/PrivacyService.php:86
+msgid "Discussion posts"
+msgstr "আলোচনার পোস্ট"
+
+#: src/Profile/ProfileShortcodes.php:125
+msgid "Download"
+msgstr "ডাউনলোড"
+
+#: src/Badges/BadgeCatalog.php:17
+msgid "Earned 3 certificates."
+msgstr "৩টি সনদ অর্জন করেছেন।"
+
+#: src/Badges/BadgeCatalog.php:16
+msgid "Earned your first certificate."
+msgstr "আপনার প্রথম সনদ অর্জন করেছেন।"
+
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+msgid "Expires"
+msgstr "মেয়াদ শেষ"
+
+#: src/Profile/ProfileShortcodes.php:174
+msgid "Facebook"
+msgstr "ফেসবুক"
+
+#: src/Integrations/Tutor/TutorHooks.php:96
+msgid "Finish watching the video and answer its questions to complete this lesson."
+msgstr "এই পাঠ সম্পন্ন করতে ভিডিওটি শেষ পর্যন্ত দেখুন এবং এর প্রশ্নগুলোর উত্তর দিন।"
+
+#: src/Badges/BadgeCatalog.php:11
+msgid "First step"
+msgstr "প্রথম পদক্ষেপ"
+
+#: src/Discussion/DiscussionService.php:132
+msgid "Former learner"
+msgstr "সাবেক শিক্ষার্থী"
+
+#: src/Certificates/CertificateService.php:129
+msgid "Hi %1$s,\n\nCongratulations, you earned your certificate for \"%2$s\".\nAnyone can verify it here: %3$s\n\nCertificate ID: %4$s\n"
+msgstr "হ্যালো %1$s,\n\nঅভিনন্দন! আপনি \"%2$s\" কোর্সের সনদ অর্জন করেছেন।\nযে কেউ এখানে এটি যাচাই করতে পারবেন: %3$s\n\nসনদ আইডি: %4$s\n"
+
+#: src/Profile/ProfileShortcodes.php:50
+msgid "Hi %s"
+msgstr "হ্যালো %s"
+
+#: src/Frontend/Shortcodes.php:72
+msgid "Hidden from learners"
+msgstr "শিক্ষার্থীদের কাছ থেকে লুকানো"
+
+#: src/Frontend/Shortcodes.php:69
+msgid "Hide"
+msgstr "লুকান"
+
+#: src/Profile/ProfileShortcodes.php:175
+msgid "I earned a certificate in %s:"
+msgstr "আমি %s কোর্সে সনদ অর্জন করেছি:"
+
+#: src/Privacy/PrivacyService.php:69
+msgid "In-video question answers"
+msgstr "ভিডিও-প্রশ্নের উত্তর"
+
+#: src/Pwa/Pwa.php:63
+msgid "Install the app"
+msgstr "অ্যাপ ইনস্টল করুন"
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Institute"
+msgstr "প্রতিষ্ঠান"
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Institute memberships"
+msgstr "প্রতিষ্ঠানের সদস্যপদ"
+
+#: src/Frontend/Shortcodes.php:71
+msgid "Instructor"
+msgstr "প্রশিক্ষক"
+
+#: src/Questions/AttemptService.php:39
+msgid "Invalid option."
+msgstr "অবৈধ অপশন।"
+
+#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+msgid "Issued"
+msgstr "প্রদানের তারিখ"
+
+#: templates/verify.php:26
+msgid "Issued by %s"
+msgstr "প্রদানকারী: %s"
+
+#: templates/verify.php:74
+msgid "Issuer"
+msgstr "প্রদানকারী"
+
+#: src/Frontend/Shortcodes.php:76
+msgid "Join class"
+msgstr "ক্লাসে যোগ দিন"
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Joined"
+msgstr "যোগ দিয়েছেন"
+
+#: src/Privacy/PrivacyService.php:65
+msgid "Last activity"
+msgstr "সর্বশেষ কার্যকলাপ"
+
+#: src/Badges/BadgeCatalog.php:13
+msgid "Learned 3 days in a row."
+msgstr "টানা ৩ দিন শিখেছেন।"
+
+#: src/Badges/BadgeCatalog.php:15
+msgid "Learned 30 days in a row."
+msgstr "টানা ৩০ দিন শিখেছেন।"
+
+#: src/Badges/BadgeCatalog.php:14
+msgid "Learned 7 days in a row."
+msgstr "টানা ৭ দিন শিখেছেন।"
+
+#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:87
+msgid "Lesson"
+msgstr "পাঠ"
+
+#: src/Video/FrontendPlayer.php:66
+msgid "Lesson complete"
+msgstr "পাঠ সম্পন্ন"
+
+#: src/Rest/BaseController.php:30
+msgid "Lesson not found."
+msgstr "পাঠ পাওয়া যায়নি।"
+
+#: src/Privacy/PrivacyService.php:63
+msgid "Lesson progress"
+msgstr "পাঠের অগ্রগতি"
+
+#: src/Video/FrontendPlayer.php:62
+msgid "Let's watch that part again"
+msgstr "চলুন অংশটি আবার দেখি"
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Live class attendance"
+msgstr "লাইভ ক্লাসে উপস্থিতি"
+
+#: src/Live/LiveService.php:169
+msgid "Live class soon: %s"
+msgstr "শীঘ্রই লাইভ ক্লাস: %s"
+
+#: src/Frontend/Shortcodes.php:78
+msgid "Live now"
+msgstr "এখন লাইভ"
+
+#: src/Questions/QuestionRepository.php:32
+msgid "Mark one option as correct."
+msgstr "একটি অপশনকে সঠিক হিসেবে চিহ্নিত করুন।"
+
+#: src/Badges/BadgeCatalog.php:15
+msgid "Month streak"
+msgstr "মাসব্যাপী ধারাবাহিকতা"
+
+#: src/Video/FrontendPlayer.php:69
+msgid "My notes"
+msgstr "আমার নোট"
+
+#: src/Admin/Phase3Pages.php:99 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:176
+msgid "Name"
+msgstr "নাম"
+
+#: src/Discussion/DiscussionService.php:151
+msgid "New question in %s"
+msgstr "%s-এ নতুন প্রশ্ন"
+
+#: src/Privacy/PrivacyService.php:71
+msgid "No"
+msgstr "না"
+
+#: templates/verify.php:63
+msgid "No certificate matches that ID. Check the code on the certificate and try again."
+msgstr "এই আইডির সাথে কোনো সনদ মেলেনি। সনদের কোডটি দেখে আবার চেষ্টা করুন।"
+
+#: src/Profile/ProfileShortcodes.php:112
+msgid "No certificates yet. Finish a course to earn one."
+msgstr "এখনো কোনো সনদ নেই। একটি কোর্স শেষ করে সনদ অর্জন করুন।"
+
+#: templates/institute.php:36
+msgid "No courses are published yet."
+msgstr "এখনো কোনো কোর্স প্রকাশিত হয়নি।"
+
+#: src/Frontend/Shortcodes.php:75
+msgid "No live classes scheduled."
+msgstr "কোনো লাইভ ক্লাস নির্ধারিত নেই।"
+
+#: src/Video/FrontendPlayer.php:73
+msgid "No notes yet. Pause the video and jot something down."
+msgstr "এখনো কোনো নোট নেই। ভিডিও থামিয়ে কিছু লিখে রাখুন।"
+
+#: src/Frontend/Shortcodes.php:73
+msgid "No questions yet. Be the first to ask."
+msgstr "এখনো কোনো প্রশ্ন নেই। প্রথম প্রশ্নটি আপনিই করুন।"
+
+#: templates/verify.php:13
+msgid "Not found"
+msgstr "পাওয়া যায়নি"
+
+#: src/Video/FrontendPlayer.php:61
+msgid "Not quite. Have another go."
+msgstr "ঠিক হয়নি। আরেকবার চেষ্টা করুন।"
+
+#: src/Privacy/PrivacyService.php:82
+msgid "Note"
+msgstr "নোট"
+
+#: src/Rest/NoteController.php:37
+msgid "Note not found."
+msgstr "নোট পাওয়া যায়নি।"
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Number"
+msgstr "নম্বর"
+
+#: src/Badges/BadgeCatalog.php:12
+msgid "On a roll"
+msgstr "দারুণ এগোচ্ছেন"
+
+#: src/Rest/DiscussionController.php:54
+msgid "Only course staff can moderate."
+msgstr "শুধু কোর্সের স্টাফরা মডারেট করতে পারেন।"
+
+#: src/Frontend/Shortcodes.php:77
+msgid "Opens 10 minutes before start"
+msgstr "শুরুর ১০ মিনিট আগে খুলবে"
+
+#: src/Privacy/PrivacyService.php:70
+msgid "Option chosen"
+msgstr "নির্বাচিত অপশন"
+
+#: src/Privacy/PrivacyService.php:64
+msgid "Percent watched"
+msgstr "দেখা হয়েছে (%)"
+
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+msgid "Plan"
+msgstr "প্ল্যান"
+
+#: src/Video/FrontendPlayer.php:65
+msgid "Playback speed is limited for this course"
+msgstr "এই কোর্সে প্লেব্যাক গতি সীমিত"
+
+#: src/Profile/ProfileShortcodes.php:41
+msgid "Please log in to see your dashboard."
+msgstr "আপনার ড্যাশবোর্ড দেখতে অনুগ্রহ করে লগ ইন করুন।"
+
+#: src/Video/FrontendPlayer.php:47
+msgid "Please log in to watch this lesson."
+msgstr "এই পাঠ দেখতে অনুগ্রহ করে লগ ইন করুন।"
+
+#: src/Rest/LiveController.php:28 src/Rest/OrgController.php:31 src/Rest/BaseController.php:25
+msgid "Please log in."
+msgstr "অনুগ্রহ করে লগ ইন করুন।"
+
+#: src/Privacy/PrivacyService.php:87
+msgid "Post"
+msgstr "পোস্ট"
+
+#: src/Privacy/PrivacyService.php:87
+msgid "Posted"
+msgstr "পোস্টের সময়"
+
+#: src/Video/FrontendPlayer.php:68
+msgid "Progress saved"
+msgstr "অগ্রগতি সংরক্ষিত"
+
+#: src/Privacy/PrivacyService.php:70
+msgid "Question"
+msgstr "প্রশ্ন"
+
+#: src/Rest/AuthoringController.php:101 src/Questions/AttemptService.php:31
+msgid "Question not found."
+msgstr "প্রশ্ন পাওয়া যায়নি।"
+
+#: src/Video/FrontendPlayer.php:56
+msgid "Quick check!"
+msgstr "দ্রুত যাচাই!"
+
+#: src/Admin/AdminPages.php:134 templates/verify.php:77
+msgid "Reason"
+msgstr "কারণ"
+
+#: src/Frontend/Shortcodes.php:66
+msgid "Reply"
+msgstr "উত্তর দিন"
+
+#: src/Profile/ProfileShortcodes.php:72
+msgid "Request a copy of my data"
+msgstr "আমার তথ্যের একটি কপি চাই"
+
+#: src/Profile/ProfileShortcodes.php:74
+msgid "Request deletion of my data"
+msgstr "আমার তথ্য মুছে ফেলার অনুরোধ"
+
+#: templates/verify.php:11
+msgid "Revoked"
+msgstr "বাতিল"
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Role"
+msgstr "ভূমিকা"
+
+#: src/Privacy/PrivacyService.php:102
+msgid "SMS notifications"
+msgstr "এসএমএস বিজ্ঞপ্তি"
+
+#: src/Profile/ProfileShortcodes.php:62
+msgid "Save"
+msgstr "সংরক্ষণ করুন"
+
+#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:72
+msgid "Score"
+msgstr "স্কোর"
+
+#: src/Badges/BadgeCatalog.php:18
+msgid "Scored 100% on in-video questions in a course."
+msgstr "একটি কোর্সের ভিডিও-প্রশ্নে ১০০% নম্বর পেয়েছেন।"
+
+#: src/Frontend/Shortcodes.php:67
+msgid "Send"
+msgstr "পাঠান"
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Sent"
+msgstr "পাঠানো হয়েছে"
+
+#: src/Profile/ProfileShortcodes.php:177
+msgid "Share"
+msgstr "শেয়ার"
+
+#: templates/verify.php:81
+msgid "Share:"
+msgstr "শেয়ার করুন:"
+
+#: src/Badges/BadgeCatalog.php:18
+msgid "Sharp mind"
+msgstr "তীক্ষ্ণ মেধা"
+
+#: src/Profile/ProfileShortcodes.php:61
+msgid "Show my certificates on a public profile"
+msgstr "আমার সনদ পাবলিক প্রোফাইলে দেখান"
+
+#: src/Video/FrontendPlayer.php:59
+msgid "Skip"
+msgstr "এড়িয়ে যান"
+
+#: src/Notes/NoteService.php:44
+msgid "Slow down a little."
+msgstr "একটু ধীরে করুন।"
+
+#: src/Frontend/Shortcodes.php:74
+msgid "Something went wrong. Please try again."
+msgstr "কিছু একটা ভুল হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।"
+
+#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:95
+msgid "Starts"
+msgstr "শুরু"
+
+#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+msgid "Status"
+msgstr "অবস্থা"
+
+#: src/Privacy/PrivacyService.php:94
+msgid "Subscriptions"
+msgstr "সাবস্ক্রিপশন"
+
+#: templates/verify.php:52
+msgid "That does not look like a certificate ID."
+msgstr "এটি কোনো সনদ আইডির মতো দেখাচ্ছে না।"
+
+#: src/Discussion/DiscussionService.php:26
+msgid "That is too long."
+msgstr "এটি অনেক বড়।"
+
+#: src/Notes/NoteService.php:37
+msgid "That note is too long."
+msgstr "নোটটি অনেক বড়।"
+
+#: src/Notes/NoteService.php:41
+msgid "That time is outside the video."
+msgstr "এই সময়টি ভিডিওর বাইরে।"
+
+#: src/Ai/QuestionGenerator.php:59
+msgid "The AI service did not respond. Try again in a moment."
+msgstr "এআই সেবা সাড়া দেয়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।"
+
+#: src/Video/FrontendPlayer.php:63
+msgid "The correct answer is highlighted."
+msgstr "সঠিক উত্তরটি চিহ্নিত করা হয়েছে।"
+
+#: src/Profile/ProfileShortcodes.php:73
+msgid "This asks the site to permanently delete your learning data, progress and certificates. Continue?"
+msgstr "এর মাধ্যমে সাইটকে আপনার শেখার তথ্য, অগ্রগতি ও সনদ স্থায়ীভাবে মুছে ফেলতে অনুরোধ করা হবে। চালিয়ে যাবেন?"
+
+#: templates/verify.php:65
+msgid "This certificate exists but its file failed an integrity check. Please contact the issuer."
+msgstr "এই সনদটি আছে, কিন্তু এর ফাইলটি অখণ্ডতা যাচাইয়ে ব্যর্থ হয়েছে। অনুগ্রহ করে প্রদানকারীর সাথে যোগাযোগ করুন।"
+
+#: src/Certificates/VerifyRoute.php:89
+msgid "This certificate has been revoked."
+msgstr "এই সনদটি বাতিল করা হয়েছে।"
+
+#: src/Live/LiveService.php:124
+msgid "This class has not opened yet. You can join 10 minutes before it starts."
+msgstr "এই ক্লাস এখনো খোলেনি। শুরুর ১০ মিনিট আগে থেকে যোগ দিতে পারবেন।"
+
+#: src/Live/LiveService.php:124
+msgid "This class is over."
+msgstr "এই ক্লাস শেষ হয়ে গেছে।"
+
+#: src/Progress/ProgressService.php:85
+msgid "This lesson has no video duration set."
+msgstr "এই পাঠের ভিডিওর সময়কাল নির্ধারণ করা নেই।"
+
+#: src/Rest/PlayerController.php:50
+msgid "This lesson has no video yet."
+msgstr "এই পাঠে এখনো কোনো ভিডিও নেই।"
+
+#: src/Profile/ProfileShortcodes.php:88
+msgid "This profile is not available."
+msgstr "এই প্রোফাইলটি পাওয়া যাচ্ছে না।"
+
+#: src/Questions/AttemptService.php:26
+msgid "Too many answers. Please slow down."
+msgstr "অনেক বেশি উত্তর জমা পড়েছে। একটু ধীরে করুন।"
+
+#: src/Rest/CertificateController.php:56
+msgid "Too many lookups."
+msgstr "অনেক বেশি অনুসন্ধান।"
+
+#: src/Certificates/VerifyRoute.php:63
+msgid "Too many lookups. Try again in a minute."
+msgstr "অনেক বেশি অনুসন্ধান। এক মিনিট পর আবার চেষ্টা করুন।"
+
+#: src/Discussion/DiscussionService.php:29
+msgid "Too many posts. Please wait a minute."
+msgstr "অনেক বেশি পোস্ট। এক মিনিট অপেক্ষা করুন।"
+
+#: src/Badges/BadgeCatalog.php:17
+msgid "Triple certified"
+msgstr "তিনটি সনদ"
+
+#: src/Pwa/Pwa.php:100
+msgid "Try again"
+msgstr "আবার চেষ্টা করুন"
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Type"
+msgstr "ধরন"
+
+#: src/Frontend/Shortcodes.php:70
+msgid "Unhide"
+msgstr "দেখান"
+
+#: src/Rest/SubscriptionController.php:45 src/Subscriptions/SubscriptionService.php:90
+msgid "User not found."
+msgstr "ব্যবহারকারী পাওয়া যায়নি।"
+
+#: templates/verify.php:10
+msgid "Valid"
+msgstr "বৈধ"
+
+#: src/Profile/ProfileShortcodes.php:123
+msgid "Verification link"
+msgstr "যাচাইকরণ লিংক"
+
+#: src/Profile/ProfileShortcodes.php:117
+msgid "Verified"
+msgstr "যাচাইকৃত"
+
+#: templates/verify.php:25 templates/verify.php:83
+msgid "Verified certificate: %s"
+msgstr "যাচাইকৃত সনদ: %s"
+
+#: templates/verify.php:49
+msgid "Verify"
+msgstr "যাচাই করুন"
+
+#: templates/verify.php:29 templates/verify.php:42 templates/institute.php:47
+msgid "Verify a certificate"
+msgstr "সনদ যাচাই করুন"
+
+#: src/Privacy/PrivacyService.php:81
+msgid "Video notes"
+msgstr "ভিডিও নোট"
+
+#: src/Profile/ProfileShortcodes.php:65
+msgid "View my public profile"
+msgstr "আমার পাবলিক প্রোফাইল দেখুন"
+
+#: src/Badges/BadgeCatalog.php:14
+msgid "Week streak"
+msgstr "সাপ্তাহিক ধারাবাহিকতা"
+
+#: src/Profile/ProfileShortcodes.php:175
+msgid "WhatsApp"
+msgstr "হোয়াটসঅ্যাপ"
+
+#: src/Discussion/DiscussionService.php:23
+msgid "Write a little more."
+msgstr "আরেকটু লিখুন।"
+
+#: src/Video/FrontendPlayer.php:70
+msgid "Write a note for this moment…"
+msgstr "এই মুহূর্তের জন্য একটি নোট লিখুন…"
+
+#: src/Notes/NoteService.php:34
+msgid "Write something first."
+msgstr "আগে কিছু লিখুন।"
+
+#: src/Privacy/PrivacyService.php:71
+msgid "Yes"
+msgstr "হ্যাঁ"
+
+#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Live/LiveService.php:120
+msgid "You are not enrolled in this course."
+msgstr "আপনি এই কোর্সে ভর্তি নন।"
+
+#: src/Pwa/Pwa.php:98
+msgid "You are offline"
+msgstr "আপনি অফলাইনে আছেন"
+
+#: src/Discussion/DiscussionService.php:38
+msgid "You can only reply to a question in this lesson."
+msgstr "আপনি শুধু এই পাঠের কোনো প্রশ্নের উত্তর দিতে পারবেন।"
+
+#: src/Rest/DiscussionController.php:48
+msgid "You cannot delete that."
+msgstr "আপনি এটি মুছতে পারবেন না।"
+
+#: src/Notes/NoteService.php:50
+msgid "You have reached the note limit for this lesson."
+msgstr "এই পাঠে নোটের সীমা শেষ হয়েছে।"
+
+#: src/Certificates/CertificateService.php:126
+msgid "Your certificate for %s"
+msgstr "%s-এর জন্য আপনার সনদ"
+
+#: src/Certificates/VerifyRoute.php:93
+msgid "Your certificate is still being prepared. Check again in a minute."
+msgstr "আপনার সনদ এখনো প্রস্তুত হচ্ছে। এক মিনিট পর আবার দেখুন।"
+
+#: src/Profile/ProfileShortcodes.php:68
+msgid "Your data"
+msgstr "আপনার তথ্য"
+
+#: src/Live/LiveService.php:169
+msgid "Your live class \"%1$s\" starts at %2$s.\nOpen your course to join: %3$s"
+msgstr "আপনার লাইভ ক্লাস \"%1$s\" %2$s-এ শুরু হবে।\nযোগ দিতে আপনার কোর্স খুলুন: %3$s"
+
+#: src/Privacy/PrivacyService.php:140
+msgid "[removed by the author]"
+msgstr "[লেখক মুছে ফেলেছেন]"
+
+#: src/Integrations/Tutor/TutorHooks.php:70
+msgid "not passed yet"
+msgstr "এখনো উত্তীর্ণ হননি"
+
+#: src/Integrations/Tutor/TutorHooks.php:70
+msgid "passed"
+msgstr "উত্তীর্ণ"

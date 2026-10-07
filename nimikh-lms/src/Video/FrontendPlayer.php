@@ -20,7 +20,10 @@ final class FrontendPlayer {
 
 	public function registerAssets(): void {
 		$v = NIMIKH_LMS_VERSION;
-		wp_register_style('nimikh-tokens', NIMIKH_LMS_URL . 'assets/css/tokens.css', [], $v);
+		// Blueprint 9.2: Hind Siliguri (Bangla) + Inter. Filter to false to self-host the fonts instead.
+		$fonts = apply_filters('nimikh_lms_google_fonts_url', 'https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Inter:wght@400;600;700&display=swap');
+		wp_register_style('nimikh-fonts', $fonts ?: false, [], null);
+		wp_register_style('nimikh-tokens', NIMIKH_LMS_URL . 'assets/css/tokens.css', $fonts ? ['nimikh-fonts'] : [], $v);
 		wp_register_style('nimikh-player', NIMIKH_LMS_URL . 'assets/css/player.css', ['nimikh-tokens'], $v);
 		wp_register_script('nimikh-player', NIMIKH_LMS_URL . 'assets/js/player.js', [], $v, ['in_footer' => true, 'strategy' => 'defer']);
 	}
@@ -63,6 +66,12 @@ final class FrontendPlayer {
 				'completed'   => __('Lesson complete', 'nimikh-lms'),
 				'loadError'   => __('Could not load the video. Please refresh.', 'nimikh-lms'),
 				'saving'      => __('Progress saved', 'nimikh-lms'),
+				'notes'       => __('My notes', 'nimikh-lms'),
+				'notePlaceholder' => __('Write a note for this moment…', 'nimikh-lms'),
+				'addNoteAt'   => __('Add note at', 'nimikh-lms'),
+				'noteDelete'  => __('Delete note', 'nimikh-lms'),
+				'notesEmpty'  => __('No notes yet. Pause the video and jot something down.', 'nimikh-lms'),
+				'noteError'   => __('Could not save the note.', 'nimikh-lms'),
 			],
 		]);
 		return sprintf('<div class="nk-player" data-lesson="%d" data-mode="learner"></div>', $lessonId);

@@ -12,7 +12,7 @@ const videoPath = path.join(tmp, 'v.webm');
 execFileSync('ffmpeg', ['-v', 'error', '-f', 'lavfi', '-i', 'testsrc=size=320x180:rate=15:duration=30', '-c:v', 'libvpx', '-b:v', '200k', '-an', videoPath]);
 
 // ---- mock of the nimikh/v1 contract the player depends on --------------------
-const state = { beats: [], attempts: [], resolved: false, tries: 0, failBeats: false };
+const state = { beats: [], attempts: [], resolved: false, tries: 0, failBeats: false, notes: [], noteSeq: 1 };
 const lesson = {
   lesson_id: 7, title: 'Demo', duration: 30,
   source: { type: 'mp4', url: '/v.webm', expires: 0 },
@@ -30,7 +30,8 @@ const page = `<!doctype html><meta charset=utf-8><link rel=stylesheet href=/play
 <script>window.NimikhPlayer=${JSON.stringify({ restUrl: '/api', nonce: 'n', hlsSrc: '', i18n: {
   quickCheck: 'Quick check!', continue: 'Continue', submit: 'Check answer', skip: 'Skip', correct: 'Correct', tryAgain: 'Not quite. Have another go.',
   rewind: "Let's watch that part again", answerIs: 'The correct answer is highlighted.', mustAnswer: 'Answer the question to continue',
-  speedCapped: 'Playback speed is limited for this course', completed: 'Lesson complete', loadError: 'err', saving: 'saved' } })}</script>
+  speedCapped: 'Playback speed is limited for this course', completed: 'Lesson complete', loadError: 'err', saving: 'saved',
+  notes: 'My notes', notePlaceholder: 'Write a note for this moment…', addNoteAt: 'Add note at', noteDelete: 'Delete note', notesEmpty: 'No notes yet.', noteError: 'Could not save the note.' } })}</script>
 <script src=/player.js></script>`;
 
 const server = http.createServer((req, res) => {
@@ -50,6 +51,9 @@ const server = http.createServer((req, res) => {
   }
   let body = ''; req.on('data', (c) => (body += c)); req.on('end', () => {
     const data = body ? JSON.parse(body) : {};
+    if (req.method === 'GET' && req.url === '/api/lessons/7/notes') return json(state.notes.slice().sort((a, b) => a.at_second - b.at_second));
+    if (req.method === 'POST' && req.url === '/api/lessons/7/notes') { const n = { id: state.noteSeq++, at_second: data.at_second, body: String(data.body).replace(/<[^>]*>/g, ''), created_at: '2026-10-07 10:00:00' }; state.notes.push(n); return json(n); }
+    if (req.method === 'DELETE' && req.url.startsWith('/api/notes/')) { state.notes = state.notes.filter((n) => n.id !== +req.url.split('/').pop()); return json({ deleted: true }); }
     if (req.url === '/api/lessons/7/player') return json({ ...lesson, gate: lesson.interactions[0].resolved ? null : 8 });
     if (req.url.startsWith('/api/lessons/7/heartbeat') && state.failBeats) { res.writeHead(503, { 'Content-Type': 'application/json' }); return res.end('{}'); }
     if (req.url.startsWith('/api/lessons/7/heartbeat')) { state.beats.push(data); return json({ ok: true, rejected: false, furthest: 8, percent: 0, completed: false, gate: lesson.interactions[0].resolved ? null : 8 }); }
@@ -134,6 +138,24 @@ const server = http.createServer((req, res) => {
   await pg.keyboard.press('Escape');
   await pg.waitForTimeout(300);
   check((await pg.locator('[role=dialog]').count()) === 0, 'Escape dismisses an optional question');
+
+  // Notes
+  await pg.evaluate(() => { const v = document.querySelector('video'); v.pause(); v.currentTime = 4; });
+  await pg.waitForTimeout(400);
+  check(/Add note at 0:0[0-9]/.test(await pg.locator('.nk-notes .nk-btn').first().innerText()), 'the note button shows the current video time');
+  await pg.locator('.nk-notes textarea').fill('Remember: <b>SUM</b> adds');
+  await pg.locator('.nk-notes .nk-btn').first().click();
+  await pg.waitForSelector('.nk-notes__list li span');
+  check((await pg.locator('.nk-notes__list li span').first().innerText()) === 'Remember: SUM adds' && state.notes[0].at_second === 4, 'a note is saved at the current second and listed', JSON.stringify(state.notes));
+  check(await pg.locator('.nk-notes__list b').count() === 0, 'note text is rendered as text, never HTML');
+  await pg.evaluate(() => { document.querySelector('video').currentTime = 0; });
+  await pg.locator('.nk-notes__list li button').first().click();
+  await pg.waitForTimeout(500);
+  check(await pg.evaluate(() => document.querySelector('video').currentTime) >= 3.5, 'clicking a note jumps the video to its time');
+  await pg.evaluate(() => document.querySelector('video').pause());
+  await pg.getByRole('button', { name: 'Delete note' }).click();
+  await pg.waitForSelector('.nk-notes__list .nk-empty');
+  check(state.notes.length === 0, 'deleting a note removes it');
 
   // Offline-safe progress: ranges the server never acknowledged survive a reload and are re-sent.
   state.failBeats = true;

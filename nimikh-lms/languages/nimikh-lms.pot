@@ -1,0 +1,1286 @@
+# Nimikh LMS translation template.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Nimikh LMS\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: nimikh-lms\n"
+
+#: src/Admin/AdminPages.php:166
+msgid "%1$d enrolled, %2$d created, %3$d skipped."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:159
+msgid "%1$s — active until %2$s"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:138
+msgid "%d-day learning streak"
+msgid_plural "%d-day learning streak"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Certificates/CertificateService.php:167
+msgid "(learner data erased)"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:13
+msgid "3-day streak"
+msgstr ""
+
+#: src/Rest/SubscriptionController.php:35
+msgid "A plan needs a name, at least one course and a duration."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:143
+msgid "A plan needs a name, courses and a duration."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:94
+msgid "A plan unlocks courses for a number of days. Payment gateways grant access by firing do_action( 'nimikh_subscription_paid', $user_id, $plan_id, $reference )."
+msgstr ""
+
+#: src/Questions/QuestionRepository.php:29
+msgid "A question needs 2 to 6 options."
+msgstr ""
+
+#: src/Questions/QuestionRepository.php:26
+msgid "A question needs text."
+msgstr ""
+
+#: src/Rest/CertificateController.php:68
+msgid "A reason is required."
+msgstr ""
+
+#: src/Admin/AdminPages.php:64
+msgid "AI model ID"
+msgstr ""
+
+#: src/Admin/AdminPages.php:62
+msgid "AI question suggestions (sends transcripts to Anthropic)"
+msgstr ""
+
+#: src/Ai/QuestionGenerator.php:23
+msgid "AI suggestions are not enabled. An administrator can turn them on in the settings."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:190
+msgid "Add member"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:71
+msgid "Add note at"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:173
+msgid "Add to LinkedIn"
+msgstr ""
+
+#: src/Rest/BaseController.php:59
+msgid "Admin access required."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:180
+msgid "Admin email"
+msgstr ""
+
+#: src/Orgs/OrgRepository.php:16
+msgid "An institute needs a name."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:64
+msgid "Answer the question to continue"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:71
+msgid "Answered at"
+msgstr ""
+
+#: src/Admin/AdminPages.php:63
+msgid "Anthropic API key"
+msgstr ""
+
+#: src/Admin/AdminPages.php:67
+msgid "App icon URL (optional, SVG or PNG)"
+msgstr ""
+
+#: src/Admin/AdminPages.php:66
+msgid "App start URL (e.g. the dashboard page)"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:65
+msgid "Ask"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:64
+msgid "Ask a question about this lesson…"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:196
+msgid "Assign course"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:82
+msgid "At second"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Awarded"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Badge"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:91
+msgid "Badges"
+msgstr ""
+
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:160
+msgid "Batch enrolment"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:178
+msgid "Brand colour"
+msgstr ""
+
+#: src/Admin/AdminPages.php:48
+msgid "Bunny pull-zone hostname"
+msgstr ""
+
+#: src/Admin/AdminPages.php:49
+msgid "Bunny token authentication key"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:49
+msgid "Bunny video ID"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:129 src/Admin/Phase3Pages.php:262
+msgid "Cancel"
+msgstr ""
+
+#: templates/verify.php:12
+msgid "Cannot be verified"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:76 templates/verify.php:45 templates/verify.php:75
+msgid "Certificate ID"
+msgstr ""
+
+#: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:86
+msgid "Certificate not found."
+msgstr ""
+
+#: src/Admin/AdminPages.php:113
+msgid "Certificate revoked."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:41
+msgid "Certificate template ID (0 = default)"
+msgstr ""
+
+#: src/Plugin.php:158
+msgid "Certificate templates"
+msgstr ""
+
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:111 src/Privacy/PrivacyService.php:75
+msgid "Certificates"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:119
+msgid "Certificates and subscription records were kept in anonymised form (they no longer identify you). Their files were deleted."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:16
+msgid "Certified"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:58
+msgid "Check answer"
+msgstr ""
+
+#: src/Pwa/Pwa.php:99
+msgid "Check your connection. Your video progress is saved on this device and will sync when you are back online."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:76
+msgid "Check your email to confirm your request."
+msgstr ""
+
+#: src/Live/LiveService.php:49
+msgid "Choose a start time in the future."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:196
+msgid "Choose a time for the question."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Class"
+msgstr ""
+
+#: src/Live/LiveService.php:116
+msgid "Class not found."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:65
+msgid "Completed"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:12
+msgid "Completed 25 lessons."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:11
+msgid "Completed your first lesson."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:57
+msgid "Continue"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:71 src/Video/FrontendPlayer.php:60
+msgid "Correct"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:67
+msgid "Could not load the video. Please refresh."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:74
+msgid "Could not save the note."
+msgstr ""
+
+#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+msgid "Course"
+msgstr ""
+
+#: src/Admin/AdminPages.php:175
+msgid "Course ID"
+msgstr ""
+
+#: src/Rest/OrgController.php:74 src/Support/BatchEnrol.php:23
+msgid "Course not found."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:86
+msgid "Course reports"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:100 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:186
+msgid "Courses"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:181
+msgid "Create institute"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:103
+msgid "Create plan"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:106
+msgid "Days"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:68
+msgid "Delete"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:72
+msgid "Delete note"
+msgstr ""
+
+#: src/Admin/DemoPage.php:19 src/Admin/DemoPage.php:23
+msgid "Demo data"
+msgstr ""
+
+#: src/Demo/DemoSeeder.php:98
+msgid "Demo data could not be completed: %s. Use \"Remove demo data\" to clean up."
+msgstr ""
+
+#: src/Demo/DemoSeeder.php:61
+msgid "Demo data is already loaded. Remove it first."
+msgstr ""
+
+#: src/Demo/DemoSeeder.php:47
+msgid "Demo data is blocked on production sites. Set WP_ENVIRONMENT_TYPE to \"staging\" or \"local\", or define NIMIKH_ALLOW_DEMO as true in wp-config.php."
+msgstr ""
+
+#: src/Admin/DemoPage.php:45
+msgid "Demo data is loaded."
+msgstr ""
+
+#: src/Admin/DemoPage.php:31
+msgid "Demo data loaded. These passwords are shown once:"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:39
+msgid "Discussion"
+msgstr ""
+
+#: src/Rest/DiscussionController.php:30
+msgid "Discussion is turned off."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:86
+msgid "Discussion posts"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:125
+msgid "Download"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:101
+msgid "Duration (days)"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:17
+msgid "Earned 3 certificates."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:16
+msgid "Earned your first certificate."
+msgstr ""
+
+#: src/Admin/AdminPages.php:80
+msgid "Enabled"
+msgstr ""
+
+#: src/Admin/AdminPages.php:177
+msgid "Enrol learners"
+msgstr ""
+
+#: src/Live/LiveService.php:29
+msgid "Every five minutes"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+msgid "Expires"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:174
+msgid "Facebook"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:36
+msgid "Final exam pass mark %"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:42
+msgid "Final exam quiz ID (0 = last quiz)"
+msgstr ""
+
+#: src/Integrations/Tutor/TutorHooks.php:96
+msgid "Finish watching the video and answer its questions to complete this lesson."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:11
+msgid "First step"
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:132
+msgid "Former learner"
+msgstr ""
+
+#: src/Live/LiveService.php:45
+msgid "Give the class a title."
+msgstr ""
+
+#: src/Admin/AdminPages.php:54
+msgid "Gotenberg URL (optional PDF renderer)"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:121
+msgid "Grant"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:114
+msgid "Grant a subscription"
+msgstr ""
+
+#: src/Admin/AdminPages.php:52
+msgid "Heartbeat tolerance (0.10 = 10%)"
+msgstr ""
+
+#: src/Certificates/CertificateService.php:129
+msgid ""
+"Hi %1$s,\n"
+"\n"
+"Congratulations, you earned your certificate for \"%2$s\".\n"
+"Anyone can verify it here: %3$s\n"
+"\n"
+"Certificate ID: %4$s\n"
+""
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:50
+msgid "Hi %s"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:72
+msgid "Hidden from learners"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:69
+msgid "Hide"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:175
+msgid "I earned a certificate in %s:"
+msgstr ""
+
+#: src/Admin/AdminPages.php:116
+msgid "ID"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:69
+msgid "In-video question answers"
+msgstr ""
+
+#: src/Pwa/Pwa.php:63
+msgid "Install the app"
+msgstr ""
+
+#: src/Admin/AdminPages.php:65
+msgid "Installable app (PWA)"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Institute"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:189
+msgid "Institute admin"
+msgstr ""
+
+#: src/Rest/OrgController.php:38
+msgid "Institute admin access required."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Institute memberships"
+msgstr ""
+
+#: src/Rest/OrgController.php:34 src/Orgs/PortalRoute.php:35
+msgid "Institute not found."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:37 src/Admin/Phase3Pages.php:171
+msgid "Institutes"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:71
+msgid "Instructor"
+msgstr ""
+
+#: src/Rest/BaseController.php:41 src/Rest/BaseController.php:53
+msgid "Instructor access required."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:152 src/Rest/AuthoringController.php:179
+msgid "Interaction not found."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:27
+msgid "Interactive video"
+msgstr ""
+
+#: src/Questions/AttemptService.php:39
+msgid "Invalid option."
+msgstr ""
+
+#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+msgid "Issued"
+msgstr ""
+
+#: templates/verify.php:26
+msgid "Issued by %s"
+msgstr ""
+
+#: templates/verify.php:74
+msgid "Issuer"
+msgstr ""
+
+#: src/Admin/AdminPages.php:47
+msgid "Issuer name (on certificates)"
+msgstr ""
+
+#: src/Admin/AdminPages.php:56
+msgid "Jitsi host for live classes"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:76
+msgid "Join class"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:248
+msgid "Join link (not needed for Jitsi)"
+msgstr ""
+
+#: src/Live/LiveService.php:63
+msgid "Join link must be an https URL."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Joined"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:65
+msgid "Last activity"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:13
+msgid "Learned 3 days in a row."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:15
+msgid "Learned 30 days in a row."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:14
+msgid "Learned 7 days in a row."
+msgstr ""
+
+#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124
+msgid "Learner"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:246
+msgid "Length (minutes)"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:87
+msgid "Lesson"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:66
+msgid "Lesson complete"
+msgstr ""
+
+#: src/Admin/AdminPages.php:55
+msgid "Lesson discussion"
+msgstr ""
+
+#: src/Rest/BaseController.php:30
+msgid "Lesson not found."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:63
+msgid "Lesson progress"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:62
+msgid "Let's watch that part again"
+msgstr ""
+
+#: src/Support/BatchEnrol.php:47
+msgid "Line %1$d: %2$s"
+msgstr ""
+
+#: src/Support/BatchEnrol.php:60
+msgid "Line %d: could not enrol (is Tutor LMS active?)"
+msgstr ""
+
+#: src/Support/BatchEnrol.php:34
+msgid "Line %d: invalid email"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:99
+msgid "Live class attendance"
+msgstr ""
+
+#: src/Live/LiveService.php:169
+msgid "Live class soon: %s"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:35 src/Admin/Phase3Pages.php:238 src/Frontend/Shortcodes.php:50
+msgid "Live classes"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:78
+msgid "Live now"
+msgstr ""
+
+#: src/Admin/DemoPage.php:48
+msgid "Load demo data"
+msgstr ""
+
+#: src/Admin/DemoPage.php:37
+msgid "Loads a sample institute, 3 bilingual courses with in-video questions, 2 instructors and 12 learners with realistic progress, certificates, badges, discussion, a subscription plan and live classes. Demo users have no phone numbers and no email is sent. Everything it creates is tracked and can be removed in one click."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:179
+msgid "Logo URL (https)"
+msgstr ""
+
+#: src/Admin/AdminPages.php:53
+msgid "MCQ answers per minute per learner"
+msgstr ""
+
+#: src/Questions/QuestionRepository.php:32
+msgid "Mark one option as correct."
+msgstr ""
+
+#: src/Admin/AdminPages.php:51
+msgid "Max playback speed"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:189
+msgid "Member"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:186
+msgid "Members"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:34
+msgid "Min % of each video watched"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:35
+msgid "Min average in-video MCQ % (0 = off)"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:15
+msgid "Month streak"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:69
+msgid "My notes"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:99 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:176
+msgid "Name"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:96
+msgid "New plan"
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:151
+msgid "New question in %s"
+msgstr ""
+
+#: src/Support/Roles.php:16
+msgid "Nimikh Institute Admin"
+msgstr ""
+
+#: src/Support/Roles.php:12
+msgid "Nimikh Instructor"
+msgstr ""
+
+#: src/Admin/AdminPages.php:28
+msgid "Nimikh LMS"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:30 src/Privacy/PrivacyService.php:35
+msgid "Nimikh LMS learning data"
+msgstr ""
+
+#: src/Admin/AdminPages.php:69
+msgid "Nimikh LMS settings"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:26
+msgid "Nimikh completion rules"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:71
+msgid "No"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:154
+msgid "No account with that email."
+msgstr ""
+
+#: src/Orgs/OrgService.php:34
+msgid "No account with that email. Use batch enrolment to create accounts."
+msgstr ""
+
+#: src/Rest/SubscriptionController.php:54
+msgid "No active subscription with that ID."
+msgstr ""
+
+#: templates/verify.php:63
+msgid "No certificate matches that ID. Check the code on the certificate and try again."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:112
+msgid "No certificates yet. Finish a course to earn one."
+msgstr ""
+
+#: templates/institute.php:36
+msgid "No courses are published yet."
+msgstr ""
+
+#: src/Admin/AdminPages.php:199
+msgid "No file uploaded."
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:75
+msgid "No live classes scheduled."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:73
+msgid "No notes yet. Pause the video and jot something down."
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:73
+msgid "No questions yet. Be the first to ask."
+msgstr ""
+
+#: src/Admin/AdminPages.php:147 src/Admin/AdminPages.php:184 src/Admin/DemoPage.php:64
+msgid "Not allowed."
+msgstr ""
+
+#: templates/verify.php:13
+msgid "Not found"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:61
+msgid "Not quite. Have another go."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:82
+msgid "Note"
+msgstr ""
+
+#: src/Rest/NoteController.php:37
+msgid "Note not found."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Number"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:12
+msgid "On a roll"
+msgstr ""
+
+#: src/Rest/DiscussionController.php:54
+msgid "Only course staff can moderate."
+msgstr ""
+
+#: src/Ai/QuestionGenerator.php:30
+msgid "Open the video in the editor once so its length is known, and use a video of at least 90 seconds."
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:77
+msgid "Opens 10 minutes before start"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:70
+msgid "Option chosen"
+msgstr ""
+
+#: src/Ai/QuestionGenerator.php:35
+msgid "Paste a transcript or add captions to this lesson first."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:64
+msgid "Percent watched"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+msgid "Plan"
+msgstr ""
+
+#: src/Subscriptions/SubscriptionService.php:87
+msgid "Plan not found."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:106
+msgid "Plans"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:36 src/Admin/Phase3Pages.php:92
+msgid "Plans & subscriptions"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:65
+msgid "Playback speed is limited for this course"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:41
+msgid "Please log in to see your dashboard."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:47
+msgid "Please log in to watch this lesson."
+msgstr ""
+
+#: src/Rest/LiveController.php:28 src/Rest/OrgController.php:31 src/Rest/BaseController.php:25
+msgid "Please log in."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:87
+msgid "Post"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:87
+msgid "Posted"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:102
+msgid "Price label"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:68
+msgid "Progress saved"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:247
+msgid "Provider"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:70
+msgid "Question"
+msgstr ""
+
+#: src/Rest/AuthoringController.php:101 src/Questions/AttemptService.php:31
+msgid "Question not found."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:56
+msgid "Quick check!"
+msgstr ""
+
+#: src/Admin/AdminPages.php:134 templates/verify.php:77
+msgid "Reason"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:124
+msgid "Recent subscriptions"
+msgstr ""
+
+#: src/Admin/DemoPage.php:46
+msgid "Remove demo data"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:66
+msgid "Reply"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:34
+msgid "Reports"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:72
+msgid "Request a copy of my data"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:74
+msgid "Request deletion of my data"
+msgstr ""
+
+#: src/Admin/AdminPages.php:135
+msgid "Revoke"
+msgstr ""
+
+#: templates/verify.php:11
+msgid "Revoked"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:105
+msgid "Role"
+msgstr ""
+
+#: src/Admin/AdminPages.php:60
+msgid "SMS API key"
+msgstr ""
+
+#: src/Admin/AdminPages.php:58
+msgid "SMS gateway URL (https; use {to} {message} {sender} {api_key})"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:102
+msgid "SMS notifications"
+msgstr ""
+
+#: src/Admin/AdminPages.php:59
+msgid "SMS request method (GET or POST)"
+msgstr ""
+
+#: src/Admin/AdminPages.php:61
+msgid "SMS sender ID"
+msgstr ""
+
+#: src/Admin/AdminPages.php:97
+msgid "SMS template: %s"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:62
+msgid "Save"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:52
+msgid "Save the lesson once to enable the timeline editor."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:50
+msgid "Save the lesson, then add questions below. Duration is detected automatically."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:63
+msgid "Saved."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:249
+msgid "Schedule class"
+msgstr ""
+
+#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:72
+msgid "Score"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:18
+msgid "Scored 100% on in-video questions in a course."
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:67
+msgid "Send"
+msgstr ""
+
+#: src/Admin/AdminPages.php:57
+msgid "Send SMS notifications"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Sent"
+msgstr ""
+
+#: src/Admin/AdminPages.php:31
+msgid "Settings"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:177
+msgid "Share"
+msgstr ""
+
+#: templates/verify.php:81
+msgid "Share:"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:18
+msgid "Sharp mind"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:61
+msgid "Show my certificates on a public profile"
+msgstr ""
+
+#: src/Admin/AdminPages.php:50
+msgid "Signed URL lifetime (seconds)"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:59
+msgid "Skip"
+msgstr ""
+
+#: src/Notes/NoteService.php:44
+msgid "Slow down a little."
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:74
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:95
+msgid "Starts"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:250
+msgid "State"
+msgstr ""
+
+#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+msgid "Status"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:94
+msgid "Subscriptions"
+msgstr ""
+
+#: src/Orgs/OrgService.php:48
+msgid "That course is not assigned to this institute."
+msgstr ""
+
+#: templates/verify.php:52
+msgid "That does not look like a certificate ID."
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:26
+msgid "That is too long."
+msgstr ""
+
+#: src/Notes/NoteService.php:37
+msgid "That note is too long."
+msgstr ""
+
+#: src/Notes/NoteService.php:41
+msgid "That time is outside the video."
+msgstr ""
+
+#: src/Orgs/OrgRepository.php:19
+msgid "That web address is taken."
+msgstr ""
+
+#: src/Ai/QuestionGenerator.php:59
+msgid "The AI service did not respond. Try again in a moment."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:63
+msgid "The correct answer is highlighted."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:199
+msgid "The question must appear before the video ends."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:203
+msgid "The rewind point must be before the question."
+msgstr ""
+
+#: src/Demo/DemoSeeder.php:130
+msgid "There is no demo data to remove."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:73
+msgid "This asks the site to permanently delete your learning data, progress and certificates. Continue?"
+msgstr ""
+
+#: templates/verify.php:65
+msgid "This certificate exists but its file failed an integrity check. Please contact the issuer."
+msgstr ""
+
+#: src/Certificates/VerifyRoute.php:89
+msgid "This certificate has been revoked."
+msgstr ""
+
+#: src/Live/LiveService.php:124
+msgid "This class has not opened yet. You can join 10 minutes before it starts."
+msgstr ""
+
+#: src/Live/LiveService.php:124
+msgid "This class is over."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:104
+msgid "This is not your question."
+msgstr ""
+
+#: src/Progress/ProgressService.php:85
+msgid "This lesson has no video duration set."
+msgstr ""
+
+#: src/Rest/PlayerController.php:50
+msgid "This lesson has no video yet."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:88
+msgid "This profile is not available."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:92
+msgid "This question is used in a video. Remove it from the timeline first."
+msgstr ""
+
+#: src/Admin/DemoPage.php:38
+msgid "Tip: lesson videos use a public HLS test stream. Open a lesson in the editor once so its real duration is detected, or set the nimikh_lms_demo_video_url filter before loading."
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:244 src/Admin/Phase3Pages.php:250
+msgid "Title"
+msgstr ""
+
+#: src/Questions/AttemptService.php:26
+msgid "Too many answers. Please slow down."
+msgstr ""
+
+#: src/Rest/CertificateController.php:56
+msgid "Too many lookups."
+msgstr ""
+
+#: src/Certificates/VerifyRoute.php:63
+msgid "Too many lookups. Try again in a minute."
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:29
+msgid "Too many posts. Please wait a minute."
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:17
+msgid "Triple certified"
+msgstr ""
+
+#: src/Pwa/Pwa.php:100
+msgid "Try again"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:102
+msgid "Type"
+msgstr ""
+
+#: src/Frontend/Shortcodes.php:70
+msgid "Unhide"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:250
+msgid "Upcoming"
+msgstr ""
+
+#: src/Admin/AdminPages.php:171
+msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
+msgstr ""
+
+#: src/Admin/AdminPages.php:108
+msgid "Use the course builder to add questions to your videos."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:48
+msgid "Use the interactive player (anti-skip + MCQ pop-ups) for this lesson"
+msgstr ""
+
+#: src/Rest/SubscriptionController.php:45 src/Subscriptions/SubscriptionService.php:90
+msgid "User not found."
+msgstr ""
+
+#: templates/verify.php:10
+msgid "Valid"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:123
+msgid "Verification link"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:117
+msgid "Verified"
+msgstr ""
+
+#: templates/verify.php:25 templates/verify.php:83
+msgid "Verified certificate: %s"
+msgstr ""
+
+#: templates/verify.php:49
+msgid "Verify"
+msgstr ""
+
+#: templates/verify.php:29 templates/verify.php:42 templates/institute.php:47
+msgid "Verify a certificate"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:81
+msgid "Video notes"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:65
+msgid "View my public profile"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:177
+msgid "Web address"
+msgstr ""
+
+#: src/Badges/BadgeCatalog.php:14
+msgid "Week streak"
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:175
+msgid "WhatsApp"
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:23
+msgid "Write a little more."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:70
+msgid "Write a note for this moment…"
+msgstr ""
+
+#: src/Notes/NoteService.php:34
+msgid "Write something first."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:71
+msgid "Yes"
+msgstr ""
+
+#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Live/LiveService.php:120
+msgid "You are not enrolled in this course."
+msgstr ""
+
+#: src/Pwa/Pwa.php:98
+msgid "You are offline"
+msgstr ""
+
+#: src/Rest/OrgController.php:77
+msgid "You can only add courses you manage."
+msgstr ""
+
+#: src/Discussion/DiscussionService.php:38
+msgid "You can only reply to a question in this lesson."
+msgstr ""
+
+#: src/Rest/DiscussionController.php:48
+msgid "You cannot delete that."
+msgstr ""
+
+#: src/Rest/LiveController.php:54 src/Rest/LiveController.php:59
+msgid "You do not manage this class."
+msgstr ""
+
+#: src/Rest/ReportController.php:26 src/Rest/BaseController.php:45 src/Live/LiveService.php:41
+msgid "You do not manage this course."
+msgstr ""
+
+#: src/Notes/NoteService.php:50
+msgid "You have reached the note limit for this lesson."
+msgstr ""
+
+#: src/Ai/QuestionGenerator.php:26
+msgid "You have used all AI suggestions for this hour."
+msgstr ""
+
+#: src/Certificates/CertificateService.php:126
+msgid "Your certificate for %s"
+msgstr ""
+
+#: src/Certificates/VerifyRoute.php:93
+msgid "Your certificate is still being prepared. Check again in a minute."
+msgstr ""
+
+#: src/Profile/ProfileShortcodes.php:68
+msgid "Your data"
+msgstr ""
+
+#: src/Live/LiveService.php:169
+msgid ""
+"Your live class \"%1$s\" starts at %2$s.\n"
+"Open your course to join: %3$s"
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:140
+msgid "[removed by the author]"
+msgstr ""
+
+#: src/Integrations/Tutor/TutorHooks.php:70
+msgid "not passed yet"
+msgstr ""
+
+#: src/Integrations/Tutor/TutorHooks.php:70
+msgid "passed"
+msgstr ""
+
+#: src/Admin/Phase3Pages.php:185
+msgid "portal"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:50
+msgid "…or direct video URL (dev / other CDN)"
+msgstr ""
+

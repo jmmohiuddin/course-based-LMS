@@ -94,6 +94,7 @@
     this.root.appendChild(this.markers);
     this.root.appendChild(this.statusEl);
     this.drawMarkers();
+    this.buildNotes();
 
     this.attachSource(video, d.source).then(function () {
       video.addEventListener('loadedmetadata', function () {
@@ -235,6 +236,44 @@
     var url = cfg.restUrl + '/lessons/' + this.lessonId + '/heartbeat?_wpnonce=' + encodeURIComponent(cfg.nonce);
     store.save(this.lessonId, this.pending); // beacons give no confirmation, so keep a copy until the next acknowledged beat
     navigator.sendBeacon(url, new Blob([JSON.stringify(body)], { type: 'application/json' }));
+  };
+
+  // ---- notes ---------------------------------------------------------------------
+
+  function mmss(sec) { sec = Math.max(0, Math.floor(sec)); return Math.floor(sec / 60) + ':' + ('0' + (sec % 60)).slice(-2); }
+
+  Player.prototype.buildNotes = function () {
+    var self = this;
+    var ta = el('textarea', { rows: '2', maxlength: '500', placeholder: T.notePlaceholder, 'aria-label': T.notePlaceholder, style: 'width:100%' });
+    var add = el('button', { type: 'button', 'class': 'nk-btn' });
+    var list = el('ul', { 'class': 'nk-notes__list' });
+    var msg = el('p', { 'class': 'nk-notes__msg', role: 'status' });
+    var box = el('section', { 'class': 'nk-notes', 'aria-label': T.notes }, [el('h3', { text: T.notes }), ta, add, msg, list]);
+    this.root.appendChild(box);
+    var label = function () { add.textContent = T.addNoteAt + ' ' + mmss(self.video.currentTime); };
+    label(); this.video.addEventListener('timeupdate', label); this.video.addEventListener('seeked', label);
+
+    function draw(notes) {
+      list.textContent = '';
+      if (!notes.length) { list.appendChild(el('li', { 'class': 'nk-empty', text: T.notesEmpty })); return; }
+      notes.forEach(function (n) {
+        var jump = el('button', { type: 'button', 'class': 'nk-btn nk-btn--ghost', text: mmss(n.at_second) });
+        jump.addEventListener('click', function () { self.video.currentTime = Math.min(n.at_second, self.allowedMax()); self.video.play(); });
+        var del = el('button', { type: 'button', 'class': 'nk-btn nk-btn--ghost', text: '×', 'aria-label': T.noteDelete });
+        del.addEventListener('click', function () { api('/notes/' + n.id, 'DELETE').then(load).catch(function () { msg.setAttribute('data-kind', 'wrong'); msg.textContent = T.noteError; }); });
+        list.appendChild(el('li', {}, [jump, el('span', { text: n.body, style: 'white-space:pre-wrap;flex:1' }), del]));
+      });
+    }
+    function load() { return api('/lessons/' + self.lessonId + '/notes').then(draw).catch(function () { /* notes are optional */ }); }
+    add.addEventListener('click', function () {
+      if (!ta.value.trim()) { return; }
+      add.disabled = true;
+      api('/lessons/' + self.lessonId + '/notes', 'POST', { at_second: Math.floor(self.video.currentTime), body: ta.value })
+        .then(function () { ta.value = ''; msg.textContent = ''; return load(); })
+        .catch(function (e) { msg.setAttribute('data-kind', 'wrong'); msg.textContent = (e && e.message) || T.noteError; })
+        .then(function () { add.disabled = false; });
+    });
+    load();
   };
 
   // ---- MCQ sheet ---------------------------------------------------------------

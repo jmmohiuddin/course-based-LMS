@@ -15,6 +15,7 @@ final class Installer {
 	private const MIGRATIONS = [
 		1 => '001-initial.php',
 		2 => '002-phase2-3.php',
+		3 => '003-notes.php',
 	];
 
 	public static function migrate(): void {

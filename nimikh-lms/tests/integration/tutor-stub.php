@@ -2,7 +2,7 @@
 add_action('init', function () {
 	foreach (['courses','lesson','tutor_quiz','tutor_enrolled'] as $pt) register_post_type($pt, ['public'=>true]);
 }, 1);
-add_filter('nimikh_lms_is_enrolled', function ($e, $u, $c) { return (bool) get_user_meta($u, 'stub_enrolled_' . $c, true); }, 10, 3);
+add_filter('nimikh_lms_is_enrolled', function ($e, $u, $c) { return $e || (bool) get_user_meta($u, 'stub_enrolled_' . $c, true); }, 10, 3);
 
 // TEST HARNESS ONLY: the old SQLite driver cannot parse "ON DUPLICATE KEY UPDATE" when a literal contains a comma
 // (the JSON ranges). Translate that one statement shape into INSERT OR IGNORE + UPDATE.
@@ -24,7 +24,11 @@ if (!function_exists('tutor_utils')) {
 	function tutor_utils() {
 		static $o;
 		return $o ??= new class {
-			public function is_enrolled($course_id, $user_id) { return (bool) get_user_meta($user_id, 'stub_enrolled_' . $course_id, true); }
+			public function is_enrolled($course_id, $user_id) {
+				if (get_user_meta($user_id, 'stub_enrolled_' . $course_id, true)) { return true; }
+				global $wpdb; // like Tutor: an enrolment post with status "completed"
+				return (bool) $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE post_type = 'tutor_enrolled' AND post_parent = %d AND post_author = %d AND post_status = 'completed' LIMIT 1", $course_id, $user_id));
+			}
 			public function do_enroll($course_id, $order_id, $user_id) {
 				update_user_meta($user_id, 'stub_enrolled_' . $course_id, 1);
 				return wp_insert_post(['post_type' => 'tutor_enrolled', 'post_parent' => $course_id, 'post_author' => $user_id, 'post_status' => 'completed', 'post_title' => 'enrol']);

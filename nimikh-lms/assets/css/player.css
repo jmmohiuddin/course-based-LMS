@@ -49,3 +49,14 @@
 .nk-badge--valid { color: var(--nk-success); border: 1px solid var(--nk-success); }
 .nk-empty { color: var(--nk-ink-muted); }
 .nk-notice { padding: 12px 16px; background: var(--nk-primary-soft); border-radius: var(--nk-radius-input); }
+
+/* Notes */
+.nk-notes { margin-top: 16px; }
+.nk-notes h3 { margin: 0 0 8px; font-size: 18px; }
+.nk-notes textarea { border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); padding: 8px 12px; font: inherit; background: var(--nk-surface); color: var(--nk-ink); margin-bottom: 8px; box-sizing: border-box; }
+.nk-notes__list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+.nk-notes__list li { display: flex; gap: 8px; align-items: flex-start; padding: 8px 12px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); background: var(--nk-surface-alt); }
+.nk-share a { color: var(--nk-primary); }
+.nk-badges { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.nk-notes__msg { min-height: 1.5em; margin: 4px 0; }
+.nk-notes__msg[data-kind="wrong"] { color: var(--nk-danger); }

@@ -30,7 +30,7 @@ echo "== schema (migration 002)\n";
 foreach (['user_badges','activity_days','discussions','plans','subscriptions','orgs','org_members','org_courses','live_sessions','live_attendance','sms_log'] as $t) {
 	ok((bool) $wpdb->get_var("SELECT name FROM sqlite_master WHERE name = '{$wpdb->prefix}nimikh_$t'"), "table nimikh_$t");
 }
-ok((int) get_option('nimikh_lms_db_version') === 2, 'schema version is 2');
+ok((int) get_option('nimikh_lms_db_version') >= 2, 'phase 2-3 schema installed');
 
 $admin = 1;
 $inst = user('inst', 'nimikh_instructor');

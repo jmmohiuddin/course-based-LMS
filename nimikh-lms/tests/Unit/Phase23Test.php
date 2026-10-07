@@ -140,4 +140,17 @@ final class Phase23Test extends TestCase {
 		$this->assertStringNotContainsString('<b>Site</b>', $html);
 		$this->assertStringContainsString('href="/x&quot;y"', $html);
 	}
+
+	// ---- share links -----------------------------------------------------------
+	public function test_share_links_are_built_and_encoded(): void {
+		$c = ['name' => 'Excel & Data', 'issuer' => 'Dhaka IT', 'issued_at' => '2026-10-07 10:00:00', 'code' => 'ABCDEFGH23', 'url' => 'https://x.test/verify/ABCDEFGH23'];
+		$in = \Nimikh\LMS\Certificates\ShareLinks::linkedin($c);
+		$this->assertStringStartsWith('https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&', $in);
+		$this->assertStringContainsString('name=Excel%20%26%20Data', $in);
+		$this->assertStringContainsString('organizationName=Dhaka%20IT', $in);
+		$this->assertStringContainsString('issueYear=2026&issueMonth=10', $in);
+		$this->assertStringContainsString('certUrl=https%3A%2F%2Fx.test%2Fverify%2FABCDEFGH23&certId=ABCDEFGH23', $in);
+		$this->assertSame('https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fx.test%2Fv', \Nimikh\LMS\Certificates\ShareLinks::facebook('https://x.test/v'));
+		$this->assertSame('https://wa.me/?text=Hi%20https%3A%2F%2Fx.test%2Fv', \Nimikh\LMS\Certificates\ShareLinks::whatsapp('Hi', 'https://x.test/v'));
+	}
 }

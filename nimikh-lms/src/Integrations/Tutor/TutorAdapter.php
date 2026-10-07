@@ -40,18 +40,27 @@ class TutorAdapter {
 		return 0;
 	}
 
-	/** @return int[] */
+	/** @return int[] lesson ids in course order (topic order, then lesson order within the topic) */
 	public function lessonIdsForCourse(int $courseId): array {
-		$ids = get_posts([
+		$posts = get_posts([
 			'post_type'      => self::LESSON_POST_TYPE,
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
-			'fields'         => 'ids',
 			'no_found_rows'  => true,
 			'meta_key'       => '_tutor_course_id_for_lesson',
 			'meta_value'     => $courseId,
 		]);
-		return array_map('intval', $ids);
+		$topicOrder = [];
+		$rows = [];
+		foreach ($posts as $p) {
+			$topic = (int) $p->post_parent;
+			if ($topic > 0 && !isset($topicOrder[$topic])) {
+				$topicOrder[$topic] = (int) get_post_field('menu_order', $topic);
+			}
+			$rows[] = [$topicOrder[$topic] ?? 0, (int) $p->menu_order, (int) $p->ID];
+		}
+		usort($rows, static fn(array $a, array $b): int => [$a[0], $a[1], $a[2]] <=> [$b[0], $b[1], $b[2]]);
+		return array_column($rows, 2);
 	}
 
 	public function isEnrolled(int $userId, int $courseId): bool {

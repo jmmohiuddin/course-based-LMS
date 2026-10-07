@@ -6,7 +6,10 @@ namespace Nimikh\LMS\Profile;
 use Nimikh\LMS\Certificates\CertificateRepository;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Certificates\CertificateService;
+use Nimikh\LMS\Certificates\ShareLinks;
 use Nimikh\LMS\Certificates\VerifyRoute;
+use Nimikh\LMS\Orgs\OrgRepository;
+use Nimikh\LMS\Support\Settings;
 use Nimikh\LMS\Integrations\Tutor\TutorAdapter;
 use Nimikh\LMS\Subscriptions\SubscriptionService;
 
@@ -61,6 +64,17 @@ final class ProfileShortcodes {
 		if ($public) {
 			printf('<p><a href="%s">%s</a></p>', esc_url(self::profileUrl($user->user_login)), esc_html__('View my public profile', 'nimikh-lms'));
 		}
+		echo '</form>';
+		echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '" class="nk-dash__privacy"><h3>' . esc_html__('Your data', 'nimikh-lms') . '</h3>';
+		wp_nonce_field('nimikh_privacy_request');
+		echo '<input type="hidden" name="action" value="nimikh_privacy_request">';
+		printf('<button class="nk-btn nk-btn--ghost" name="type" value="export">%s</button> <button class="nk-btn nk-btn--ghost" name="type" value="erase" onclick="return confirm(\'%s\')">%s</button>',
+			esc_html__('Request a copy of my data', 'nimikh-lms'),
+			esc_js(__('This asks the site to permanently delete your learning data, progress and certificates. Continue?', 'nimikh-lms')),
+			esc_html__('Request deletion of my data', 'nimikh-lms'));
+		if (isset($_GET['nimikh_privacy'])) {
+			echo '<p role="status">' . esc_html__('Check your email to confirm your request.', 'nimikh-lms') . '</p>';
+		}
 		echo '</form></section>';
 		return (string) ob_get_clean();
 	}
@@ -109,6 +123,7 @@ final class ProfileShortcodes {
 			$html .= '<a href="' . esc_url(VerifyRoute::url($c['code'])) . '">' . esc_html__('Verification link', 'nimikh-lms') . '</a>';
 			if ($private) {
 				$html .= ' · <a href="' . esc_url(home_url('/certificate/' . $c['code'] . '/download')) . '">' . esc_html__('Download', 'nimikh-lms') . '</a>';
+				$html .= $this->shareLinks($c);
 			}
 			$html .= '</li>';
 		}
@@ -147,5 +162,23 @@ final class ProfileShortcodes {
 			)) . '</li>';
 		}
 		return $html . '</ul>';
+	}
+
+	/** @param array<string, mixed> $c certificate row */
+	private function shareLinks(array $c): string {
+		$title  = $this->tutor->courseTitle($c['course_id']);
+		$org    = (new OrgRepository())->forCourse($c['course_id']);
+		$url    = VerifyRoute::url($c['code']);
+		$links  = [
+			__('Add to LinkedIn', 'nimikh-lms') => ShareLinks::linkedin(['name' => $title, 'issuer' => $org['name'] ?? (string) Settings::get('issuer_name'), 'issued_at' => $c['issued_at'], 'code' => $c['code'], 'url' => $url]),
+			__('Facebook', 'nimikh-lms')        => ShareLinks::facebook($url),
+			__('WhatsApp', 'nimikh-lms')        => ShareLinks::whatsapp(sprintf(__('I earned a certificate in %s:', 'nimikh-lms'), $title), $url),
+		];
+		$html = '<br><span class="nk-share">' . esc_html__('Share', 'nimikh-lms') . ': ';
+		$parts = [];
+		foreach ($links as $label => $href) {
+			$parts[] = '<a href="' . esc_url($href) . '" target="_blank" rel="noopener noreferrer">' . esc_html($label) . '</a>';
+		}
+		return $html . implode(' · ', $parts) . '</span>';
 	}
 }

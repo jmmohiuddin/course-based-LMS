@@ -20,6 +20,12 @@ $icons = ['valid' => '✔', 'revoked' => '✖', 'integrity_failed' => '!', 'not_
 <meta charset="<?php bloginfo('charset'); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<?php if ($status === 'valid') : $shareUrl = \Nimikh\LMS\Certificates\VerifyRoute::url($result['code']); ?>
+<meta property="og:type" content="website">
+<meta property="og:title" content="<?php echo esc_attr(sprintf(__('Verified certificate: %s', 'nimikh-lms'), $result['course'])); ?>">
+<meta property="og:description" content="<?php echo esc_attr(sprintf(__('Issued by %s', 'nimikh-lms'), $result['issuer'])); ?>">
+<meta property="og:url" content="<?php echo esc_url($shareUrl); ?>">
+<?php endif; ?>
 <title><?php echo esc_html__('Verify a certificate', 'nimikh-lms') . ' – ' . esc_html(get_bloginfo('name')); ?></title>
 <link rel="stylesheet" href="<?php echo esc_url(NIMIKH_LMS_URL . 'assets/css/tokens.css?ver=' . NIMIKH_LMS_VERSION); ?>">
 <link rel="stylesheet" href="<?php echo esc_url(NIMIKH_LMS_URL . 'assets/css/verify.css?ver=' . NIMIKH_LMS_VERSION); ?>">
@@ -71,6 +77,12 @@ if ($brand && !empty($brand['logo'])) : ?>
 						<dt><?php esc_html_e('Reason', 'nimikh-lms'); ?></dt><dd><?php echo esc_html($result['reason']); ?></dd>
 					<?php endif; ?>
 				</dl>
+				<?php if ($status === 'valid') : ?>
+					<p class="nk-share"><?php esc_html_e('Share:', 'nimikh-lms'); ?>
+						<a href="<?php echo esc_url(\Nimikh\LMS\Certificates\ShareLinks::facebook($shareUrl)); ?>" target="_blank" rel="noopener noreferrer">Facebook</a> ·
+						<a href="<?php echo esc_url(\Nimikh\LMS\Certificates\ShareLinks::whatsapp(sprintf(__('Verified certificate: %s', 'nimikh-lms'), $result['course']), $shareUrl)); ?>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+					</p>
+				<?php endif; ?>
 			<?php endif; ?>
 		</section>
 	<?php endif; ?>
