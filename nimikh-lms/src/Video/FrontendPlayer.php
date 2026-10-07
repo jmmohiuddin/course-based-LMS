@@ -64,6 +64,10 @@ final class FrontendPlayer {
 				'mustAnswer'  => __('Answer the question to continue', 'nimikh-lms'),
 				'speedCapped' => __('Playback speed is limited for this course', 'nimikh-lms'),
 				'completed'   => __('Lesson complete', 'nimikh-lms'),
+				/* translators: %d: seconds */
+				'nextIn'      => __('Next lesson in %d s', 'nimikh-lms'),
+				'nextNow'     => __('Go now', 'nimikh-lms'),
+				'nextStay'    => __('Stay here', 'nimikh-lms'),
 				'loadError'   => __('Could not load the video. Please refresh.', 'nimikh-lms'),
 				'saving'      => __('Progress saved', 'nimikh-lms'),
 				'notes'       => __('My notes', 'nimikh-lms'),

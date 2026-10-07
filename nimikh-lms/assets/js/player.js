@@ -120,6 +120,26 @@
     window.addEventListener('pagehide', function () { self.flushBeacon(); });
   };
 
+  /** Flow A: once a lesson is complete, offer the next one after a 5 s countdown the learner can cancel. */
+  Player.prototype.offerNext = function () {
+    var self = this, url = this.data.next_url;
+    if (!url || !this.data.completed || this.countdown) { return; }
+    var left = 5;
+    var label = el('span', { 'class': 'nk-next__text', role: 'status' });
+    var go = el('button', { type: 'button', 'class': 'nk-btn nk-btn--primary', text: T.nextNow || 'Go now' });
+    var stay = el('button', { type: 'button', 'class': 'nk-btn nk-btn--ghost', text: T.nextStay || 'Stay here' });
+    var bar = el('div', { 'class': 'nk-next' }, [label, go, stay]);
+    function text() { label.textContent = (T.nextIn || 'Next lesson in %d s').replace('%d', left); }
+    function stop() { clearInterval(self.countdown); self.countdown = null; if (bar.parentNode) { bar.parentNode.removeChild(bar); } }
+    go.addEventListener('click', function () { stop(); window.location.href = url; });
+    stay.addEventListener('click', stop);
+    text(); this.root.appendChild(bar); go.focus();
+    this.countdown = setInterval(function () {
+      left -= 1;
+      if (left <= 0) { stop(); window.location.href = url; } else { text(); }
+    }, 1000);
+  };
+
   Player.prototype.attachSource = function (video, src) {
     if (src.type === 'hls' && !video.canPlayType('application/vnd.apple.mpegurl')) {
       return loadHls().then(function (Hls) {
@@ -206,13 +226,13 @@
 
   Player.prototype.heartbeat = function () {
     var self = this;
-    if (self.beating || !self.video) { return; }
+    if (self.beating || !self.video) { return Promise.resolve(); }
     var body = this.payload();
-    if (!body.ranges.length && self.data.completed) { return; }
+    if (!body.ranges.length && self.data.completed) { return Promise.resolve(); }
     this.pending = [];
     store.save(self.lessonId, body.ranges); // keep until the server confirms
     self.beating = true;
-    api('/lessons/' + this.lessonId + '/heartbeat', 'POST', body).then(function (r) {
+    return api('/lessons/' + this.lessonId + '/heartbeat', 'POST', body).then(function (r) {
       self.beating = false;
       store.save(self.lessonId, self.pending); // acknowledged: only still-unsent ranges remain
       self.furthest = Math.max(self.furthest, r.furthest || 0);
@@ -222,6 +242,7 @@
         self.data.completed = true; self.say(T.completed, 'success');
         document.dispatchEvent(new CustomEvent('nimikh:lesson-complete', { detail: { lessonId: self.lessonId } }));
       }
+      if (self.video.ended) { self.offerNext(); }
     }).catch(function () {
       self.beating = false;
       self.pending = body.ranges.concat(self.pending); // keep for the next beat (offline batching)

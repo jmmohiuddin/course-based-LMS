@@ -1,0 +1,152 @@
+# Build the plugin zip, then deploy staging -> production over SSH + rsync.
+#
+# Triggers: a version tag (v*) or a manual run. Production deploys only after staging succeeded AND a human approves:
+# configure "Required reviewers" on the `production` GitHub environment (Settings > Environments). Without that setting
+# the production job would run unattended, so set it before the first tag.
+#
+# STATUS: YAML validated and logic reviewed only. This workflow has never run against real servers. Expect to fix paths,
+# sudo rules for the PHP-FPM reload, and the SSH user's permissions on the first staging run.
+#
+# Per-environment configuration (Settings > Environments > staging | production):
+#   secrets:   SSH_PRIVATE_KEY   deploy key (ed25519), authorised for SSH_USER on the host
+#              SSH_KNOWN_HOSTS   output of `ssh-keyscan -p <port> <host>`, checked in by hand (host key is pinned, not trusted on first use)
+#   variables: SSH_HOST, SSH_USER, SSH_PORT (optional, default 22)
+#              WP_ROOT           WordPress root on the server, e.g. /var/www/site
+#              BASE_URL          public URL for the health check, e.g. https://staging.lms.example.com
+#              RELOAD_CMD        optional, e.g. "sudo -n systemctl reload php8.3-fpm" (flush opcache; needs a sudoers rule)
+name: Deploy
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      deploy_production:
+        description: "Also deploy to production after staging (still needs environment approval)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PLUGIN_SLUG: nimikh-lms
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      zip_name: ${{ steps.zip.outputs.zip_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          tools: composer
+      - name: Build zip (with vendor/ for mPDF and the QR library)
+        id: zip
+        env:
+          WITH_VENDOR: "1"
+        run: |
+          set -euo pipefail
+          zip_path="$(nimikh-lms/tools/build-zip.sh "$GITHUB_WORKSPACE/dist" | tail -n 1)"
+          test -f "$zip_path"
+          echo "zip_name=$(basename "$zip_path")" >> "$GITHUB_OUTPUT"
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            tag="${GITHUB_REF_NAME#v}"
+            [[ "$(basename "$zip_path")" == "nimikh-lms-${tag}.zip" ]] || {
+              echo "::error::Tag ${GITHUB_REF_NAME} does not match the plugin version in the built zip ($(basename "$zip_path"))"
+              exit 1
+            }
+          fi
+          unzip -l "$zip_path" > "$RUNNER_TEMP/zip-listing.txt"
+          grep -q 'nimikh-lms/vendor/autoload.php' "$RUNNER_TEMP/zip-listing.txt" || { echo "::error::vendor/ missing from zip"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist/*.zip
+          if-no-files-found: error
+          retention-days: 30
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ vars.BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist
+      - name: Deploy over SSH/rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          WP_ROOT: ${{ vars.WP_ROOT }}
+          RELOAD_CMD: ${{ vars.RELOAD_CMD }}
+        run: ops/deploy/remote-deploy.sh deploy "dist/${{ needs.build.outputs.zip_name }}"
+      - name: Post-deploy health check
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+        run: ops/deploy/health-wait.sh
+      - name: Roll back on failure
+        if: failure()
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          WP_ROOT: ${{ vars.WP_ROOT }}
+          RELOAD_CMD: ${{ vars.RELOAD_CMD }}
+        run: ops/deploy/remote-deploy.sh rollback
+
+  deploy-production:
+    # Runs for tags, or for manual runs that ticked "deploy_production". The `production` environment must have required
+    # reviewers: the job pauses here until one approves.
+    needs: [build, deploy-staging]
+    if: startsWith(github.ref, 'refs/tags/v') || inputs.deploy_production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ vars.BASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: plugin-zip
+          path: dist
+      - name: Deploy over SSH/rsync
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          WP_ROOT: ${{ vars.WP_ROOT }}
+          RELOAD_CMD: ${{ vars.RELOAD_CMD }}
+        run: ops/deploy/remote-deploy.sh deploy "dist/${{ needs.build.outputs.zip_name }}"
+      - name: Post-deploy health check
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+        run: ops/deploy/health-wait.sh
+      - name: Roll back on failure
+        if: failure()
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_USER: ${{ vars.SSH_USER }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          WP_ROOT: ${{ vars.WP_ROOT }}
+          RELOAD_CMD: ${{ vars.RELOAD_CMD }}
+        run: ops/deploy/remote-deploy.sh rollback

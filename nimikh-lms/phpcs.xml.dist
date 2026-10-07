@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- Blueprint 6.1: WordPress Coding Standards. Advisory ruleset: it keeps the security sniffs strict and
+     relaxes the style rules this codebase deliberately does not follow (PSR-4 file names, short array syntax). -->
+<ruleset name="nimikh-lms">
+	<file>src</file>
+	<file>migrations</file>
+	<file>templates</file>
+	<file>nimikh-lms.php</file>
+	<arg name="extensions" value="php"/>
+	<arg value="ps"/>
+	<config name="minimum_supported_wp_version" value="6.4"/>
+	<config name="testVersion" value="8.1-"/>
+
+	<rule ref="WordPress-Extra">
+		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="WordPress.PHP.YodaConditions"/>
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+		<exclude name="Squiz.Commenting"/>
+	</rule>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="nimikh-lms"/>
+		</properties>
+	</rule>
+	<rule ref="WordPress.Security"/>
+</ruleset>

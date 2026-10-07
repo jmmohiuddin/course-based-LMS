@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.2.0
+
+- Final-exam retake cooldown (per-course, default 24 h) and lessons-to-rewatch suggestions after a failed exam
+- Phone-OTP and Google sign-up/sign-in (`[nimikh_login]`); staff accounts are excluded
+- Drag-and-drop certificate layout editor with server-side validation
+- `GET /nimikh/v1/health`, optional Sentry error reporting, optional weekly operations email
+- `ops/` (local Docker env, Nginx, Cloudflare Terraform, backup + restore drill, monitoring, deploy workflow), `docs/discovery/` and `docs/prototype/`
+- 70 new strings, translated into Bangla; browser spec for the editor and sign-in form
+
+## 0.1.1
+
+Blueprint audit follow-up (see `docs/BLUEPRINT-AUDIT.md`).
+
+- Certificate checklist: what is left before the certificate (`[nimikh_checklist]`, `GET /me/courses/{id}/checklist`), built on the same rule engine that issues certificates
+- Player: cancellable 5-second countdown to the next lesson after a lesson completes
+- Login rate limit of 5 attempts per minute per IP (filter `nimikh_lms_login_limit_per_minute`)
+- PHPCS and PHPStan level 6 configuration with an advisory CI job; deployment notes in `docs/DEPLOYMENT.md`
+- 10 new strings, translated into Bangla
+
 ## 0.1.0
 
 First release of the `nimikh-lms` plugin, built from the Nimikh LMS product & technical blueprint.

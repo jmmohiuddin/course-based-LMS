@@ -17,7 +17,9 @@ final class CertificateRenderer {
 	public function html(int $templateId, array $vars, string $qrDataUri): string {
 		$body = '';
 		if ($templateId > 0 && get_post_type($templateId) === 'nimikh_cert_template') {
-			$body = (string) get_post_field('post_content', $templateId);
+			// A layout made in the visual editor wins over hand-written HTML.
+			$layout = Layout::sanitize(json_decode((string) get_post_meta($templateId, CertificateEditor::META, true), true));
+			$body   = $layout !== null ? Layout::toHtml($layout) : (string) get_post_field('post_content', $templateId);
 		}
 		if ($body === '') {
 			ob_start();

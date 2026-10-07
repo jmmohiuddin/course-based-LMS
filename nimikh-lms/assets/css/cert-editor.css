@@ -1,0 +1,14 @@
+#nk-certed { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; align-items: start; }
+.nk-certed__wrap { position: relative; overflow: hidden; border: 1px solid #c3c4c7; background: #f0f0f1; }
+.nk-certed__page { position: absolute; left: 0; top: 0; transform-origin: 0 0; box-shadow: 0 1px 4px rgba(0, 0, 0, .2); }
+.nk-certed__frame { position: absolute; box-sizing: content-box; pointer-events: none; }
+.nk-certed__item { position: absolute; cursor: move; line-height: 1.2; touch-action: none; user-select: none; outline: 1px dashed transparent; overflow: hidden; }
+.nk-certed__item:hover { outline-color: #8c8f94; }
+.nk-certed__item.is-selected, .nk-certed__item:focus-visible { outline: 2px solid #2271b1; }
+.nk-certed__item.is-qr, .nk-certed__item.is-box { background: rgba(30, 79, 216, .08); border: 1px dashed #1E4FD8; font: 12px sans-serif; color: #1E4FD8; display: flex; align-items: center; justify-content: center; }
+.nk-certed__panel p { margin: 8px 0; }
+.nk-certed__panel label { display: block; font-weight: 600; margin-bottom: 2px; }
+.nk-certed__panel input[type=checkbox] + label { display: inline; font-weight: 400; }
+.nk-certed__panel input[type=number], .nk-certed__panel input[type=text], .nk-certed__panel input[type=url], .nk-certed__panel select { width: 100%; }
+.nk-certed__palette { display: flex; flex-wrap: wrap; gap: 4px; }
+@media (max-width: 900px) { #nk-certed { grid-template-columns: 1fr; } }

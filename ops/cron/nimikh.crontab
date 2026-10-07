@@ -1,0 +1,14 @@
+# Install:  sudo install -m 0644 ops/cron/nimikh.crontab /etc/cron.d/nimikh   (the user field below is required in /etc/cron.d)
+# Paths assume the site is at /var/www/site and the repo's ops/ is deployed at /opt/nimikh-ops. Adjust both.
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# WordPress must have define('DISABLE_WP_CRON', true); in wp-config.php, otherwise requests ALSO spawn cron.
+# Action Scheduler (certificate PDFs, emails) runs from this; a stopped cron means late certificates (target < 60 s).
+# flock -n: never overlap runs if one takes more than a minute.
+* * * * * www-data flock -n /run/lock/nimikh-wpcron.lock php /var/www/site/wp-cron.php >/dev/null 2>&1
+
+# Nightly backup at 02:10 server time, as root so it can read the DB credentials file. Config: /etc/nimikh/backup.env
+10 2 * * * root flock -n /run/lock/nimikh-backup.lock /opt/nimikh-ops/backup/backup.sh >>/var/log/nimikh-backup.log 2>&1
+
+# Monthly restore drill, 04:30 on the 1st (after the nightly backup finished). Restores into a scratch DB, never production.
+30 4 1 * * root flock -n /run/lock/nimikh-drill.lock /opt/nimikh-ops/backup/restore-drill.sh >>/var/log/nimikh-backup.log 2>&1

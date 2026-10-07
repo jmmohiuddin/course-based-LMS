@@ -9,12 +9,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: nimikh-lms\n"
 
-#: src/Admin/AdminPages.php:167
+#: src/Admin/AdminPages.php:171
 msgid "%1$d enrolled, %2$d created, %3$d skipped."
+msgstr ""
+
+#: src/Exam/Cooldown.php:29
+msgid "%1$d h %2$d min"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:159
 msgid "%1$s — active until %2$s"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:41
+msgid "%d SMS message(s) failed to send. Check the gateway settings."
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:37
+msgid "%d background job(s) failed. Check Tools → Scheduled Actions → Failed."
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:45
+msgid "%d certificate(s) have no file yet. Is the cron job running?"
+msgstr ""
+
+#: src/Exam/Cooldown.php:32
+msgid "%d min"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:138
@@ -23,12 +43,16 @@ msgid_plural "%d-day learning streak"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Certificates/CertificateService.php:167
+#: src/Certificates/CertificateService.php:176
 msgid "(learner data erased)"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:13
 msgid "3-day streak"
+msgstr ""
+
+#: src/Frontend/LoginShortcode.php:37
+msgid "6-digit code"
 msgstr ""
 
 #: src/Rest/SubscriptionController.php:35
@@ -55,11 +79,11 @@ msgstr ""
 msgid "A reason is required."
 msgstr ""
 
-#: src/Admin/AdminPages.php:64
+#: src/Admin/AdminPages.php:68
 msgid "AI model ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:62
+#: src/Admin/AdminPages.php:66
 msgid "AI question suggestions (sends transcripts to Anthropic)"
 msgstr ""
 
@@ -67,11 +91,15 @@ msgstr ""
 msgid "AI suggestions are not enabled. An administrator can turn them on in the settings."
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:80
+msgid "Add"
+msgstr ""
+
 #: src/Admin/Phase3Pages.php:190
 msgid "Add member"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:71
+#: src/Video/FrontendPlayer.php:75
 msgid "Add note at"
 msgstr ""
 
@@ -87,6 +115,10 @@ msgstr ""
 msgid "Admin email"
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:83
+msgid "Alignment"
+msgstr ""
+
 #: src/Orgs/OrgRepository.php:16
 msgid "An institute needs a name."
 msgstr ""
@@ -99,15 +131,15 @@ msgstr ""
 msgid "Answered at"
 msgstr ""
 
-#: src/Admin/AdminPages.php:63
+#: src/Admin/AdminPages.php:67
 msgid "Anthropic API key"
 msgstr ""
 
-#: src/Admin/AdminPages.php:67
+#: src/Admin/AdminPages.php:71
 msgid "App icon URL (optional, SVG or PNG)"
 msgstr ""
 
-#: src/Admin/AdminPages.php:66
+#: src/Admin/AdminPages.php:70
 msgid "App start URL (e.g. the dashboard page)"
 msgstr ""
 
@@ -127,8 +159,16 @@ msgstr ""
 msgid "At second"
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:93
+msgid "Average at least %s%% on in-video questions"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:91
 msgid "Awarded"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:49
+msgid "Background jobs are running %d minutes late."
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:91
@@ -139,8 +179,16 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:161
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:165
 msgid "Batch enrolment"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:83
+msgid "Bold"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:85
+msgid "Border width (mm, 0 = none)"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:178
@@ -155,7 +203,7 @@ msgstr ""
 msgid "Bunny token authentication key"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:49
+#: src/Admin/Metaboxes.php:50
 msgid "Bunny video ID"
 msgstr ""
 
@@ -167,15 +215,23 @@ msgstr ""
 msgid "Cannot be verified"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:76 templates/verify.php:45 templates/verify.php:75
+#: src/Certificates/CertificateEditor.php:85
+msgid "Centre"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:71 src/Privacy/PrivacyService.php:76 templates/verify.php:45
 msgid "Certificate ID"
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:32
+msgid "Certificate checklist"
 msgstr ""
 
 #: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:86
 msgid "Certificate not found."
 msgstr ""
 
-#: src/Admin/AdminPages.php:114
+#: src/Admin/AdminPages.php:118
 msgid "Certificate revoked."
 msgstr ""
 
@@ -183,16 +239,20 @@ msgstr ""
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:158
+#: src/Plugin.php:181
 msgid "Certificate templates"
 msgstr ""
 
-#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:112 src/Privacy/PrivacyService.php:75
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:75
 msgid "Certificates"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:119
 msgid "Certificates and subscription records were kept in anonymised form (they no longer identify you). Their files were deleted."
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:79
+msgid "Certificates issued in the last 7 days: %d"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:16
@@ -227,6 +287,14 @@ msgstr ""
 msgid "Class not found."
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:82
+msgid "Colour"
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:89
+msgid "Complete all lessons (%1$s of %2$s)"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:65
 msgid "Completed"
 msgstr ""
@@ -247,19 +315,19 @@ msgstr ""
 msgid "Correct"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:67
+#: src/Video/FrontendPlayer.php:71
 msgid "Could not load the video. Please refresh."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:74
+#: src/Video/FrontendPlayer.php:78
 msgid "Could not save the note."
 msgstr ""
 
-#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
 msgid "Course"
 msgstr ""
 
-#: src/Admin/AdminPages.php:176
+#: src/Admin/AdminPages.php:180
 msgid "Course ID"
 msgstr ""
 
@@ -269,6 +337,10 @@ msgstr ""
 
 #: src/Admin/Phase3Pages.php:86
 msgid "Course reports"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:70
+msgid "Course title"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:100 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:186
@@ -291,11 +363,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/Admin/AdminPages.php:68
+#: src/Admin/AdminPages.php:72
 msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:72
+#: src/Video/FrontendPlayer.php:76
 msgid "Delete note"
 msgstr ""
 
@@ -339,6 +411,10 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:27
+msgid "Drag items on the page, then adjust them on the right. When a visual layout is saved it is used instead of the HTML below."
+msgstr ""
+
 #: src/Admin/Phase3Pages.php:101
 msgid "Duration (days)"
 msgstr ""
@@ -351,12 +427,20 @@ msgstr ""
 msgid "Earned your first certificate."
 msgstr ""
 
-#: src/Admin/AdminPages.php:81
+#: src/Admin/AdminPages.php:65
+msgid "Email a weekly operations report to the site admin"
+msgstr ""
+
+#: src/Admin/AdminPages.php:85
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/AdminPages.php:178
+#: src/Admin/AdminPages.php:182
 msgid "Enrol learners"
+msgstr ""
+
+#: src/Auth/AuthService.php:50
+msgid "Enter a valid mobile number."
 msgstr ""
 
 #: src/Live/LiveService.php:29
@@ -375,7 +459,7 @@ msgstr ""
 msgid "Final exam pass mark %"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:42
+#: src/Admin/Metaboxes.php:43
 msgid "Final exam quiz ID (0 = last quiz)"
 msgstr ""
 
@@ -395,6 +479,22 @@ msgstr ""
 msgid "Give the class a title."
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:69
+msgid "Go now"
+msgstr ""
+
+#: src/Admin/AdminPages.php:63
+msgid "Google sign-in client ID (empty = off)"
+msgstr ""
+
+#: src/Auth/AuthService.php:116
+msgid "Google sign-in failed. Please try again."
+msgstr ""
+
+#: src/Auth/AuthService.php:111
+msgid "Google sign-in is not available."
+msgstr ""
+
 #: src/Admin/AdminPages.php:54
 msgid "Gotenberg URL (optional PDF renderer)"
 msgstr ""
@@ -411,7 +511,7 @@ msgstr ""
 msgid "Heartbeat tolerance (0.10 = 10%)"
 msgstr ""
 
-#: src/Certificates/CertificateService.php:129
+#: src/Certificates/CertificateService.php:138
 msgid ""
 "Hi %1$s,\n"
 "\n"
@@ -438,8 +538,16 @@ msgstr ""
 msgid "I earned a certificate in %s:"
 msgstr ""
 
-#: src/Admin/AdminPages.php:117
+#: src/Admin/AdminPages.php:121
 msgid "ID"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:73
+msgid "Image (signature)"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:84
+msgid "Image URL (https)"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:69
@@ -450,7 +558,7 @@ msgstr ""
 msgid "Install the app"
 msgstr ""
 
-#: src/Admin/AdminPages.php:65
+#: src/Admin/AdminPages.php:69
 msgid "Installable app (PWA)"
 msgstr ""
 
@@ -498,7 +606,11 @@ msgstr ""
 msgid "Invalid option."
 msgstr ""
 
-#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+#: src/Certificates/CertificateEditor.php:70
+msgid "Issue date"
+msgstr ""
+
+#: src/Admin/AdminPages.php:121 src/Privacy/PrivacyService.php:77 templates/verify.php:70
 msgid "Issued"
 msgstr ""
 
@@ -506,12 +618,16 @@ msgstr ""
 msgid "Issued by %s"
 msgstr ""
 
-#: templates/verify.php:74
+#: src/Certificates/CertificateEditor.php:72 templates/verify.php:74
 msgid "Issuer"
 msgstr ""
 
 #: src/Admin/AdminPages.php:47
 msgid "Issuer name (on certificates)"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:86
+msgid "Items"
 msgstr ""
 
 #: src/Admin/AdminPages.php:56
@@ -550,8 +666,20 @@ msgstr ""
 msgid "Learned 7 days in a row."
 msgstr ""
 
-#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124
+#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124
 msgid "Learner"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:70
+msgid "Learner name"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:85
+msgid "Left"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:81
+msgid "Left (mm)"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:246
@@ -578,8 +706,16 @@ msgstr ""
 msgid "Lesson progress"
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:73
+msgid "Lessons worth rewatching:"
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:62
 msgid "Let's watch that part again"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:73
+msgid "Line"
 msgstr ""
 
 #: src/Support/BatchEnrol.php:47
@@ -618,6 +754,10 @@ msgstr ""
 msgid "Loads a sample institute, 3 bilingual courses with in-video questions, 2 instructors and 12 learners with realistic progress, certificates, badges, discussion, a subscription plan and live classes. Demo users have no phone numbers and no email is sent. Everything it creates is tracked and can be removed in one click."
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:73
+msgid "Logo"
+msgstr ""
+
 #: src/Admin/Phase3Pages.php:179
 msgid "Logo URL (https)"
 msgstr ""
@@ -650,16 +790,24 @@ msgstr ""
 msgid "Min average in-video MCQ % (0 = off)"
 msgstr ""
 
+#: src/Frontend/LoginShortcode.php:35
+msgid "Mobile number"
+msgstr ""
+
 #: src/Badges/BadgeCatalog.php:15
 msgid "Month streak"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:69
+#: src/Video/FrontendPlayer.php:73
 msgid "My notes"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:99 src/Admin/Phase3Pages.php:106 src/Admin/Phase3Pages.php:176
 msgid "Name"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:72
+msgid "Needs attention:"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:96
@@ -668,6 +816,10 @@ msgstr ""
 
 #: src/Discussion/DiscussionService.php:151
 msgid "New question in %s"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:68
+msgid "Next lesson in %d s"
 msgstr ""
 
 #: src/Support/Roles.php:16
@@ -686,7 +838,7 @@ msgstr ""
 msgid "Nimikh LMS learning data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:70
+#: src/Admin/AdminPages.php:74
 msgid "Nimikh LMS settings"
 msgstr ""
 
@@ -722,7 +874,7 @@ msgstr ""
 msgid "No courses are published yet."
 msgstr ""
 
-#: src/Admin/AdminPages.php:200
+#: src/Admin/AdminPages.php:204
 msgid "No file uploaded."
 msgstr ""
 
@@ -730,7 +882,7 @@ msgstr ""
 msgid "No live classes scheduled."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:73
+#: src/Video/FrontendPlayer.php:77
 msgid "No notes yet. Pause the video and jot something down."
 msgstr ""
 
@@ -738,7 +890,7 @@ msgstr ""
 msgid "No questions yet. Be the first to ask."
 msgstr ""
 
-#: src/Admin/AdminPages.php:148 src/Admin/AdminPages.php:185 src/Admin/DemoPage.php:64
+#: src/Admin/AdminPages.php:152 src/Admin/AdminPages.php:189 src/Admin/DemoPage.php:64
 msgid "Not allowed."
 msgstr ""
 
@@ -758,12 +910,20 @@ msgstr ""
 msgid "Note not found."
 msgstr ""
 
+#: src/Ops/WeeklyReport.php:72
+msgid "Nothing needs attention this week."
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:102
 msgid "Number"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:12
 msgid "On a roll"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:24
+msgid "Once weekly"
 msgstr ""
 
 #: src/Rest/DiscussionController.php:54
@@ -782,12 +942,28 @@ msgstr ""
 msgid "Option chosen"
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:84
+msgid "Page colour"
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:91
+msgid "Pass the final exam (%s%% needed)"
+msgstr ""
+
 #: src/Ai/QuestionGenerator.php:35
 msgid "Paste a transcript or add captions to this lesson first."
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:64
 msgid "Percent watched"
+msgstr ""
+
+#: src/Auth/AuthService.php:46 src/Auth/AuthService.php:76
+msgid "Phone sign-in is not available."
+msgstr ""
+
+#: src/Admin/AdminPages.php:62
+msgid "Phone-OTP sign-in (needs the SMS gateway above)"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
@@ -834,12 +1010,16 @@ msgstr ""
 msgid "Price label"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:68
+#: src/Video/FrontendPlayer.php:72
 msgid "Progress saved"
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:247
 msgid "Provider"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:72
+msgid "QR code"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:70
@@ -854,7 +1034,7 @@ msgstr ""
 msgid "Quick check!"
 msgstr ""
 
-#: src/Admin/AdminPages.php:135 templates/verify.php:77
+#: src/Admin/AdminPages.php:139 templates/verify.php:77
 msgid "Reason"
 msgstr ""
 
@@ -862,8 +1042,16 @@ msgstr ""
 msgid "Recent subscriptions"
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:80
+msgid "Remove"
+msgstr ""
+
 #: src/Admin/DemoPage.php:46
 msgid "Remove demo data"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:33
+msgid "Remove the visual layout and use the HTML below"
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:66
@@ -882,12 +1070,20 @@ msgstr ""
 msgid "Request deletion of my data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:136
+#: src/Certificates/CertificateEditor.php:80
+msgid "Reset to default layout"
+msgstr ""
+
+#: src/Admin/AdminPages.php:140
 msgid "Revoke"
 msgstr ""
 
 #: templates/verify.php:11
 msgid "Revoked"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:85
+msgid "Right"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:105
@@ -914,7 +1110,7 @@ msgstr ""
 msgid "SMS sender ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:98
+#: src/Admin/AdminPages.php:102
 msgid "SMS template: %s"
 msgstr ""
 
@@ -922,11 +1118,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:52
+#: src/Admin/Metaboxes.php:53
 msgid "Save the lesson once to enable the timeline editor."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:50
+#: src/Admin/Metaboxes.php:51
 msgid "Save the lesson, then add questions below. Duration is detected automatically."
 msgstr ""
 
@@ -938,12 +1134,16 @@ msgstr ""
 msgid "Schedule class"
 msgstr ""
 
-#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:72
+#: src/Admin/AdminPages.php:121 src/Certificates/CertificateEditor.php:71 src/Privacy/PrivacyService.php:77
 msgid "Score"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:18
 msgid "Scored 100% on in-video questions in a course."
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:86
+msgid "Select an item on the page to edit it."
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:67
@@ -954,8 +1154,16 @@ msgstr ""
 msgid "Send SMS notifications"
 msgstr ""
 
+#: src/Frontend/LoginShortcode.php:36
+msgid "Send code"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:102
 msgid "Sent"
+msgstr ""
+
+#: src/Admin/AdminPages.php:64
+msgid "Sentry DSN for error reporting (https; empty = off)"
 msgstr ""
 
 #: src/Admin/AdminPages.php:31
@@ -978,6 +1186,10 @@ msgstr ""
 msgid "Show my certificates on a public profile"
 msgstr ""
 
+#: src/Frontend/LoginShortcode.php:38 src/Frontend/LoginShortcode.php:43 src/Frontend/LoginShortcode.php:46
+msgid "Sign in"
+msgstr ""
+
 #: src/Admin/AdminPages.php:50
 msgid "Signed URL lifetime (seconds)"
 msgstr ""
@@ -990,7 +1202,7 @@ msgstr ""
 msgid "Slow down a little."
 msgstr ""
 
-#: src/Frontend/Shortcodes.php:74
+#: src/Frontend/LoginShortcode.php:42 src/Frontend/Shortcodes.php:74
 msgid "Something went wrong. Please try again."
 msgstr ""
 
@@ -1002,12 +1214,28 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
 msgid "Status"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:70
+msgid "Stay here"
 msgstr ""
 
 #: src/Privacy/PrivacyService.php:94
 msgid "Subscriptions"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:72 src/Certificates/CertificateEditor.php:83
+msgid "Text"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:82
+msgid "Text size (px)"
+msgstr ""
+
+#: src/Auth/AuthService.php:80 src/Auth/AuthService.php:83
+msgid "That code is not valid. Request a new one."
 msgstr ""
 
 #: src/Orgs/OrgService.php:48
@@ -1052,6 +1280,10 @@ msgstr ""
 
 #: src/Demo/DemoSeeder.php:130
 msgid "There is no demo data to remove."
+msgstr ""
+
+#: src/Auth/AuthService.php:191
+msgid "This account must sign in with its password."
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:73
@@ -1106,6 +1338,18 @@ msgstr ""
 msgid "Too many answers. Please slow down."
 msgstr ""
 
+#: src/Auth/AuthService.php:114
+msgid "Too many attempts. Please wait a few minutes."
+msgstr ""
+
+#: src/Auth/AuthService.php:54
+msgid "Too many codes requested. Please wait a few minutes."
+msgstr ""
+
+#: src/Support/LoginLimiter.php:27
+msgid "Too many login attempts. Please wait a minute and try again."
+msgstr ""
+
 #: src/Rest/CertificateController.php:56
 msgid "Too many lookups."
 msgstr ""
@@ -1116,6 +1360,10 @@ msgstr ""
 
 #: src/Discussion/DiscussionService.php:29
 msgid "Too many posts. Please wait a minute."
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:81
+msgid "Top (mm)"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:17
@@ -1138,15 +1386,23 @@ msgstr ""
 msgid "Upcoming"
 msgstr ""
 
-#: src/Admin/AdminPages.php:172
+#: src/Admin/AdminPages.php:176
 msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
 msgstr ""
 
-#: src/Admin/AdminPages.php:109
+#: src/Frontend/LoginShortcode.php:40
+msgid "Use another number"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:82
+msgid "Use institute colour"
+msgstr ""
+
+#: src/Admin/AdminPages.php:113
 msgid "Use the course builder to add questions to your videos."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:48
+#: src/Admin/Metaboxes.php:49
 msgid "Use the interactive player (anti-skip + MCQ pop-ups) for this lesson"
 msgstr ""
 
@@ -1178,12 +1434,32 @@ msgstr ""
 msgid "Verify a certificate"
 msgstr ""
 
+#: src/Certificates/CertificateEditor.php:71
+msgid "Verify link"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:81
 msgid "Video notes"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:65
 msgid "View my public profile"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:21
+msgid "Visual layout"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:42
+msgid "Wait between failed exam attempts (hours, 0 = none)"
+msgstr ""
+
+#: src/Auth/AuthService.php:68
+msgid "We could not send the code. Please try again."
+msgstr ""
+
+#: src/Frontend/LoginShortcode.php:39
+msgid "We sent a code to your phone."
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:177
@@ -1194,15 +1470,23 @@ msgstr ""
 msgid "Week streak"
 msgstr ""
 
+#: src/Ops/WeeklyReport.php:70
+msgid "Weekly report for %s"
+msgstr ""
+
 #: src/Profile/ProfileShortcodes.php:175
 msgid "WhatsApp"
+msgstr ""
+
+#: src/Certificates/CertificateEditor.php:81
+msgid "Width (mm)"
 msgstr ""
 
 #: src/Discussion/DiscussionService.php:23
 msgid "Write a little more."
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:70
+#: src/Video/FrontendPlayer.php:74
 msgid "Write a note for this moment…"
 msgstr ""
 
@@ -1214,7 +1498,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Live/LiveService.php:120
+#: src/Rest/LiveController.php:33 src/Rest/BaseController.php:36 src/Rest/MeController.php:44
 msgid "You are not enrolled in this course."
 msgstr ""
 
@@ -1230,6 +1514,14 @@ msgstr ""
 msgid "You can only reply to a question in this lesson."
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:67
+msgid "You can retake the exam in %s."
+msgstr ""
+
+#: src/Exam/ExamService.php:96
+msgid "You can retake the exam in %s. Use the time to rewatch the lessons below your score."
+msgstr ""
+
 #: src/Rest/DiscussionController.php:48
 msgid "You cannot delete that."
 msgstr ""
@@ -1242,6 +1534,10 @@ msgstr ""
 msgid "You do not manage this course."
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:47
+msgid "You earned it"
+msgstr ""
+
 #: src/Notes/NoteService.php:50
 msgid "You have reached the note limit for this lesson."
 msgstr ""
@@ -1250,7 +1546,15 @@ msgstr ""
 msgid "You have used all AI suggestions for this hour."
 msgstr ""
 
-#: src/Certificates/CertificateService.php:126
+#: src/Auth/AuthService.php:62
+msgid "Your Nimikh code is %1$s. It expires in %2$d minutes."
+msgstr ""
+
+#: src/Frontend/ChecklistShortcode.php:60
+msgid "Your best exam score is %1$s%%; the pass mark is %2$s%%."
+msgstr ""
+
+#: src/Certificates/CertificateService.php:135
 msgid "Your certificate for %s"
 msgstr ""
 
@@ -1268,12 +1572,28 @@ msgid ""
 "Open your course to join: %3$s"
 msgstr ""
 
+#: src/Frontend/ChecklistShortcode.php:33
+msgid "Your path to the certificate"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:82
+msgid "[Nimikh] Weekly report"
+msgstr ""
+
+#: src/Ops/WeeklyReport.php:82
+msgid "[Nimikh] Weekly report: needs attention"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:140
 msgid "[removed by the author]"
 msgstr ""
 
 #: src/Integrations/Tutor/TutorHooks.php:70
 msgid "not passed yet"
+msgstr ""
+
+#: src/Frontend/LoginShortcode.php:41
+msgid "or"
 msgstr ""
 
 #: src/Integrations/Tutor/TutorHooks.php:70
@@ -1284,7 +1604,7 @@ msgstr ""
 msgid "portal"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:50
+#: src/Admin/Metaboxes.php:51
 msgid "…or direct video URL (dev / other CDN)"
 msgstr ""
 

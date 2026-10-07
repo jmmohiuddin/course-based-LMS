@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Nimikh LMS
  * Description:       Interactive video MCQ pop-ups, anti-skip progress and verifiable certificates on top of Tutor LMS.
- * Version:           0.1.0
+ * Version:           0.2.0
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            Nimikh
@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-define('NIMIKH_LMS_VERSION', '0.1.0');
+define('NIMIKH_LMS_VERSION', '0.2.0');
 define('NIMIKH_LMS_FILE', __FILE__);
 define('NIMIKH_LMS_DIR', plugin_dir_path(__FILE__));
 define('NIMIKH_LMS_URL', plugin_dir_url(__FILE__));

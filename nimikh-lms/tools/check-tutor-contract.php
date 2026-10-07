@@ -17,6 +17,7 @@ $checks = [
 	['hook',   'tutor_quiz/attempt_ended',        true,  'final exam finished -> certificate rule check (TutorHooks::onQuizFinished)'],
 	['hook',   'tutor_lesson_completed_after',    true,  'lesson completed in Tutor -> certificate rule check; also fired by our fallback'],
 	['hook',   'tutor_after_enroll',              false, 'enrolment SMS (TutorHooks::onEnrolled)'],
+	['hook',   'tutor_start_quiz',                false, 'exam retake cooldown (ExamGuard): ajax/form action "start quiz"; without it the cooldown is not enforced'],
 	['hook',   'tutor_complete_lesson',           false, 'manual "Mark as complete" action we block on interactive lessons (tutor_action_<name>)'],
 	['meta',   '_tutor_course_id_for_lesson',     true,  'lesson -> course (TutorAdapter::courseIdForLesson)'],
 	['meta',   '_tutor_course_id_for_quiz',       true,  'quiz -> course (TutorAdapter::examQuizId)'],

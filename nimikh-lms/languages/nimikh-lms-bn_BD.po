@@ -1279,3 +1279,243 @@ msgstr "পোর্টাল"
 #: src/Admin/Metaboxes.php:50
 msgid "…or direct video URL (dev / other CDN)"
 msgstr "…অথবা সরাসরি ভিডিও URL (ডেভ / অন্য CDN)"
+
+msgid "Certificate checklist"
+msgstr "সার্টিফিকেট চেকলিস্ট"
+
+msgid "Your path to the certificate"
+msgstr "সার্টিফিকেট পর্যন্ত আপনার পথ"
+
+msgid "You earned it"
+msgstr "আপনি এটি অর্জন করেছেন"
+
+msgid "Complete all lessons (%1$s of %2$s)"
+msgstr "সব পাঠ সম্পন্ন করুন (%2$s-এর মধ্যে %1$s)"
+
+msgid "Pass the final exam (%s%% needed)"
+msgstr "চূড়ান্ত পরীক্ষায় উত্তীর্ণ হন (%s%% প্রয়োজন)"
+
+msgid "Average at least %s%% on in-video questions"
+msgstr "ভিডিওর প্রশ্নে গড়ে কমপক্ষে %s%% পান"
+
+msgid "Too many login attempts. Please wait a minute and try again."
+msgstr "অনেকবার লগইনের চেষ্টা করা হয়েছে। এক মিনিট অপেক্ষা করে আবার চেষ্টা করুন।"
+
+msgid "Next lesson in %d s"
+msgstr "পরবর্তী পাঠ %d সেকেন্ডে"
+
+msgid "Go now"
+msgstr "এখনই যান"
+
+msgid "Stay here"
+msgstr "এখানেই থাকুন"
+
+msgid "%1$d h %2$d min"
+msgstr "%1$d ঘ %2$d মি."
+
+msgid "%d SMS message(s) failed to send. Check the gateway settings."
+msgstr "%d টি SMS পাঠানো যায়নি। গেটওয়ে সেটিংস দেখুন।"
+
+msgid "%d background job(s) failed. Check Tools → Scheduled Actions → Failed."
+msgstr "%d টি ব্যাকগ্রাউন্ড কাজ ব্যর্থ হয়েছে। Tools → Scheduled Actions → Failed দেখুন।"
+
+msgid "%d certificate(s) have no file yet. Is the cron job running?"
+msgstr "%d টি সার্টিফিকেটের এখনও ফাইল তৈরি হয়নি। ক্রন জব কি চলছে?"
+
+msgid "%d min"
+msgstr "%d মি."
+
+msgid "6-digit code"
+msgstr "৬ সংখ্যার কোড"
+
+msgid "Add"
+msgstr "যোগ করুন"
+
+msgid "Alignment"
+msgstr "সারিবদ্ধতা"
+
+msgid "Background jobs are running %d minutes late."
+msgstr "ব্যাকগ্রাউন্ড কাজ %d মিনিট দেরিতে চলছে।"
+
+msgid "Bold"
+msgstr "গাঢ়"
+
+msgid "Border width (mm, 0 = none)"
+msgstr "বর্ডারের পুরুত্ব (মিমি, ০ = নেই)"
+
+msgid "Centre"
+msgstr "মাঝখানে"
+
+msgid "Certificates issued in the last 7 days: %d"
+msgstr "গত ৭ দিনে ইস্যু করা সার্টিফিকেট: %d"
+
+msgid "Colour"
+msgstr "রঙ"
+
+msgid "Course title"
+msgstr "কোর্সের শিরোনাম"
+
+msgid "Drag items on the page, then adjust them on the right. When a visual layout is saved it is used instead of the HTML below."
+msgstr "পাতায় আইটেম টেনে সাজান, তারপর ডানদিকে ঠিক করুন। ভিজ্যুয়াল লেআউট সংরক্ষিত থাকলে নিচের HTML-এর বদলে সেটিই ব্যবহার হবে।"
+
+msgid "Email a weekly operations report to the site admin"
+msgstr "সাইট অ্যাডমিনকে সাপ্তাহিক অপারেশন রিপোর্ট ইমেইল করুন"
+
+msgid "Enter a valid mobile number."
+msgstr "সঠিক মোবাইল নম্বর দিন।"
+
+msgid "Google sign-in client ID (empty = off)"
+msgstr "Google সাইন-ইন ক্লায়েন্ট আইডি (খালি = বন্ধ)"
+
+msgid "Google sign-in failed. Please try again."
+msgstr "Google দিয়ে সাইন-ইন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।"
+
+msgid "Google sign-in is not available."
+msgstr "Google সাইন-ইন চালু নেই।"
+
+msgid "Image (signature)"
+msgstr "ছবি (স্বাক্ষর)"
+
+msgid "Image URL (https)"
+msgstr "ছবির URL (https)"
+
+msgid "Issue date"
+msgstr "ইস্যুর তারিখ"
+
+msgid "Items"
+msgstr "আইটেম"
+
+msgid "Learner name"
+msgstr "শিক্ষার্থীর নাম"
+
+msgid "Left"
+msgstr "বামে"
+
+msgid "Left (mm)"
+msgstr "বাম (মিমি)"
+
+msgid "Lessons worth rewatching:"
+msgstr "যে পাঠগুলো আবার দেখা ভালো:"
+
+msgid "Line"
+msgstr "রেখা"
+
+msgid "Logo"
+msgstr "লোগো"
+
+msgid "Mobile number"
+msgstr "মোবাইল নম্বর"
+
+msgid "Needs attention:"
+msgstr "মনোযোগ দরকার:"
+
+msgid "Nothing needs attention this week."
+msgstr "এই সপ্তাহে মনোযোগ দেওয়ার মতো কিছু নেই।"
+
+msgid "Once weekly"
+msgstr "সপ্তাহে একবার"
+
+msgid "Page colour"
+msgstr "পাতার রঙ"
+
+msgid "Phone sign-in is not available."
+msgstr "ফোন দিয়ে সাইন-ইন চালু নেই।"
+
+msgid "Phone-OTP sign-in (needs the SMS gateway above)"
+msgstr "ফোন-OTP সাইন-ইন (উপরের SMS গেটওয়ে লাগবে)"
+
+msgid "QR code"
+msgstr "QR কোড"
+
+msgid "Remove"
+msgstr "সরান"
+
+msgid "Remove the visual layout and use the HTML below"
+msgstr "ভিজ্যুয়াল লেআউট সরিয়ে নিচের HTML ব্যবহার করুন"
+
+msgid "Reset to default layout"
+msgstr "ডিফল্ট লেআউটে ফিরুন"
+
+msgid "Right"
+msgstr "ডানে"
+
+msgid "Select an item on the page to edit it."
+msgstr "সম্পাদনা করতে পাতা থেকে একটি আইটেম বেছে নিন।"
+
+msgid "Send code"
+msgstr "কোড পাঠান"
+
+msgid "Sentry DSN for error reporting (https; empty = off)"
+msgstr "ত্রুটি রিপোর্টের জন্য Sentry DSN (https; খালি = বন্ধ)"
+
+msgid "Sign in"
+msgstr "সাইন ইন"
+
+msgid "Text"
+msgstr "লেখা"
+
+msgid "Text size (px)"
+msgstr "লেখার আকার (px)"
+
+msgid "That code is not valid. Request a new one."
+msgstr "কোডটি সঠিক নয়। নতুন কোড চেয়ে নিন।"
+
+msgid "This account must sign in with its password."
+msgstr "এই অ্যাকাউন্টে পাসওয়ার্ড দিয়ে সাইন-ইন করতে হবে।"
+
+msgid "Too many attempts. Please wait a few minutes."
+msgstr "অনেকবার চেষ্টা করা হয়েছে। কয়েক মিনিট অপেক্ষা করুন।"
+
+msgid "Too many codes requested. Please wait a few minutes."
+msgstr "অনেকবার কোড চাওয়া হয়েছে। কয়েক মিনিট অপেক্ষা করুন।"
+
+msgid "Top (mm)"
+msgstr "উপর (মিমি)"
+
+msgid "Use another number"
+msgstr "অন্য নম্বর ব্যবহার করুন"
+
+msgid "Use institute colour"
+msgstr "প্রতিষ্ঠানের রঙ ব্যবহার করুন"
+
+msgid "Verify link"
+msgstr "যাচাইয়ের লিংক"
+
+msgid "Visual layout"
+msgstr "ভিজ্যুয়াল লেআউট"
+
+msgid "Wait between failed exam attempts (hours, 0 = none)"
+msgstr "ব্যর্থ পরীক্ষার চেষ্টার মাঝের অপেক্ষা (ঘণ্টা, ০ = নেই)"
+
+msgid "We could not send the code. Please try again."
+msgstr "কোড পাঠানো যায়নি। আবার চেষ্টা করুন।"
+
+msgid "We sent a code to your phone."
+msgstr "আপনার ফোনে একটি কোড পাঠানো হয়েছে।"
+
+msgid "Weekly report for %s"
+msgstr "%s-এর সাপ্তাহিক রিপোর্ট"
+
+msgid "Width (mm)"
+msgstr "প্রস্থ (মিমি)"
+
+msgid "You can retake the exam in %s."
+msgstr "আপনি %s পরে পরীক্ষাটি আবার দিতে পারবেন।"
+
+msgid "You can retake the exam in %s. Use the time to rewatch the lessons below your score."
+msgstr "আপনি %s পরে পরীক্ষাটি আবার দিতে পারবেন। এই সময়ে দুর্বল পাঠগুলো আবার দেখে নিন।"
+
+msgid "Your Nimikh code is %1$s. It expires in %2$d minutes."
+msgstr "আপনার নিমিখ কোড %1$s। এটি %2$d মিনিটে মেয়াদোত্তীর্ণ হবে।"
+
+msgid "Your best exam score is %1$s%%; the pass mark is %2$s%%."
+msgstr "আপনার সেরা পরীক্ষার স্কোর %1$s%%; পাস মার্ক %2$s%%।"
+
+msgid "[Nimikh] Weekly report"
+msgstr "[নিমিখ] সাপ্তাহিক রিপোর্ট"
+
+msgid "[Nimikh] Weekly report: needs attention"
+msgstr "[নিমিখ] সাপ্তাহিক রিপোর্ট: মনোযোগ দরকার"
+
+msgid "or"
+msgstr "অথবা"
