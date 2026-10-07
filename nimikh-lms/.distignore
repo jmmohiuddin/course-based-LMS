@@ -3,3 +3,5 @@ phpunit.xml.dist
 .phpunit.cache
 composer.lock
 theme
+dist
+tools

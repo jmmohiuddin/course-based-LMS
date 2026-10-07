@@ -57,6 +57,17 @@ nimikh-lms/
 5. **Nimikh LMS → Settings**: Bunny pull-zone host + token key, issuer name, optional Gotenberg URL.
    Set `DISABLE_WP_CRON` and run a real cron every minute (certificate rendering uses Action Scheduler).
 
+## Release build and uninstall
+
+`nimikh-lms/tools/build-zip.sh [dir]` builds `nimikh-lms-<version>.zip` (needs only bash, cp, zip; no tests, tools or dev files).
+`WITH_VENDOR=1` also bundles mPDF and the QR library for in-process PDFs. The built zip was installed into a clean copy of the
+test site and passed all 211 integration checks. See `CHANGELOG.md`.
+
+Deleting the plugin **keeps all data by default** (certificates are verifiable records). To wipe everything, tick *Delete ALL
+Nimikh data* in Settings first; `uninstall.php` then removes the tables, certificate files, options, roles, cron jobs and meta.
+The keep-by-default path and the file/role/option removal were tested; dropping the tables could not be (the SQLite test
+driver ignores `DROP TABLE`), so check that step once on a MySQL staging site.
+
 ## Authoring (instructor)
 
 - Course screen → **Nimikh completion rules**: min % watched, min average MCQ %, exam pass mark,

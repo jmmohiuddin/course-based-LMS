@@ -65,6 +65,7 @@ final class AdminPages {
 			'pwa_enabled'         => [__('Installable app (PWA)', 'nimikh-lms'), 'checkbox'],
 			'pwa_start_url'       => [__('App start URL (e.g. the dashboard page)', 'nimikh-lms'), 'url'],
 			'pwa_icon_url'        => [__('App icon URL (optional, SVG or PNG)', 'nimikh-lms'), 'url'],
+			'remove_data_on_uninstall' => [__('Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted', 'nimikh-lms'), 'checkbox'],
 		];
 		echo '<div class="wrap"><h1>' . esc_html__('Nimikh LMS settings', 'nimikh-lms') . '</h1><form method="post" action="options.php">';
 		settings_fields('nimikh_lms');

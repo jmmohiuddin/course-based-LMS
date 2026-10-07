@@ -31,6 +31,7 @@ final class Settings {
 		'pwa_enabled'         => 1,
 		'pwa_start_url'       => '',
 		'pwa_icon_url'        => '',
+		'remove_data_on_uninstall' => 0, // certificates are records: never deleted unless an admin opts in
 	];
 
 	/** @return mixed */
@@ -66,6 +67,7 @@ final class Settings {
 			'pwa_enabled'         => empty($input['pwa_enabled']) ? 0 : 1,
 			'pwa_start_url'       => esc_url_raw((string) ($input['pwa_start_url'] ?? '')),
 			'pwa_icon_url'        => esc_url_raw((string) ($input['pwa_icon_url'] ?? '')),
+			'remove_data_on_uninstall' => empty($input['remove_data_on_uninstall']) ? 0 : 1,
 		];
 	}
 
