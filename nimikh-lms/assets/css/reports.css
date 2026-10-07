@@ -1,0 +1,16 @@
+#nk-reports { font-family: var(--nk-font, system-ui); color: var(--nk-ink, #0F172A); max-width: 1000px; }
+.nkr-bar { display: flex; gap: 8px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
+.nkr-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 12px 0; }
+.nkr-kpi { padding: 12px 16px; border: 1px solid var(--nk-border, #E2E8F0); border-radius: 12px; background: var(--nk-surface-alt, #F8FAFC); }
+.nkr-kpi strong { display: block; font-size: 28px; line-height: 1.25; }
+.nkr-kpi span { color: var(--nk-ink-muted, #475569); font-size: 14px; }
+.nkr-chart { width: 100%; max-width: 720px; height: auto; display: block; border: 1px solid var(--nk-border, #E2E8F0); border-radius: 12px; background: var(--nk-surface, #fff); }
+.nkr-chart .axis { stroke: var(--nk-border, #CBD5E1); }
+.nkr-chart text { fill: var(--nk-ink-muted, #475569); font-size: 11px; }
+.nkr-chart .line { fill: none; stroke: var(--nk-primary, #1E4FD8); stroke-width: 2; }
+.nkr-chart .area { fill: var(--nk-primary, #1E4FD8); opacity: .12; }
+.nkr-chart .q { stroke: var(--nk-warning, #B45309); stroke-dasharray: 3 3; }
+.nkr-chart .qdot { fill: var(--nk-warning, #B45309); }
+.nkr-table { width: 100%; border-collapse: collapse; margin: 8px 0 24px; }
+.nkr-table th, .nkr-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--nk-border, #E2E8F0); }
+.nkr-hard { color: var(--nk-danger, #B91C1C); font-weight: 600; }

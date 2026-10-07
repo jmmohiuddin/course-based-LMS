@@ -24,4 +24,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node --check nimikh-lms/assets/js/player.js && node --check nimikh-lms/assets/js/editor.js
+      - run: for f in nimikh-lms/assets/js/*.js; do node --check "$f"; done

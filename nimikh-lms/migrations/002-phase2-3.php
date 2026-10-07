@@ -48,6 +48,7 @@ CREATE TABLE {$p}nimikh_subscriptions (
   expires_at datetime NOT NULL,
   status varchar(10) NOT NULL DEFAULT 'active',
   source varchar(60) NOT NULL DEFAULT '',
+  enrolled_by_sub longtext NULL,
   PRIMARY KEY  (id),
   KEY user_status (user_id,status),
   KEY expires_at (expires_at)

@@ -13,12 +13,17 @@ final class Activator {
 		Installer::migrate();
 		Roles::register();
 		VerifyRoute::addRewriteRules();
+		\Nimikh\LMS\Orgs\PortalRoute::addRewriteRules();
+		\Nimikh\LMS\Pwa\Pwa::addRewriteRules();
 		flush_rewrite_rules();
 		wp_mkdir_p(\Nimikh\LMS\Certificates\CertificateStorage::baseDir());
 		\Nimikh\LMS\Certificates\CertificateStorage::protectDir();
 	}
 
 	public static function deactivate(): void {
+		foreach ([\Nimikh\LMS\Subscriptions\SubscriptionService::CRON_HOOK, \Nimikh\LMS\Live\LiveService::CRON_HOOK] as $hook) {
+			wp_clear_scheduled_hook($hook);
+		}
 		flush_rewrite_rules();
 	}
 }

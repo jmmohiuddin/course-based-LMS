@@ -32,6 +32,9 @@ final class AdminPages {
 	}
 
 	public function registerSettings(): void {
+		foreach (array_keys(\Nimikh\LMS\Sms\SmsService::DEFAULT_TEMPLATES) as $event) {
+			register_setting('nimikh_lms', 'nimikh_sms_template_' . $event, ['type' => 'string', 'sanitize_callback' => 'sanitize_text_field', 'default' => '']);
+		}
 		register_setting('nimikh_lms', Settings::OPTION, [
 			'type'              => 'array',
 			'sanitize_callback' => static fn($in): array => Settings::sanitize(is_array($in) ? $in : []),
@@ -49,11 +52,35 @@ final class AdminPages {
 			'heartbeat_tolerance' => [__('Heartbeat tolerance (0.10 = 10%)', 'nimikh-lms'), 'number'],
 			'attempts_per_minute' => [__('MCQ answers per minute per learner', 'nimikh-lms'), 'number'],
 			'gotenberg_url'       => [__('Gotenberg URL (optional PDF renderer)', 'nimikh-lms'), 'url'],
+			'discussion_enabled'  => [__('Lesson discussion', 'nimikh-lms'), 'checkbox'],
+			'jitsi_host'          => [__('Jitsi host for live classes', 'nimikh-lms'), 'text'],
+			'sms_enabled'         => [__('Send SMS notifications', 'nimikh-lms'), 'checkbox'],
+			'sms_gateway_url'     => [__('SMS gateway URL (https; use {to} {message} {sender} {api_key})', 'nimikh-lms'), 'url'],
+			'sms_method'          => [__('SMS request method (GET or POST)', 'nimikh-lms'), 'text'],
+			'sms_api_key'         => [__('SMS API key', 'nimikh-lms'), 'password'],
+			'sms_sender'          => [__('SMS sender ID', 'nimikh-lms'), 'text'],
+			'ai_enabled'          => [__('AI question suggestions (sends transcripts to Anthropic)', 'nimikh-lms'), 'checkbox'],
+			'ai_api_key'          => [__('Anthropic API key', 'nimikh-lms'), 'password'],
+			'ai_model'            => [__('AI model ID', 'nimikh-lms'), 'text'],
+			'pwa_enabled'         => [__('Installable app (PWA)', 'nimikh-lms'), 'checkbox'],
+			'pwa_start_url'       => [__('App start URL (e.g. the dashboard page)', 'nimikh-lms'), 'url'],
+			'pwa_icon_url'        => [__('App icon URL (optional, SVG or PNG)', 'nimikh-lms'), 'url'],
 		];
 		echo '<div class="wrap"><h1>' . esc_html__('Nimikh LMS settings', 'nimikh-lms') . '</h1><form method="post" action="options.php">';
 		settings_fields('nimikh_lms');
 		echo '<table class="form-table">';
 		foreach ($fields as $key => [$label, $type]) {
+			if ($type === 'checkbox') {
+				printf(
+					'<tr><th>%2$s</th><td><label><input type="checkbox" name="%3$s[%1$s]" value="1" %4$s> %5$s</label></td></tr>',
+					esc_attr($key),
+					esc_html($label),
+					esc_attr(Settings::OPTION),
+					checked((bool) Settings::get($key), true, false),
+					esc_html__('Enabled', 'nimikh-lms')
+				);
+				continue;
+			}
 			printf(
 				'<tr><th><label for="nk-%1$s">%2$s</label></th><td><input id="nk-%1$s" class="regular-text" type="%3$s" step="any" name="%4$s[%1$s]" value="%5$s" autocomplete="off"></td></tr>',
 				esc_attr($key),
@@ -61,6 +88,14 @@ final class AdminPages {
 				esc_attr($type),
 				esc_attr(Settings::OPTION),
 				esc_attr((string) Settings::get($key))
+			);
+		}
+		foreach (\Nimikh\LMS\Sms\SmsService::DEFAULT_TEMPLATES as $event => $default) {
+			printf(
+				'<tr><th><label for="nk-sms-%1$s">%2$s</label></th><td><input id="nk-sms-%1$s" class="large-text" name="nimikh_sms_template_%1$s" value="%3$s"></td></tr>',
+				esc_attr($event),
+				esc_html(sprintf(__('SMS template: %s', 'nimikh-lms'), $event)),
+				esc_attr(\Nimikh\LMS\Sms\SmsService::template($event))
 			);
 		}
 		echo '</table>';
@@ -149,52 +184,19 @@ final class AdminPages {
 			wp_die(esc_html__('Not allowed.', 'nimikh-lms'), '', ['response' => 403]);
 		}
 		$courseId = (int) ($_POST['course_id'] ?? 0);
-		$report   = ['enrolled' => 0, 'created' => 0, 'errors' => []];
-
-		if (get_post_type($courseId) !== TutorAdapter::COURSE_POST_TYPE) {
-			$report['errors'][] = __('Course not found.', 'nimikh-lms');
-		} elseif (empty($_FILES['csv']['tmp_name']) || !is_uploaded_file($_FILES['csv']['tmp_name'])) {
-			$report['errors'][] = __('No file uploaded.', 'nimikh-lms');
-		} else {
+		$rows     = [];
+		if (!empty($_FILES['csv']['tmp_name']) && is_uploaded_file($_FILES['csv']['tmp_name'])) {
 			$fh = fopen($_FILES['csv']['tmp_name'], 'r');
-			$line = 0;
-			while ($fh && ($cols = fgetcsv($fh)) !== false && $line < 5000) {
-				$line++;
-				$email = sanitize_email(trim((string) ($cols[0] ?? '')));
-				if ($line === 1 && strtolower($email) === 'email' || !$cols || $cols === [null]) {
-					continue; // header or blank line
-				}
-				if (!is_email($email)) {
-					$report['errors'][] = sprintf(__('Line %d: invalid email', 'nimikh-lms'), $line);
-					continue;
-				}
-				$user = get_user_by('email', $email);
-				if (!$user) {
-					$uid = wp_insert_user([
-						'user_login'   => $email,
-						'user_email'   => $email,
-						'display_name' => sanitize_text_field((string) ($cols[1] ?? '')) ?: strstr($email, '@', true),
-						'user_pass'    => wp_generate_password(20),
-						'role'         => 'subscriber',
-					]);
-					if (is_wp_error($uid)) {
-						$report['errors'][] = sprintf(__('Line %1$d: %2$s', 'nimikh-lms'), $line, $uid->get_error_message());
-						continue;
-					}
-					$report['created']++;
-					wp_new_user_notification($uid, null, 'user');
-					$user = get_userdata($uid);
-				}
-				if ($this->tutor->enrol($user->ID, $courseId)) {
-					$report['enrolled']++;
-				} else {
-					$report['errors'][] = sprintf(__('Line %d: could not enrol (is Tutor LMS active?)', 'nimikh-lms'), $line);
-				}
+			while ($fh && ($cols = fgetcsv($fh)) !== false && count($rows) < \Nimikh\LMS\Support\BatchEnrol::MAX_ROWS) {
+				$rows[] = $cols;
 			}
 			if ($fh) {
 				fclose($fh);
 			}
 		}
+		$report = $rows
+			? (new \Nimikh\LMS\Support\BatchEnrol($this->tutor))->run($rows, $courseId)
+			: ['enrolled' => 0, 'created' => 0, 'errors' => [__('No file uploaded.', 'nimikh-lms')]];
 		set_transient('nimikh_batch_' . get_current_user_id(), $report, 300);
 		wp_safe_redirect(add_query_arg(['page' => 'nimikh-lms-batch', 'report' => 1], admin_url('admin.php')));
 		exit;

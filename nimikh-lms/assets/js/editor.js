@@ -55,7 +55,11 @@
     this.formHost = el('div');
     this.root.appendChild(this.video);
     this.root.appendChild(this.track);
-    this.root.appendChild(el('div', { 'class': 'nk-editor__bar' }, [add, preview, this.clock]));
+    var ai = el('button', { type: 'button', 'class': 'button', text: 'Suggest questions (AI)' });
+    ai.addEventListener('click', function () { self.openAi(); });
+    this.aiHost = el('div');
+    this.root.appendChild(el('div', { 'class': 'nk-editor__bar' }, [add, ai, preview, this.clock]));
+    this.root.appendChild(this.aiHost);
     this.root.appendChild(this.msg);
     this.root.appendChild(this.formHost);
     this.root.appendChild(this.list);
@@ -84,6 +88,40 @@
     });
     add.addEventListener('click', function () { self.video.pause(); self.openForm({ at_second: Math.round(self.video.currentTime), required: true, allow_retry: true, points: 1, rewind_to_second: null, question: { stem: '', options: ['', ''], correct_index: 0, explanation: '' } }); });
     this.drawList();
+  };
+
+  /** AI drafts: generated server-side, reviewed here, saved only through the normal form. */
+  Editor.prototype.openAi = function () {
+    var self = this;
+    this.aiHost.textContent = '';
+    var transcript = el('textarea', { rows: '4', placeholder: 'Optional: paste a transcript. Leave empty to use the lesson captions.', style: 'width:100%;max-width:720px' });
+    var count = el('input', { type: 'number', min: '1', max: '10', value: '5', style: 'width:60px' });
+    var lang = el('select', {}, [el('option', { value: 'en', text: 'English' }), el('option', { value: 'bn', text: 'Bangla' })]);
+    var go = el('button', { type: 'button', 'class': 'button button-primary', text: 'Generate drafts' });
+    var out = el('ul', { 'class': 'nk-editor__list' });
+    this.aiHost.appendChild(el('div', { 'class': 'nk-editor__form' }, [
+      el('p', { text: 'Drafts are suggestions. Check each one before adding it. Transcript text is sent to the AI provider.' }),
+      transcript, el('p', {}, [document.createTextNode('Questions '), count, document.createTextNode(' Language '), lang, document.createTextNode(' '), go])
+    ]));
+    this.aiHost.appendChild(out);
+    go.addEventListener('click', function () {
+      go.disabled = true; self.say('Generating…', '');
+      api('/lessons/' + self.lessonId + '/ai-questions', 'POST', { transcript: transcript.value, count: parseInt(count.value, 10) || 5, language: lang.value })
+        .then(function (r) {
+          out.textContent = '';
+          self.say(r.questions.length ? r.questions.length + ' draft(s). Review each before adding.' : 'The AI returned nothing usable. Try again or add more transcript.', r.questions.length ? 'ok' : 'error');
+          r.questions.forEach(function (q) {
+            var review = el('button', { type: 'button', 'class': 'button', text: 'Review & add' });
+            review.addEventListener('click', function () {
+              self.video.currentTime = Math.max(0, q.at_second - 3);
+              self.openForm({ at_second: q.at_second, required: true, allow_retry: true, points: 1, rewind_to_second: null, question: { stem: q.stem, options: q.options, correct_index: q.correct_index, explanation: q.explanation } });
+            });
+            out.appendChild(el('li', {}, [el('strong', { text: fmt(q.at_second) }), el('span', { text: q.stem }), review]));
+          });
+        })
+        .catch(function (e) { self.say((e && e.message) || 'Could not generate questions.', 'error'); })
+        .then(function () { go.disabled = false; });
+    });
   };
 
   Editor.prototype.drawTrack = function () {

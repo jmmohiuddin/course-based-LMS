@@ -43,10 +43,18 @@
     return hlsPromise;
   }
 
+  // Watched ranges are kept on-device until the server acknowledges them, so progress survives
+  // going offline or closing the tab (blueprint: mobile data, resume anywhere).
+  var store = {
+    key: function (id) { return 'nimikh-pending-' + id; },
+    load: function (id) { try { return JSON.parse(localStorage.getItem(store.key(id))) || []; } catch (e) { return []; } },
+    save: function (id, ranges) { try { if (ranges.length) { localStorage.setItem(store.key(id), JSON.stringify(ranges)); } else { localStorage.removeItem(store.key(id)); } } catch (e) { /* storage unavailable */ } }
+  };
+
   function Player(root) {
     this.root = root;
     this.lessonId = parseInt(root.getAttribute('data-lesson'), 10);
-    this.pending = [];      // watched ranges not yet acknowledged by the server
+    this.pending = store.load(parseInt(root.getAttribute('data-lesson'), 10)); // watched ranges not yet acknowledged by the server
     this.open = null;       // currently-playing range [start, end]
     this.shown = null;      // interaction currently on screen
     this.skipped = {};      // optional questions dismissed this session
@@ -201,9 +209,11 @@
     var body = this.payload();
     if (!body.ranges.length && self.data.completed) { return; }
     this.pending = [];
+    store.save(self.lessonId, body.ranges); // keep until the server confirms
     self.beating = true;
     api('/lessons/' + this.lessonId + '/heartbeat', 'POST', body).then(function (r) {
       self.beating = false;
+      store.save(self.lessonId, self.pending); // acknowledged: only still-unsent ranges remain
       self.furthest = Math.max(self.furthest, r.furthest || 0);
       self.gate = r.gate;
       if (r.rejected && self.video.currentTime > self.furthest + 2) { self.video.currentTime = self.furthest; }
@@ -223,7 +233,8 @@
     if (!this.pending.length) { return; }
     var body = { second: Math.floor(this.video.currentTime), ranges: this.pending };
     var url = cfg.restUrl + '/lessons/' + this.lessonId + '/heartbeat?_wpnonce=' + encodeURIComponent(cfg.nonce);
-    if (navigator.sendBeacon(url, new Blob([JSON.stringify(body)], { type: 'application/json' }))) { this.pending = []; }
+    store.save(this.lessonId, this.pending); // beacons give no confirmation, so keep a copy until the next acknowledged beat
+    navigator.sendBeacon(url, new Blob([JSON.stringify(body)], { type: 'application/json' }));
   };
 
   // ---- MCQ sheet ---------------------------------------------------------------

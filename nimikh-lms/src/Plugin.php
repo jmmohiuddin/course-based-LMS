@@ -4,6 +4,24 @@ declare(strict_types=1);
 namespace Nimikh\LMS;
 
 use Nimikh\LMS\Admin\AdminPages;
+use Nimikh\LMS\Admin\Phase3Pages;
+use Nimikh\LMS\Ai\QuestionGenerator;
+use Nimikh\LMS\Badges\BadgeService;
+use Nimikh\LMS\Discussion\DiscussionService;
+use Nimikh\LMS\Frontend\Shortcodes;
+use Nimikh\LMS\Live\LiveService;
+use Nimikh\LMS\Orgs\OrgRepository;
+use Nimikh\LMS\Orgs\OrgService;
+use Nimikh\LMS\Orgs\PortalRoute;
+use Nimikh\LMS\Pwa\Pwa;
+use Nimikh\LMS\Rest\AiController;
+use Nimikh\LMS\Rest\DiscussionController;
+use Nimikh\LMS\Rest\LiveController;
+use Nimikh\LMS\Rest\MeController;
+use Nimikh\LMS\Rest\OrgController;
+use Nimikh\LMS\Rest\SubscriptionController;
+use Nimikh\LMS\Sms\SmsService;
+use Nimikh\LMS\Subscriptions\SubscriptionService;
 use Nimikh\LMS\Admin\Metaboxes;
 use Nimikh\LMS\Certificates\CertificateRenderer;
 use Nimikh\LMS\Certificates\CertificateRepository;
@@ -64,11 +82,27 @@ final class Plugin {
 		$attempts           = new AttemptService($interactions, $attemptsRepo, $this->progress, $this->tutor);
 		$reports            = new ReportService($this->tutor, $progressRepo, $interactions, $certRepo, $this->certificates);
 
+		// Phase 2-3 services
+		$badges        = new BadgeService($certRepo, $this->progress, $this->tutor);
+		$sms           = new SmsService();
+		$discussion    = new DiscussionService($this->tutor);
+		$subscriptions = new SubscriptionService($this->tutor);
+		$orgRepo       = new OrgRepository();
+		$orgs          = new OrgService($orgRepo, $this->tutor, $this->certificates, $certRepo);
+		$live          = new LiveService($this->tutor);
+		$ai            = new QuestionGenerator();
+
 		$controllers = [
 			new PlayerController($this->tutor, $interactions, $progressRepo, $this->progress, $attempts),
 			new AuthoringController($this->tutor, $questions, $interactions),
 			new CertificateController($this->tutor, $certRepo, $this->certificates),
 			new ReportController($this->tutor, $reports),
+			new MeController($this->tutor, $badges, $subscriptions),
+			new DiscussionController($this->tutor, $discussion),
+			new SubscriptionController($this->tutor, $subscriptions),
+			new OrgController($this->tutor, $orgRepo, $orgs),
+			new LiveController($this->tutor, $live),
+			new AiController($this->tutor, $ai),
 		];
 		add_action('rest_api_init', static function () use ($controllers): void {
 			foreach ($controllers as $c) {
@@ -79,7 +113,14 @@ final class Plugin {
 		(new TutorHooks($this->tutor, $this->certificates, $progressRepo))->register();
 		(new VerifyRoute($this->certificates, $certRepo))->register();
 		(new FrontendPlayer($this->tutor, $interactions))->register();
-		(new ProfileShortcodes($this->tutor, $certRepo, $this->certificates))->register();
+		(new ProfileShortcodes($this->tutor, $certRepo, $this->certificates, $badges, $subscriptions))->register();
+		(new Shortcodes($this->tutor))->register();
+		$badges->register();
+		$sms->register();
+		$subscriptions->register();
+		$live->register();
+		(new PortalRoute($orgRepo))->register();
+		(new Pwa())->register();
 
 		add_action(CertificateService::RENDER_HOOK, [$this->certificates, 'render']);
 		add_action('init', [$this, 'registerContentTypes']);
@@ -87,6 +128,7 @@ final class Plugin {
 		if (is_admin()) {
 			(new AdminPages($this->tutor, $certRepo, $this->certificates))->register();
 			(new Metaboxes($this->tutor))->register();
+			(new Phase3Pages($this->tutor, $subscriptions, $orgRepo, $orgs, $live))->register();
 		}
 		add_action('admin_init', static function (): void {
 			// Roles are added on activation; this heals installs that skipped it (e.g. WP-CLI imports).

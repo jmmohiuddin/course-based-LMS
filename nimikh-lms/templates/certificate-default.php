@@ -13,9 +13,9 @@ defined('ABSPATH') || exit;
 <style>
 	@page { size: A4 landscape; margin: 0; }
 	body { margin: 0; font-family: 'Hind Siliguri', 'Inter', sans-serif; color: #0F172A; }
-	.frame { margin: 24px; padding: 40px 56px; border: 6px double #1E4FD8; text-align: center; }
+	.frame { margin: 24px; padding: 40px 56px; border: 6px double {{brand_color}}; text-align: center; }
 	.issuer { font-size: 16px; letter-spacing: 3px; color: #475569; text-transform: uppercase; }
-	h1 { font-size: 40px; margin: 18px 0 6px; color: #1E4FD8; }
+	h1 { font-size: 40px; margin: 18px 0 6px; color: {{brand_color}}; }
 	.name { font-size: 34px; font-weight: 700; margin: 20px 0 6px; }
 	.course { font-size: 24px; margin: 6px 0 18px; }
 	.meta { font-size: 15px; color: #475569; }
@@ -25,6 +25,7 @@ defined('ABSPATH') || exit;
 </head>
 <body>
 <div class="frame">
+	{{logo_img}}
 	<div class="issuer">{{issuer}}</div>
 	<h1>Certificate of Completion</h1>
 	<div class="meta">This certifies that</div>

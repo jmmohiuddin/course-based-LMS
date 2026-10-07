@@ -4,9 +4,11 @@ declare(strict_types=1);
 namespace Nimikh\LMS\Profile;
 
 use Nimikh\LMS\Certificates\CertificateRepository;
+use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Certificates\CertificateService;
 use Nimikh\LMS\Certificates\VerifyRoute;
 use Nimikh\LMS\Integrations\Tutor\TutorAdapter;
+use Nimikh\LMS\Subscriptions\SubscriptionService;
 
 /**
  * FR-09 learner profile.
@@ -20,7 +22,9 @@ final class ProfileShortcodes {
 	public function __construct(
 		private TutorAdapter $tutor,
 		private CertificateRepository $certs,
-		private CertificateService $service
+		private CertificateService $service,
+		private BadgeService $badges,
+		private SubscriptionService $subs
 	) {}
 
 	public function register(): void {
@@ -41,6 +45,8 @@ final class ProfileShortcodes {
 		ob_start();
 		echo '<section class="nk-dash">';
 		printf('<h2>%s</h2>', esc_html(sprintf(__('Hi %s', 'nimikh-lms'), $user->display_name)));
+		echo $this->badgeList($user->ID, true); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside
+		echo $this->subscriptionList($user->ID); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside
 		echo $this->certificateList($user->ID, true); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside
 
 		echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '" class="nk-dash__public">';
@@ -69,7 +75,7 @@ final class ProfileShortcodes {
 		}
 		wp_enqueue_style('nimikh-tokens');
 		wp_enqueue_style('nimikh-player');
-		return '<section class="nk-dash"><h2>' . esc_html($user->display_name) . '</h2>' . $this->certificateList($user->ID, false) . '</section>';
+		return '<section class="nk-dash"><h2>' . esc_html($user->display_name) . '</h2>' . $this->badgeList($user->ID, false) . $this->certificateList($user->ID, false) . '</section>';
 	}
 
 	public function togglePublic(): void {
@@ -105,6 +111,40 @@ final class ProfileShortcodes {
 				$html .= ' · <a href="' . esc_url(home_url('/certificate/' . $c['code'] . '/download')) . '">' . esc_html__('Download', 'nimikh-lms') . '</a>';
 			}
 			$html .= '</li>';
+		}
+		return $html . '</ul>';
+	}
+
+	private function badgeList(int $userId, bool $private): string {
+		$badges = $this->badges->awarded($userId);
+		$html   = '';
+		if ($private) {
+			$streak = $this->badges->streak($userId);
+			$html  .= '<p class="nk-streak">' . esc_html(sprintf(_n('%d-day learning streak', '%d-day learning streak', $streak, 'nimikh-lms'), $streak)) . '</p>';
+		}
+		if (!$badges) {
+			return $html;
+		}
+		$html .= '<ul class="nk-badges">';
+		foreach ($badges as $b) {
+			$html .= '<li class="nk-badge nk-badge--valid" title="' . esc_attr($b['description']) . '">' . esc_html($b['label']) . '</li>';
+		}
+		return $html . '</ul>';
+	}
+
+	private function subscriptionList(int $userId): string {
+		$active = array_filter($this->subs->forUser($userId), static fn(array $s): bool => $s['status'] === 'active');
+		if (!$active) {
+			return '';
+		}
+		$html = '<ul class="nk-subs">';
+		foreach ($active as $s) {
+			$html .= '<li>' . esc_html(sprintf(
+				/* translators: 1: plan name, 2: expiry date */
+				__('%1$s — active until %2$s', 'nimikh-lms'),
+				$s['plan'],
+				wp_date(get_option('date_format'), strtotime($s['expires_at'] . ' UTC'))
+			)) . '</li>';
 		}
 		return $html . '</ul>';
 	}

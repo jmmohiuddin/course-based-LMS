@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace Nimikh\LMS\Certificates;
 
 use Nimikh\LMS\Integrations\Tutor\TutorAdapter;
+use Nimikh\LMS\Orgs\Brand;
+use Nimikh\LMS\Orgs\OrgRepository;
 use Nimikh\LMS\Progress\CourseRules;
 use Nimikh\LMS\Progress\ProgressRepository;
 use Nimikh\LMS\Progress\ProgressService;
@@ -98,6 +100,7 @@ final class CertificateService {
 		}
 
 		$verifyUrl = VerifyRoute::url($cert['code']);
+		$org       = (new OrgRepository())->forCourse($cert['course_id']); // institute branding (phase 3)
 		$vars      = [
 			'name'   => $user->display_name,
 			'course' => $this->tutor->courseTitle($cert['course_id']),
@@ -105,7 +108,9 @@ final class CertificateService {
 			'score'  => $cert['score'] === null ? '' : rtrim(rtrim(number_format($cert['score'], 2), '0'), '.') . '%',
 			'code'   => $cert['code'],
 			'url'    => $verifyUrl,
-			'issuer' => (string) Settings::get('issuer_name'),
+			'issuer' => $org['name'] ?? (string) Settings::get('issuer_name'),
+			'brand_color' => $org['brand_color'] ?? Brand::DEFAULT_COLOR,
+			'logo'   => $org['logo_url'] ?? '',
 		];
 
 		$html = $this->renderer->html($cert['template_id'], $vars, $this->renderer->qrDataUri($verifyUrl));
@@ -153,14 +158,17 @@ final class CertificateService {
 			}
 		}
 
+		$org = (new OrgRepository())->forCourse($cert['course_id']);
+
 		return [
 			'status'  => $status,
+			'brand'   => ['color' => $org['brand_color'] ?? Brand::DEFAULT_COLOR, 'logo' => $org['logo_url'] ?? ''],
 			'code'    => $cert['code'],
 			'name'    => $user ? $user->display_name : '',
 			'course'  => $this->tutor->courseTitle($cert['course_id']),
 			'date'    => wp_date(get_option('date_format'), strtotime($cert['issued_at'] . ' UTC')),
 			'score'   => $cert['score'],
-			'issuer'  => (string) Settings::get('issuer_name'),
+			'issuer'  => $org['name'] ?? (string) Settings::get('issuer_name'),
 			'reason'  => $status === 'revoked' ? (string) $cert['revoked_reason'] : '',
 		];
 	}

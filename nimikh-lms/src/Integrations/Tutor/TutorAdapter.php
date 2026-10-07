@@ -166,6 +166,38 @@ class TutorAdapter {
 		return false;
 	}
 
+	/** Cancel an enrolment (Tutor keeps the enrolment post and flips its status). */
+	public function cancelEnrolment(int $userId, int $courseId): void {
+		global $wpdb;
+		$ids = $wpdb->get_col($wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'tutor_enrolled' AND post_parent = %d AND post_author = %d AND post_status = 'completed'",
+			$courseId,
+			$userId
+		));
+		foreach ($ids ?: [] as $id) {
+			wp_update_post(['ID' => (int) $id, 'post_status' => 'cancel']);
+		}
+	}
+
+	/** @return array<int, array{id:int, title:string}> courses this user may report on or author for */
+	public function managedCourses(int $userId): array {
+		$posts = get_posts([
+			'post_type'      => self::COURSE_POST_TYPE,
+			'post_status'    => ['publish', 'draft', 'private'],
+			'posts_per_page' => 300,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+			'no_found_rows'  => true,
+		]);
+		$out = [];
+		foreach ($posts as $p) {
+			if ($this->canManageCourse($userId, (int) $p->ID)) {
+				$out[] = ['id' => (int) $p->ID, 'title' => html_entity_decode(get_the_title($p), ENT_QUOTES, 'UTF-8')];
+			}
+		}
+		return $out;
+	}
+
 	public function courseTitle(int $courseId): string {
 		return html_entity_decode(get_the_title($courseId), ENT_QUOTES, 'UTF-8');
 	}

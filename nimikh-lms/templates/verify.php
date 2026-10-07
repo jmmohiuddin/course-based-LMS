@@ -25,6 +25,13 @@ $icons = ['valid' => '✔', 'revoked' => '✖', 'integrity_failed' => '!', 'not_
 <link rel="stylesheet" href="<?php echo esc_url(NIMIKH_LMS_URL . 'assets/css/verify.css?ver=' . NIMIKH_LMS_VERSION); ?>">
 </head>
 <body class="nk-verify">
+<?php
+$brand = $result['brand'] ?? null;
+if ($brand && !empty($brand['logo'])) : ?>
+	<div style="text-align:center;padding:16px;border-bottom:4px solid <?php echo esc_attr(\Nimikh\LMS\Orgs\Brand::color($brand['color'])); ?>">
+		<img src="<?php echo esc_url($brand['logo']); ?>" alt="<?php echo esc_attr($result['issuer'] ?? ''); ?>" style="max-height:48px;max-width:70%">
+	</div>
+<?php endif; ?>
 <main class="nk-verify__main">
 	<h1><?php esc_html_e('Verify a certificate', 'nimikh-lms'); ?></h1>
 

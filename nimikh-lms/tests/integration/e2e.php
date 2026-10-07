@@ -1,7 +1,9 @@
 <?php
 // Integration test: boots a real WordPress, drives the nimikh/v1 REST routes end to end. See README.md in this folder.
 $_SERVER['HTTP_HOST'] = 'localhost'; $_SERVER['REQUEST_URI'] = '/'; $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-require __DIR__ . '/wp-load.php';
+// Locate WordPress: $WP_ROOT, else the current directory, else any parent of this file.
+$wpRoot = getenv('WP_ROOT') ?: (is_file(getcwd() . '/wp-load.php') ? getcwd() : (function () { $d = __DIR__; while ($d !== dirname($d)) { if (is_file($d . '/wp-load.php')) { return $d; } $d = dirname($d); } return getcwd(); })());
+require $wpRoot . '/wp-load.php';
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 $fail = 0; $n = 0;
 function ok($cond, $label, $extra = '') { global $fail, $n; $n++; if ($cond) { echo "  ok   $label\n"; } else { $fail++; echo "  FAIL $label $extra\n"; } }

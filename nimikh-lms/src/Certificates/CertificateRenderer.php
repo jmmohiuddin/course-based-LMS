@@ -29,6 +29,9 @@ final class CertificateRenderer {
 		foreach ($vars as $key => $value) {
 			$replace['{{' . $key . '}}'] = esc_html($value);
 		}
+		// Brand colour is validated by Brand::color(); the logo is an https URL set by an admin.
+		$replace['{{brand_color}}'] = esc_html(\Nimikh\LMS\Orgs\Brand::color($vars['brand_color'] ?? ''));
+		$replace['{{logo_img}}']    = !empty($vars['logo']) ? '<img src="' . esc_url($vars['logo']) . '" alt="" style="max-height:60px">' : '';
 		$replace['{{qr}}'] = $qrDataUri !== ''
 			? '<img src="' . esc_attr($qrDataUri) . '" alt="" width="120" height="120">'
 			: '';

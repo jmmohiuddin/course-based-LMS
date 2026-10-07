@@ -12,7 +12,7 @@ const videoPath = path.join(tmp, 'v.webm');
 execFileSync('ffmpeg', ['-v', 'error', '-f', 'lavfi', '-i', 'testsrc=size=320x180:rate=15:duration=30', '-c:v', 'libvpx', '-b:v', '200k', '-an', videoPath]);
 
 // ---- mock of the nimikh/v1 contract the player depends on --------------------
-const state = { beats: [], attempts: [], resolved: false, tries: 0 };
+const state = { beats: [], attempts: [], resolved: false, tries: 0, failBeats: false };
 const lesson = {
   lesson_id: 7, title: 'Demo', duration: 30,
   source: { type: 'mp4', url: '/v.webm', expires: 0 },
@@ -50,7 +50,8 @@ const server = http.createServer((req, res) => {
   }
   let body = ''; req.on('data', (c) => (body += c)); req.on('end', () => {
     const data = body ? JSON.parse(body) : {};
-    if (req.url === '/api/lessons/7/player') return json(lesson);
+    if (req.url === '/api/lessons/7/player') return json({ ...lesson, gate: lesson.interactions[0].resolved ? null : 8 });
+    if (req.url.startsWith('/api/lessons/7/heartbeat') && state.failBeats) { res.writeHead(503, { 'Content-Type': 'application/json' }); return res.end('{}'); }
     if (req.url.startsWith('/api/lessons/7/heartbeat')) { state.beats.push(data); return json({ ok: true, rejected: false, furthest: 8, percent: 0, completed: false, gate: lesson.interactions[0].resolved ? null : 8 }); }
     if (req.url === '/api/interactions/1/attempt') {
       state.attempts.push(data.selected_index); state.tries++;
@@ -133,6 +134,26 @@ const server = http.createServer((req, res) => {
   await pg.keyboard.press('Escape');
   await pg.waitForTimeout(300);
   check((await pg.locator('[role=dialog]').count()) === 0, 'Escape dismisses an optional question');
+
+  // Offline-safe progress: ranges the server never acknowledged survive a reload and are re-sent.
+  state.failBeats = true;
+  await pg.evaluate(() => { localStorage.removeItem('nimikh-pending-7'); const v = document.querySelector('video'); v.currentTime = 1; v.play(); });
+  await pg.waitForTimeout(2500);
+  await pg.evaluate(() => document.querySelector('video').pause());
+  await pg.waitForTimeout(600);
+  const saved = JSON.parse(await pg.evaluate(() => localStorage.getItem('nimikh-pending-7')) || '[]');
+  check(saved.length > 0 && saved[0][1] > saved[0][0], 'unsent watch ranges are kept on-device when the server is unreachable', JSON.stringify(saved));
+  state.failBeats = false; state.beats = [];
+  await pg.reload();
+  await pg.waitForSelector('.nk-player video');
+  await pg.waitForFunction(() => document.querySelector('video').readyState >= 1);
+  await pg.evaluate(() => { const v = document.querySelector('video'); v.play(); });
+  await pg.waitForTimeout(1200);
+  await pg.evaluate(() => document.querySelector('video').pause());
+  await pg.waitForTimeout(600);
+  const resent = state.beats.flatMap((b) => b.ranges);
+  check(resent.some((r) => r[0] === saved[0][0] && r[1] === saved[0][1]), 'after reload the saved ranges are re-sent to the server', JSON.stringify(resent));
+  check((await pg.evaluate(() => localStorage.getItem('nimikh-pending-7'))) === null || JSON.parse(await pg.evaluate(() => localStorage.getItem('nimikh-pending-7'))).every((r) => !(r[0] === saved[0][0] && r[1] === saved[0][1])), 'saved ranges are cleared once acknowledged');
 
   console.log(failed ? `\n${failed} failed` : '\nall browser checks passed');
   await browser.close(); server.close(); fs.rmSync(tmp, { recursive: true, force: true });
