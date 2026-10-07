@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: nimikh-lms\n"
 
-#: src/Admin/AdminPages.php:166
+#: src/Admin/AdminPages.php:167
 msgid "%1$d enrolled, %2$d created, %3$d skipped."
 msgstr ""
 
@@ -139,7 +139,7 @@ msgstr ""
 msgid "Badges"
 msgstr ""
 
-#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:160
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:161
 msgid "Batch enrolment"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Certificate not found."
 msgstr ""
 
-#: src/Admin/AdminPages.php:113
+#: src/Admin/AdminPages.php:114
 msgid "Certificate revoked."
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Certificate templates"
 msgstr ""
 
-#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:111 src/Privacy/PrivacyService.php:75
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:112 src/Privacy/PrivacyService.php:75
 msgid "Certificates"
 msgstr ""
 
@@ -255,11 +255,11 @@ msgstr ""
 msgid "Could not save the note."
 msgstr ""
 
-#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
 msgid "Course"
 msgstr ""
 
-#: src/Admin/AdminPages.php:175
+#: src/Admin/AdminPages.php:176
 msgid "Course ID"
 msgstr ""
 
@@ -289,6 +289,10 @@ msgstr ""
 
 #: src/Frontend/Shortcodes.php:68
 msgid "Delete"
+msgstr ""
+
+#: src/Admin/AdminPages.php:68
+msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
 msgstr ""
 
 #: src/Video/FrontendPlayer.php:72
@@ -347,11 +351,11 @@ msgstr ""
 msgid "Earned your first certificate."
 msgstr ""
 
-#: src/Admin/AdminPages.php:80
+#: src/Admin/AdminPages.php:81
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/AdminPages.php:177
+#: src/Admin/AdminPages.php:178
 msgid "Enrol learners"
 msgstr ""
 
@@ -434,7 +438,7 @@ msgstr ""
 msgid "I earned a certificate in %s:"
 msgstr ""
 
-#: src/Admin/AdminPages.php:116
+#: src/Admin/AdminPages.php:117
 msgid "ID"
 msgstr ""
 
@@ -494,7 +498,7 @@ msgstr ""
 msgid "Invalid option."
 msgstr ""
 
-#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:70
 msgid "Issued"
 msgstr ""
 
@@ -546,7 +550,7 @@ msgstr ""
 msgid "Learned 7 days in a row."
 msgstr ""
 
-#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124
 msgid "Learner"
 msgstr ""
 
@@ -682,7 +686,7 @@ msgstr ""
 msgid "Nimikh LMS learning data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:69
+#: src/Admin/AdminPages.php:70
 msgid "Nimikh LMS settings"
 msgstr ""
 
@@ -718,7 +722,7 @@ msgstr ""
 msgid "No courses are published yet."
 msgstr ""
 
-#: src/Admin/AdminPages.php:199
+#: src/Admin/AdminPages.php:200
 msgid "No file uploaded."
 msgstr ""
 
@@ -734,7 +738,7 @@ msgstr ""
 msgid "No questions yet. Be the first to ask."
 msgstr ""
 
-#: src/Admin/AdminPages.php:147 src/Admin/AdminPages.php:184 src/Admin/DemoPage.php:64
+#: src/Admin/AdminPages.php:148 src/Admin/AdminPages.php:185 src/Admin/DemoPage.php:64
 msgid "Not allowed."
 msgstr ""
 
@@ -850,7 +854,7 @@ msgstr ""
 msgid "Quick check!"
 msgstr ""
 
-#: src/Admin/AdminPages.php:134 templates/verify.php:77
+#: src/Admin/AdminPages.php:135 templates/verify.php:77
 msgid "Reason"
 msgstr ""
 
@@ -878,7 +882,7 @@ msgstr ""
 msgid "Request deletion of my data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:135
+#: src/Admin/AdminPages.php:136
 msgid "Revoke"
 msgstr ""
 
@@ -910,7 +914,7 @@ msgstr ""
 msgid "SMS sender ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:97
+#: src/Admin/AdminPages.php:98
 msgid "SMS template: %s"
 msgstr ""
 
@@ -934,7 +938,7 @@ msgstr ""
 msgid "Schedule class"
 msgstr ""
 
-#: src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:77 templates/verify.php:72
+#: src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:77 templates/verify.php:72
 msgid "Score"
 msgstr ""
 
@@ -998,7 +1002,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/Admin/AdminPages.php:116 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+#: src/Admin/AdminPages.php:117 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
 msgid "Status"
 msgstr ""
 
@@ -1134,11 +1138,11 @@ msgstr ""
 msgid "Upcoming"
 msgstr ""
 
-#: src/Admin/AdminPages.php:171
+#: src/Admin/AdminPages.php:172
 msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
 msgstr ""
 
-#: src/Admin/AdminPages.php:108
+#: src/Admin/AdminPages.php:109
 msgid "Use the course builder to add questions to your videos."
 msgstr ""
 
