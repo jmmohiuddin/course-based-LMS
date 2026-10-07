@@ -3,7 +3,7 @@ body.nk-verify { margin: 0; background: var(--nk-surface); color: var(--nk-ink);
 .nk-verify h1 { font-size: 28px; line-height: 1.25; margin: 0 0 16px; }
 .nk-verify__row { display: flex; gap: 8px; margin-top: 4px; }
 .nk-verify input { flex: 1; min-height: 44px; padding: 0 12px; font: inherit; letter-spacing: 2px; text-transform: uppercase; color: var(--nk-ink); background: var(--nk-surface); border: 1px solid var(--nk-border); border-radius: var(--nk-radius-input); }
-.nk-verify button { min-height: 44px; padding: 0 20px; font: inherit; font-weight: 600; color: #fff; background: var(--nk-primary); border: 0; border-radius: var(--nk-radius-input); cursor: pointer; }
+.nk-verify button { min-height: 44px; padding: 0 20px; font: inherit; font-weight: 600; color: var(--nk-on-primary, #fff); background: var(--nk-primary); border: 0; border-radius: var(--nk-radius-input); cursor: pointer; }
 .nk-verify__hint { color: var(--nk-danger); }
 .nk-card { margin-top: 24px; padding: 16px 20px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); background: var(--nk-surface-alt); }
 .nk-card--valid { border-color: var(--nk-success); }

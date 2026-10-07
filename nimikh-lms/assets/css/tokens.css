@@ -2,6 +2,7 @@
 :root {
   --nk-primary: #1E4FD8;
   --nk-primary-soft: #E8EEFE;
+  --nk-on-primary: #FFFFFF;
   --nk-success: #15803D;
   --nk-danger: #B91C1C;
   --nk-warning: #B45309;
@@ -18,6 +19,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --nk-primary: #6E93FF;
+    --nk-on-primary: #0B1120;
     --nk-primary-soft: #1B2547;
     --nk-success: #4ADE80;
     --nk-danger: #F87171;
@@ -31,6 +33,7 @@
 }
 :root[data-theme="dark"] {
   --nk-primary: #6E93FF;
+  --nk-on-primary: #0B1120;
   --nk-primary-soft: #1B2547;
   --nk-success: #4ADE80;
   --nk-danger: #F87171;

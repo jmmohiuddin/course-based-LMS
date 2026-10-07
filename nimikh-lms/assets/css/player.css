@@ -29,7 +29,7 @@
 .nk-feedback[data-kind="correct"] { color: var(--nk-success); }
 .nk-feedback[data-kind="wrong"] { color: var(--nk-danger); }
 .nk-sheet__actions { display: flex; gap: 8px; margin-top: 12px; }
-.nk-btn { min-height: 44px; padding: 0 20px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-primary); background: var(--nk-primary); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.nk-btn { min-height: 44px; padding: 0 20px; border-radius: var(--nk-radius-input); border: 1px solid var(--nk-primary); background: var(--nk-primary); color: var(--nk-on-primary, #fff); font: inherit; font-weight: 600; cursor: pointer; }
 .nk-btn:disabled { opacity: .5; cursor: not-allowed; }
 .nk-btn--ghost { background: transparent; color: var(--nk-primary); }
 .nk-btn:focus-visible, .nk-option:focus-within { outline: 3px solid var(--nk-primary); outline-offset: 2px; }
