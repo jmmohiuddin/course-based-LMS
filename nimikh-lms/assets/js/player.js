@@ -67,6 +67,35 @@
     document.addEventListener('visibilitychange', function () { if (document.hidden && lcp > 0) { rum('lcp', lcp); } });
   } catch (e) { /* not supported */ }
 
+  // Answers given with no connection are kept on the device and graded by the server when the learner is back online.
+  // The questions are never sent with their answers, so offline there is no way to show right/wrong straight away.
+  var attemptQueue = {
+    key: function (id) { return 'nimikh-attempts-' + id; },
+    load: function (id) { try { return JSON.parse(localStorage.getItem(attemptQueue.key(id))) || []; } catch (e) { return []; } },
+    save: function (id, list) { try { if (list.length) { localStorage.setItem(attemptQueue.key(id), JSON.stringify(list)); } else { localStorage.removeItem(attemptQueue.key(id)); } } catch (e) { /* storage unavailable */ } },
+    add: function (lessonId, interactionId, index) { var l = attemptQueue.load(lessonId); l.push({ id: interactionId, i: index }); attemptQueue.save(lessonId, l); },
+    // Each answer is taken off the stored queue BEFORE it is sent, so tabs and online events that flush at the same time
+    // cannot send it twice; it goes back only if the send fails because the network is still down.
+    busy: {},
+    flush: function (lessonId) {
+      if (attemptQueue.busy[lessonId]) { return Promise.resolve(false); }
+      attemptQueue.busy[lessonId] = true;
+      var sent = false;
+      function next() {
+        var list = attemptQueue.load(lessonId);
+        if (!list.length) { return Promise.resolve(); }
+        var a = list.shift();
+        attemptQueue.save(lessonId, list);
+        return api('/interactions/' + a.id + '/attempt', 'POST', { selected_index: a.i }).then(function () { sent = true; return next(); }, function (e) {
+          if (e && e.code) { return next(); }                         // the server answered (e.g. already resolved): drop it
+          attemptQueue.save(lessonId, [a].concat(attemptQueue.load(lessonId)));  // still offline: keep it for later
+          throw e;
+        });
+      }
+      return next().then(function () { attemptQueue.busy[lessonId] = false; return sent; }, function () { attemptQueue.busy[lessonId] = false; return sent; });
+    }
+  };
+
   function Player(root) {
     this.root = root;
     this.lessonId = parseInt(root.getAttribute('data-lesson'), 10);
@@ -88,6 +117,8 @@
       self.furthest = d.furthest || 0;
       self.gate = d.gate;
       self.build();
+      attemptQueue.flush(self.lessonId).then(function (any) { if (any) { self.heartbeat(); } });
+      window.addEventListener('online', function () { attemptQueue.flush(self.lessonId).then(function (any) { if (any) { self.heartbeat(); } }); });
     }).catch(function (e) {
       self.root.appendChild(el('p', { 'class': 'nk-notice', text: (e && e.message) || T.loadError }));
     });
@@ -109,6 +140,9 @@
     this.root.appendChild(this.stage);
     this.root.appendChild(this.markers);
     this.root.appendChild(this.statusEl);
+    if (d.offline) {
+      this.root.insertBefore(el('p', { 'class': 'nk-offline-badge', text: (T.offlineCopy || 'Playing your offline copy') + (d.offline_expires ? ' · ' + new Date(d.offline_expires * 1000).toLocaleDateString() : '') }), this.root.firstChild);
+    }
     this.drawMarkers();
     this.buildNotes();
 
@@ -368,7 +402,10 @@
       api('/interactions/' + it.id + '/attempt', 'POST', { selected_index: chosen }).then(function (r) {
         self.onAnswer(it, r, chosen, opts, feedback, submit, actions, sheet, setBusy);
       }).catch(function (e) {
-        feedback.setAttribute('data-kind', 'wrong'); feedback.textContent = (e && e.message) || T.loadError; setBusy(false);
+        if (e && e.code) { feedback.setAttribute('data-kind', 'wrong'); feedback.textContent = e.message || T.loadError; setBusy(false); return; }
+        // No connection (not a server answer): keep the answer on this device and let the learner carry on.
+        attemptQueue.add(self.lessonId, it.id, chosen);
+        self.onAnswer(it, { offline: true, resolved: true, correct: false }, chosen, opts, feedback, submit, actions, sheet, setBusy);
       });
     });
   };
@@ -379,7 +416,9 @@
 
     function mark(i, state, glyph) { opts[i].label.setAttribute('data-state', state); opts[i].mark.textContent = glyph; }
 
-    if (r.correct) {
+    if (r.offline) {
+      feedback.setAttribute('data-kind', ''); feedback.textContent = T.offlineSaved || 'Answer saved.';
+    } else if (r.correct) {
       mark(chosen, 'correct', '✔');
       feedback.setAttribute('data-kind', 'correct');
       feedback.textContent = '✔ ' + T.correct + (r.explanation ? ' — ' + r.explanation : '');

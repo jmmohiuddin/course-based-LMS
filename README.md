@@ -30,6 +30,8 @@ is Tutor LMS configuration, not custom code.
 | --- | --- | --- |
 | ![Reports](docs/screenshots/reports-dashboard.png) | ![Verify](docs/screenshots/verify-bangla.png) | ![Institute](docs/screenshots/institute-portal.png) |
 
+**0.5.0:** SCORM 1.2/2004 import (sandboxed) and offline downloads (expiring, device-limited; not DRM). See `docs/SCORM-AND-OFFLINE.md`.
+
 **0.4.0:** opt-in course leaderboard (`[nimikh_leaderboard]`); what remains from the PRD is in `docs/REMAINING-PRD.md`.
 
 **0.3.0:** *Success metrics* admin page (the PRD's seven targets), anonymous video-start/LCP timings, question-placement advice for instructors.
@@ -163,7 +165,7 @@ three live classes (one past, with attendance), so every report and page has som
   Erasure deletes progress, answers, notes, badges, streaks, attendance, SMS log and memberships; discussion questions others
   replied to are anonymised; certificates and subscription records are **kept anonymised** (the certificate is revoked, its file
   deleted, and the public page shows no name). Mention this in your privacy policy. Tutor's own data is Tutor's to erase.
-- **Bangla:** set the site language to Bangla (বাংলা). All 434 strings are translated: the learner experience (player, questions,
+- **Bangla:** set the site language to Bangla (বাংলা). All 503 strings are translated: the learner experience (player, questions,
   verify page, dashboard, badges, discussion, live classes, emails) and also wp-admin screens and instructor-facing messages.
   **The translation is a draft: please have a native speaker review it.** To add or change strings: `php tools/make-pot.php`, edit
   `languages/nimikh-lms-bn_BD.po`, then `php tools/compile-mo.php languages/nimikh-lms-bn_BD.po`. A unit test fails if the
@@ -188,7 +190,7 @@ authenticated and capability-checked.
 
 ```bash
 cd nimikh-lms && composer install
-vendor/bin/phpunit -c phpunit.xml.dist                          # 64 unit tests (pure logic, translation guards, Tutor contract checker)
+vendor/bin/phpunit -c phpunit.xml.dist                          # 111 unit tests (pure logic, translation guards, Tutor contract checker)
 NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 28 browser checks: player incl. notes (needs ffmpeg + Playwright Chromium)
 NODE_PATH=$(npm root -g) node tests/browser/phase23.spec.cjs     # 23 browser checks: PWA offline, discussion, live, reports
 php tests/integration/e2e.php                                    # 52 checks on a real WordPress (phase 1)
@@ -196,6 +198,8 @@ php tests/integration/e2e-phase23.php                            # 95 checks on 
 php tests/integration/e2e-features.php                           # 65 checks: notes, sharing, privacy, Bangla, demo-data lifecycle
 php tests/integration/e2e-gaps.php                               # checklist, next lesson, login limit, exam cooldown, OTP/Google, cert layout (run in CI)
 NODE_PATH=$(npm root -g) node tests/browser/admin-auth.spec.cjs  # 17 browser checks: certificate editor, phone sign-in form
+NODE_PATH=$(npm root -g) node tests/browser/scorm.spec.cjs       # 30 browser checks: SCORM sandbox isolation and API conformance
+NODE_PATH=$(npm root -g) node tests/browser/offline.spec.cjs     # 25 browser checks: offline lessons with a real service worker (needs ffmpeg)
 php tools/check-tutor-contract.php /path/to/plugins/tutor        # verifies every Tutor hook/meta/table/column we rely on exists
 php tests/integration/e2e-tutor.php                              # real Tutor + MySQL (CI), 35 checks (also dry-run on the stub site)
 php tests/integration/e2e-uninstall.php                          # MySQL only: uninstall really drops the tables (destructive, run last)
@@ -211,7 +215,7 @@ php tests/integration/e2e-uninstall.php                          # MySQL only: u
 | FR-09 learner profile | Dashboard + opt-in public profile built; visual polish left to the theme |
 | FR-10 payments | Tutor checkout; SSLCommerz/bKash/Stripe gateway plugins to be installed and configured |
 | FR-11 analytics, FR-14 CSV batch enrolment | Built, including the charts dashboard |
-| FR-12 Bangla/English | All 434 strings translated (draft Bangla, needs native review) |
+| FR-12 Bangla/English | All 503 strings translated (draft Bangla, needs native review) |
 | FR-13 notifications | Email + SMS (configurable gateway) for enrolment, exam result, certificate, live-class reminder |
 | FR-15 content protection | Signed expiring Bunny URLs + moving dynamic watermark. DRM not included |
 
@@ -237,7 +241,7 @@ php tests/integration/e2e-uninstall.php                          # MySQL only: u
   custom tab, so embedding it there is future work.
 - Question text is plain text (no rich text/LaTeX) in this version.
 - Not built: native mobile apps (the PWA is the mobile story), WordPress-multisite white-labelling,
-  SCORM import, DevOps (Cloudflare, Redis, CI deploy, Sentry).
+  DRM for offline copies, DevOps beyond the configs in `ops/`.
 - The demo seeder writes Tutor-style data (courses, topics, lessons, quizzes, enrolment posts, quiz attempts limited to the
   columns your Tutor schema has) but was run against a Tutor stand-in, not real Tutor. Review it on staging first.
 - Privacy erasure covers this plugin's tables. If you log extra personal data elsewhere (analytics, gateway records), erase it there.

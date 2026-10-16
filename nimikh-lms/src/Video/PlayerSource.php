@@ -37,6 +37,29 @@ final class PlayerSource {
 		return null;
 	}
 
+	/**
+	 * A single downloadable file for offline use: Bunny's MP4 fallback rendition (must be enabled on the library) or a plain
+	 * .mp4/.webm URL. HLS-only sources cannot be saved as one file, so those lessons are not offered offline.
+	 *
+	 * @return array{url:string, expires:int}|null
+	 */
+	public static function offlineSource(int $lessonId): ?array {
+		$videoId = (string) get_post_meta($lessonId, 'nimikh_bunny_video_id', true);
+		$host    = (string) Settings::get('bunny_host');
+		$key     = (string) Settings::get('bunny_token_key');
+		if ($videoId !== '' && $host !== '') {
+			$res     = preg_match('/^\d{3,4}p$/', (string) Settings::get('offline_rendition')) === 1 ? (string) Settings::get('offline_rendition') : '480p';
+			$expires = time() + 3600; // the link only needs to survive the download
+			$path    = '/' . rawurlencode($videoId) . '/play_' . $res . '.mp4';
+			return ['url' => $key !== '' ? BunnyUrlSigner::sign($host, $path, $key, $expires) : 'https://' . $host . $path, 'expires' => $expires];
+		}
+		$plain = (string) get_post_meta($lessonId, 'nimikh_video_url', true);
+		if ($plain !== '' && preg_match('/\.(mp4|webm)(\?|$)/i', $plain) === 1) {
+			return ['url' => esc_url_raw($plain), 'expires' => 0];
+		}
+		return null;
+	}
+
 	/** @return array<int, array{lang:string,label:string,url:string}> */
 	public static function captions(int $lessonId): array {
 		$raw = get_post_meta($lessonId, 'nimikh_captions', true);

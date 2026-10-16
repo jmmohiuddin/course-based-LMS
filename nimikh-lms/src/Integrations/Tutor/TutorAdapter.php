@@ -186,6 +186,8 @@ class TutorAdapter {
 		foreach ($ids ?: [] as $id) {
 			wp_update_post(['ID' => (int) $id, 'post_status' => 'cancel']);
 		}
+		/** Access to this course has ended: offline copies of its lessons must stop working. */
+		do_action('nimikh_enrolment_cancelled', $userId, $courseId);
 	}
 
 	/** @return array<int, array{id:int, title:string}> courses this user may report on or author for */

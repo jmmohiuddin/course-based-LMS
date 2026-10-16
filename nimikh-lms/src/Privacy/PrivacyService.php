@@ -83,6 +83,9 @@ final class PrivacyService {
 				__('Time spent (seconds)', 'nimikh-lms') => (int) $r['total_seconds'] + (int) $r['session_seconds'], __('Completed', 'nimikh-lms') => $r['completed_at'] ?: '-',
 			]);
 		}
+		foreach ($q('SELECT * FROM ' . $t('offline_licenses') . ' WHERE user_id = %d', $uid) as $r) {
+			$push('nimikh-offline', __('Offline downloads', 'nimikh-lms'), $r['id'], [__('Lesson', 'nimikh-lms') => get_the_title((int) $r['lesson_id']), __('Issued', 'nimikh-lms') => $r['issued_at'], __('Expires', 'nimikh-lms') => $r['expires_at']]);
+		}
 		foreach ($q('SELECT * FROM ' . $t('notes') . ' WHERE user_id = %d ORDER BY id LIMIT 2000', $uid) as $r) {
 			$push('nimikh-notes', __('Video notes', 'nimikh-lms'), $r['id'], [
 				__('Lesson', 'nimikh-lms') => get_the_title((int) $r['lesson_id']), __('At second', 'nimikh-lms') => $r['at_second'], __('Note', 'nimikh-lms') => $r['body'],
@@ -133,7 +136,7 @@ final class PrivacyService {
 		$removed = 0;
 		$t = static fn(string $name): string => Installer::table($name);
 
-		foreach (['watch_progress', 'scorm_tracking', 'notes', 'user_badges', 'activity_days', 'live_attendance', 'sms_log', 'org_members'] as $table) {
+		foreach (['watch_progress', 'scorm_tracking', 'offline_licenses', 'notes', 'user_badges', 'activity_days', 'live_attendance', 'sms_log', 'org_members'] as $table) {
 			$removed += (int) $wpdb->delete($t($table), ['user_id' => $uid]);
 		}
 		$removed += (int) $wpdb->delete($t('interaction_attempts'), ['user_id' => $uid]);

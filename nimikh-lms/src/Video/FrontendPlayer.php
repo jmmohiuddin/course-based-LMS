@@ -76,9 +76,44 @@ final class FrontendPlayer {
 				'noteDelete'  => __('Delete note', 'nimikh-lms'),
 				'notesEmpty'  => __('No notes yet. Pause the video and jot something down.', 'nimikh-lms'),
 				'noteError'   => __('Could not save the note.', 'nimikh-lms'),
+				'offlineCopy' => __('Playing your offline copy', 'nimikh-lms'),
+				'offlineSaved' => __('Answer saved. We will check it when you are back online.', 'nimikh-lms'),
 			],
 		]);
-		return sprintf('<div class="nk-player" data-lesson="%d" data-mode="learner"></div>', $lessonId);
+		$html = sprintf('<div class="nk-player" data-lesson="%d" data-mode="learner"></div>', $lessonId);
+		if (\Nimikh\LMS\Offline\OfflineService::enabledFor($lessonId)) {
+			$html .= $this->offlineBox($lessonId);
+		}
+		return $html;
+	}
+
+	private function offlineBox(int $lessonId): string {
+		wp_enqueue_style('nimikh-tokens');
+		wp_enqueue_style('nimikh-player');
+		wp_enqueue_script('nimikh-offline', NIMIKH_LMS_URL . 'assets/js/offline.js', [], NIMIKH_LMS_VERSION, ['in_footer' => true, 'strategy' => 'defer']);
+		wp_localize_script('nimikh-offline', 'NimikhOffline', self::offlineConfig());
+		return sprintf('<div class="nk-offline" data-lesson="%d"></div>', $lessonId);
+	}
+
+	/** @return array<string, mixed> shared by the lesson button and the "My downloads" list */
+	public static function offlineConfig(): array {
+		return [
+			'restUrl' => esc_url_raw(rest_url('nimikh/v1')),
+			'nonce'   => wp_create_nonce('wp_rest'),
+			'i18n'    => [
+				'download'   => __('Download for offline', 'nimikh-lms'),
+				'downloading' => __('Downloading… %d%%', 'nimikh-lms'),
+				'ready'      => __('Available offline until %s', 'nimikh-lms'),
+				'remove'     => __('Remove download', 'nimikh-lms'),
+				'renew'      => __('Renew', 'nimikh-lms'),
+				'expired'    => __('This download has expired.', 'nimikh-lms'),
+				'noSupport'  => __('Offline downloads need the installed app or a recent browser. Reload this page once and try again.', 'nimikh-lms'),
+				'noSpace'    => __('Not enough free storage on this device.', 'nimikh-lms'),
+				'failed'     => __('The download failed. Check your connection and try again.', 'nimikh-lms'),
+				'none'       => __('No lessons downloaded yet.', 'nimikh-lms'),
+				'note'       => __('Downloaded lessons expire and can only be kept on a few devices.', 'nimikh-lms'),
+			],
+		];
 	}
 
 	/** Instructor-side mount used by the lesson metabox. */

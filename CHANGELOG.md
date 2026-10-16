@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0
+
+- **SCORM 1.2 / 2004 import**: validated upload, extraction under an extension allowlist, sandboxed delivery through a signed-token route (CSP `sandbox`, opaque origin), SCORM API bridged with `postMessage`, whitelisted data model, completion feeds Tutor and certificates (schema 5)
+- **Offline downloads**: per-lesson opt-in, time- and device-limited licences, playback and range seeking through the service worker, offline answers queued and graded on sync, revocation on next online visit or when enrolment ends (schema 6)
+- Rewrite rules are now flushed once after an upgrade, not only on activation
+- `docs/SCORM-AND-OFFLINE.md`; new Playwright specs for the SCORM sandbox and the offline flow; 65 new Bangla strings
+
 ## 0.4.0
 
 - Opt-in course leaderboard (`[nimikh_leaderboard course="ID"]`): off by default, first name and initial only, private own-rank for everyone; erased with the learner's data

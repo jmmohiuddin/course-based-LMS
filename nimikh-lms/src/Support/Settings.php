@@ -33,6 +33,10 @@ final class Settings {
 		'sentry_dsn'          => '',     // optional error reporting; empty = off
 		'weekly_report_enabled' => 0,    // weekly operations email to the site admin
 		'scorm_min_seconds'   => 20,     // a SCORM package cannot complete a lesson sooner than this after launch
+		'offline_days'        => 7,      // how long a downloaded lesson stays playable
+		'offline_max_lessons' => 10,     // downloaded lessons per learner
+		'offline_max_devices' => 2,      // devices per lesson per learner
+		'offline_rendition'   => '480p', // Bunny MP4 fallback resolution used for downloads
 		'pwa_enabled'         => 1,
 		'pwa_start_url'       => '',
 		'pwa_icon_url'        => '',
@@ -74,6 +78,10 @@ final class Settings {
 			'sentry_dsn'          => \Nimikh\LMS\Ops\SentryDsn::parse((string) ($input['sentry_dsn'] ?? '')) !== null ? trim((string) $input['sentry_dsn']) : '',
 			'weekly_report_enabled' => empty($input['weekly_report_enabled']) ? 0 : 1,
 			'scorm_min_seconds'   => min(3600, max(0, (int) ($input['scorm_min_seconds'] ?? 20))),
+			'offline_days'        => min(90, max(1, (int) ($input['offline_days'] ?? 7))),
+			'offline_max_lessons' => min(100, max(1, (int) ($input['offline_max_lessons'] ?? 10))),
+			'offline_max_devices' => min(10, max(1, (int) ($input['offline_max_devices'] ?? 2))),
+			'offline_rendition'   => preg_match('/^\d{3,4}p$/', (string) ($input['offline_rendition'] ?? '')) === 1 ? (string) $input['offline_rendition'] : '480p',
 			'pwa_enabled'         => empty($input['pwa_enabled']) ? 0 : 1,
 			'pwa_start_url'       => esc_url_raw((string) ($input['pwa_start_url'] ?? '')),
 			'pwa_icon_url'        => esc_url_raw((string) ($input['pwa_icon_url'] ?? '')),

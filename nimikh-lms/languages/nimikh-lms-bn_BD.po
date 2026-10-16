@@ -1759,3 +1759,78 @@ msgstr "ফাইল"
 
 msgid "imsmanifest.xml must be at the top level of the zip."
 msgstr "imsmanifest.xml অবশ্যই zip-এর সর্বোচ্চ স্তরে থাকতে হবে।"
+
+msgid "Answer saved. We will check it when you are back online."
+msgstr "উত্তর সংরক্ষিত হয়েছে। আপনি অনলাইনে ফিরলে আমরা এটি যাচাই করব।"
+
+msgid "Available offline until %s"
+msgstr "%s পর্যন্ত অফলাইনে দেখা যাবে"
+
+msgid "Download for offline"
+msgstr "অফলাইনের জন্য ডাউনলোড করুন"
+
+msgid "Downloaded lessons"
+msgstr "ডাউনলোড করা পাঠ"
+
+msgid "Downloaded lessons expire and can only be kept on a few devices."
+msgstr "ডাউনলোড করা পাঠের মেয়াদ শেষ হয় এবং অল্প কয়েকটি ডিভাইসেই রাখা যায়।"
+
+msgid "Downloading… %d%%"
+msgstr "ডাউনলোড হচ্ছে… %d%%"
+
+msgid "Let learners download this lesson for offline viewing"
+msgstr "শিক্ষার্থীদের অফলাইনে দেখার জন্য এই পাঠ ডাউনলোড করতে দিন"
+
+msgid "Needs the MP4 fallback enabled on your Bunny library (or a direct .mp4 URL). Copies expire and are limited per learner; this is not DRM."
+msgstr "আপনার Bunny লাইব্রেরিতে MP4 ফলব্যাক চালু থাকতে হবে (অথবা সরাসরি .mp4 URL)। কপির মেয়াদ শেষ হয় ও প্রতি শিক্ষার্থীর জন্য সীমিত; এটি DRM নয়।"
+
+msgid "No lessons downloaded yet."
+msgstr "এখনও কোনো পাঠ ডাউনলোড করা হয়নি।"
+
+msgid "Not enough free storage on this device."
+msgstr "এই ডিভাইসে যথেষ্ট খালি জায়গা নেই।"
+
+msgid "Offline download is not available for this lesson."
+msgstr "এই পাঠের জন্য অফলাইন ডাউনলোড চালু নেই।"
+
+msgid "Offline downloads"
+msgstr "অফলাইন ডাউনলোড"
+
+msgid "Offline downloads need the installed app or a recent browser. Reload this page once and try again."
+msgstr "অফলাইন ডাউনলোডের জন্য ইনস্টল করা অ্যাপ বা সাম্প্রতিক ব্রাউজার লাগবে। পাতাটি একবার রিলোড করে আবার চেষ্টা করুন।"
+
+msgid "Offline downloads: Bunny MP4 resolution (e.g. 480p)"
+msgstr "অফলাইন ডাউনলোড: Bunny MP4 রেজোলিউশন (যেমন 480p)"
+
+msgid "Offline downloads: days a downloaded lesson stays playable"
+msgstr "অফলাইন ডাউনলোড: ডাউনলোড করা পাঠ কত দিন চালানো যাবে"
+
+msgid "Offline downloads: devices per lesson"
+msgstr "অফলাইন ডাউনলোড: প্রতি পাঠে ডিভাইসের সংখ্যা"
+
+msgid "Offline downloads: lessons per learner"
+msgstr "অফলাইন ডাউনলোড: প্রতি শিক্ষার্থীর পাঠের সংখ্যা"
+
+msgid "Playing your offline copy"
+msgstr "আপনার অফলাইন কপি চলছে"
+
+msgid "Remove download"
+msgstr "ডাউনলোড সরান"
+
+msgid "Renew"
+msgstr "নবায়ন করুন"
+
+msgid "The download failed. Check your connection and try again."
+msgstr "ডাউনলোড ব্যর্থ হয়েছে। সংযোগ দেখে আবার চেষ্টা করুন।"
+
+msgid "This download has expired."
+msgstr "এই ডাউনলোডের মেয়াদ শেষ হয়েছে।"
+
+msgid "This lesson is already downloaded on the maximum number of your devices. Remove it from another device first."
+msgstr "এই পাঠ আপনার সর্বোচ্চ সংখ্যক ডিভাইসে ইতিমধ্যে ডাউনলোড করা আছে। আগে অন্য ডিভাইস থেকে সরান।"
+
+msgid "Unknown device."
+msgstr "অজানা ডিভাইস।"
+
+msgid "You have reached the limit of downloaded lessons. Remove one first."
+msgstr "ডাউনলোড করা পাঠের সীমায় পৌঁছেছেন। আগে একটি সরান।"

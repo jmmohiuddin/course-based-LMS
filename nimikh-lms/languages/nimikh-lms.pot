@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: nimikh-lms\n"
 
-#: src/Admin/AdminPages.php:172
+#: src/Admin/AdminPages.php:176
 msgid "%1$d enrolled, %2$d created, %3$d skipped."
 msgstr ""
 
@@ -103,11 +103,11 @@ msgstr ""
 msgid "A reason is required."
 msgstr ""
 
-#: src/Admin/AdminPages.php:69
+#: src/Admin/AdminPages.php:73
 msgid "AI model ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:67
+#: src/Admin/AdminPages.php:71
 msgid "AI question suggestions (sends transcripts to Anthropic)"
 msgstr ""
 
@@ -155,6 +155,10 @@ msgstr ""
 msgid "An institute needs a name."
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:80
+msgid "Answer saved. We will check it when you are back online."
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:64
 msgid "Answer the question to continue"
 msgstr ""
@@ -163,15 +167,15 @@ msgstr ""
 msgid "Answered at"
 msgstr ""
 
-#: src/Admin/AdminPages.php:68
+#: src/Admin/AdminPages.php:72
 msgid "Anthropic API key"
 msgstr ""
 
-#: src/Admin/AdminPages.php:72
+#: src/Admin/AdminPages.php:76
 msgid "App icon URL (optional, SVG or PNG)"
 msgstr ""
 
-#: src/Admin/AdminPages.php:71
+#: src/Admin/AdminPages.php:75
 msgid "App start URL (e.g. the dashboard page)"
 msgstr ""
 
@@ -187,15 +191,19 @@ msgstr ""
 msgid "Assign course"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:88
+#: src/Privacy/PrivacyService.php:91
 msgid "At second"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:106
+msgid "Available offline until %s"
 msgstr ""
 
 #: src/Frontend/ChecklistShortcode.php:93
 msgid "Average at least %s%% on in-video questions"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:97
+#: src/Privacy/PrivacyService.php:100
 msgid "Awarded"
 msgstr ""
 
@@ -203,15 +211,15 @@ msgstr ""
 msgid "Background jobs are running %d minutes late."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:97
+#: src/Privacy/PrivacyService.php:100
 msgid "Badge"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:97
+#: src/Privacy/PrivacyService.php:100
 msgid "Badges"
 msgstr ""
 
-#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:166
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:170
 msgid "Batch enrolment"
 msgstr ""
 
@@ -239,7 +247,7 @@ msgstr ""
 msgid "Bunny token authentication key"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:73
+#: src/Admin/Metaboxes.php:74
 msgid "Bunny video ID"
 msgstr ""
 
@@ -267,7 +275,7 @@ msgstr ""
 msgid "Certificate not found."
 msgstr ""
 
-#: src/Admin/AdminPages.php:119
+#: src/Admin/AdminPages.php:123
 msgid "Certificate revoked."
 msgstr ""
 
@@ -275,7 +283,7 @@ msgstr ""
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:207
+#: src/Plugin.php:214
 msgid "Certificate templates"
 msgstr ""
 
@@ -283,11 +291,11 @@ msgstr ""
 msgid "Certificate verification views per certificate"
 msgstr ""
 
-#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:75
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:121 src/Privacy/PrivacyService.php:75
 msgid "Certificates"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:125
+#: src/Privacy/PrivacyService.php:128
 msgid "Certificates and subscription records were kept in anonymised form (they no longer identify you). Their files were deleted."
 msgstr ""
 
@@ -315,7 +323,7 @@ msgstr ""
 msgid "Check: possibly too easy"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:107
+#: src/Admin/Metaboxes.php:109
 msgid "Choose a .zip file first."
 msgstr ""
 
@@ -327,7 +335,7 @@ msgstr ""
 msgid "Choose a time for the question."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:108
 msgid "Class"
 msgstr ""
 
@@ -387,11 +395,11 @@ msgstr ""
 msgid "Could not save the note."
 msgstr ""
 
-#: src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+#: src/Admin/AdminPages.php:126 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
 msgid "Course"
 msgstr ""
 
-#: src/Admin/AdminPages.php:181
+#: src/Admin/AdminPages.php:185
 msgid "Course ID"
 msgstr ""
 
@@ -431,7 +439,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/Admin/AdminPages.php:73
+#: src/Admin/AdminPages.php:77
 msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
 msgstr ""
 
@@ -475,12 +483,28 @@ msgstr ""
 msgid "Discussion is turned off."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:92
+#: src/Privacy/PrivacyService.php:95
 msgid "Discussion posts"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:125
 msgid "Download"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:104
+msgid "Download for offline"
+msgstr ""
+
+#: src/Frontend/DownloadsShortcode.php:27
+msgid "Downloaded lessons"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:114
+msgid "Downloaded lessons expire and can only be kept on a few devices."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:105
+msgid "Downloading… %d%%"
 msgstr ""
 
 #: src/Certificates/CertificateEditor.php:27
@@ -503,11 +527,11 @@ msgstr ""
 msgid "Email a weekly operations report to the site admin"
 msgstr ""
 
-#: src/Admin/AdminPages.php:86
+#: src/Admin/AdminPages.php:90
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/AdminPages.php:183
+#: src/Admin/AdminPages.php:187
 msgid "Enrol learners"
 msgstr ""
 
@@ -519,7 +543,7 @@ msgstr ""
 msgid "Every five minutes"
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:101
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:87 src/Privacy/PrivacyService.php:104
 msgid "Expires"
 msgstr ""
 
@@ -618,7 +642,7 @@ msgstr ""
 msgid "I earned a certificate in %s:"
 msgstr ""
 
-#: src/Admin/AdminPages.php:122
+#: src/Admin/AdminPages.php:126
 msgid "ID"
 msgstr ""
 
@@ -642,11 +666,11 @@ msgstr ""
 msgid "Install the app"
 msgstr ""
 
-#: src/Admin/AdminPages.php:70
+#: src/Admin/AdminPages.php:74
 msgid "Installable app (PWA)"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:111
+#: src/Privacy/PrivacyService.php:114
 msgid "Institute"
 msgstr ""
 
@@ -658,7 +682,7 @@ msgstr ""
 msgid "Institute admin access required."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:111
+#: src/Privacy/PrivacyService.php:114
 msgid "Institute memberships"
 msgstr ""
 
@@ -698,7 +722,7 @@ msgstr ""
 msgid "Issue date"
 msgstr ""
 
-#: src/Admin/AdminPages.php:122 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+#: src/Admin/AdminPages.php:126 src/Privacy/PrivacyService.php:77 src/Privacy/PrivacyService.php:87
 msgid "Issued"
 msgstr ""
 
@@ -734,7 +758,7 @@ msgstr ""
 msgid "Join link must be an https URL."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:108
 msgid "Joined"
 msgstr ""
 
@@ -778,7 +802,7 @@ msgstr ""
 msgid "Learned 7 days in a row."
 msgstr ""
 
-#: src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:124
+#: src/Admin/AdminPages.php:126 src/Admin/Phase3Pages.php:124
 msgid "Learner"
 msgstr ""
 
@@ -798,7 +822,7 @@ msgstr ""
 msgid "Length (minutes)"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:88
+#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:87
 msgid "Lesson"
 msgstr ""
 
@@ -822,6 +846,10 @@ msgstr ""
 msgid "Lessons worth rewatching:"
 msgstr ""
 
+#: src/Admin/Metaboxes.php:73
+msgid "Let learners download this lesson for offline viewing"
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:62
 msgid "Let's watch that part again"
 msgstr ""
@@ -842,7 +870,7 @@ msgstr ""
 msgid "Line %d: invalid email"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:108
 msgid "Live class attendance"
 msgstr ""
 
@@ -930,6 +958,10 @@ msgstr ""
 msgid "Needs attention:"
 msgstr ""
 
+#: src/Admin/Metaboxes.php:73
+msgid "Needs the MP4 fallback enabled on your Bunny library (or a direct .mp4 URL). Copies expire and are limited per learner; this is not DRM."
+msgstr ""
+
 #: src/Admin/Phase3Pages.php:96
 msgid "New plan"
 msgstr ""
@@ -958,7 +990,7 @@ msgstr ""
 msgid "Nimikh LMS learning data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:75
+#: src/Admin/AdminPages.php:79
 msgid "Nimikh LMS settings"
 msgstr ""
 
@@ -998,8 +1030,12 @@ msgstr ""
 msgid "No data yet"
 msgstr ""
 
-#: src/Admin/AdminPages.php:205
+#: src/Admin/AdminPages.php:209
 msgid "No file uploaded."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:113
+msgid "No lessons downloaded yet."
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:75
@@ -1022,8 +1058,12 @@ msgstr ""
 msgid "Nobody has joined the leaderboard yet."
 msgstr ""
 
-#: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:153 src/Admin/AdminPages.php:190
+#: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:157 src/Admin/AdminPages.php:194
 msgid "Not allowed."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:111
+msgid "Not enough free storage on this device."
 msgstr ""
 
 #: templates/verify.php:13
@@ -1038,7 +1078,7 @@ msgstr ""
 msgid "Not quite. Have another go."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:88
+#: src/Privacy/PrivacyService.php:91
 msgid "Note"
 msgstr ""
 
@@ -1054,8 +1094,36 @@ msgstr ""
 msgid "Now"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:108
+#: src/Privacy/PrivacyService.php:111
 msgid "Number"
+msgstr ""
+
+#: src/Offline/OfflineService.php:33
+msgid "Offline download is not available for this lesson."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:87
+msgid "Offline downloads"
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:110
+msgid "Offline downloads need the installed app or a recent browser. Reload this page once and try again."
+msgstr ""
+
+#: src/Admin/AdminPages.php:70
+msgid "Offline downloads: Bunny MP4 resolution (e.g. 480p)"
+msgstr ""
+
+#: src/Admin/AdminPages.php:67
+msgid "Offline downloads: days a downloaded lesson stays playable"
+msgstr ""
+
+#: src/Admin/AdminPages.php:69
+msgid "Offline downloads: devices per lesson"
+msgstr ""
+
+#: src/Admin/AdminPages.php:68
+msgid "Offline downloads: lessons per learner"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:12
@@ -1086,11 +1154,11 @@ msgstr ""
 msgid "Option chosen"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:109
+#: src/Admin/Metaboxes.php:111
 msgid "Package installed. Reloading…"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:110
+#: src/Admin/Metaboxes.php:112
 msgid "Package removed. Reloading…"
 msgstr ""
 
@@ -1122,7 +1190,7 @@ msgstr ""
 msgid "Phone-OTP sign-in (needs the SMS gateway above)"
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:101
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:104
 msgid "Plan"
 msgstr ""
 
@@ -1142,6 +1210,10 @@ msgstr ""
 msgid "Playback speed is limited for this course"
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:79
+msgid "Playing your offline copy"
+msgstr ""
+
 #: src/Scorm/ScormPlayer.php:35
 msgid "Please log in to open this lesson."
 msgstr ""
@@ -1158,11 +1230,11 @@ msgstr ""
 msgid "Please log in."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:93
+#: src/Privacy/PrivacyService.php:96
 msgid "Post"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:93
+#: src/Privacy/PrivacyService.php:96
 msgid "Posted"
 msgstr ""
 
@@ -1194,7 +1266,7 @@ msgstr ""
 msgid "Quick check!"
 msgstr ""
 
-#: src/Admin/AdminPages.php:140 templates/verify.php:77
+#: src/Admin/AdminPages.php:144 templates/verify.php:77
 msgid "Reason"
 msgstr ""
 
@@ -1210,6 +1282,10 @@ msgstr ""
 msgid "Remove demo data"
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:107
+msgid "Remove download"
+msgstr ""
+
 #: src/Admin/Metaboxes.php:64
 msgid "Remove package"
 msgstr ""
@@ -1218,8 +1294,12 @@ msgstr ""
 msgid "Remove the visual layout and use the HTML below"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:111
+#: src/Admin/Metaboxes.php:113
 msgid "Remove this package? Learners’ SCORM progress is kept."
+msgstr ""
+
+#: src/Video/FrontendPlayer.php:108
+msgid "Renew"
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:66
@@ -1242,7 +1322,7 @@ msgstr ""
 msgid "Reset to default layout"
 msgstr ""
 
-#: src/Admin/AdminPages.php:141
+#: src/Admin/AdminPages.php:145
 msgid "Revoke"
 msgstr ""
 
@@ -1254,7 +1334,7 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:111
+#: src/Privacy/PrivacyService.php:114
 msgid "Role"
 msgstr ""
 
@@ -1282,7 +1362,7 @@ msgstr ""
 msgid "SMS gateway URL (https; use {to} {message} {sender} {api_key})"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:108
+#: src/Privacy/PrivacyService.php:111
 msgid "SMS notifications"
 msgstr ""
 
@@ -1294,7 +1374,7 @@ msgstr ""
 msgid "SMS sender ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:103
+#: src/Admin/AdminPages.php:107
 msgid "SMS template: %s"
 msgstr ""
 
@@ -1302,11 +1382,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:76
+#: src/Admin/Metaboxes.php:77
 msgid "Save the lesson once to enable the timeline editor."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:74
+#: src/Admin/Metaboxes.php:75
 msgid "Save the lesson, then add questions below. Duration is detected automatically."
 msgstr ""
 
@@ -1318,7 +1398,7 @@ msgstr ""
 msgid "Schedule class"
 msgstr ""
 
-#: src/Admin/AdminPages.php:122 src/Certificates/CertificateEditor.php:71 src/Scorm/ScormPlayer.php:50
+#: src/Admin/AdminPages.php:126 src/Certificates/CertificateEditor.php:71 src/Scorm/ScormPlayer.php:50
 msgid "Score"
 msgstr ""
 
@@ -1342,7 +1422,7 @@ msgstr ""
 msgid "Send code"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:108
+#: src/Privacy/PrivacyService.php:111
 msgid "Sent"
 msgstr ""
 
@@ -1394,7 +1474,7 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:101
+#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:104
 msgid "Starts"
 msgstr ""
 
@@ -1402,7 +1482,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/Admin/KpiPage.php:33 src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:124
+#: src/Admin/KpiPage.php:33 src/Admin/AdminPages.php:126 src/Admin/Phase3Pages.php:124
 msgid "Status"
 msgstr ""
 
@@ -1410,7 +1490,7 @@ msgstr ""
 msgid "Stay here"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:100
+#: src/Privacy/PrivacyService.php:103
 msgid "Subscriptions"
 msgstr ""
 
@@ -1474,6 +1554,10 @@ msgstr ""
 msgid "The correct answer is highlighted."
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:112
+msgid "The download failed. Check your connection and try again."
+msgstr ""
+
 #: src/Scorm/PackageStore.php:61
 msgid "The launch file named in the manifest is not in the package."
 msgstr ""
@@ -1530,7 +1614,7 @@ msgstr ""
 msgid "The rewind point must be before the question."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:112
+#: src/Admin/Metaboxes.php:114
 msgid "The upload failed."
 msgstr ""
 
@@ -1562,6 +1646,10 @@ msgstr ""
 msgid "This class is over."
 msgstr ""
 
+#: src/Video/FrontendPlayer.php:109
+msgid "This download has expired."
+msgstr ""
+
 #: src/Rest/AuthoringController.php:104
 msgid "This is not your question."
 msgstr ""
@@ -1576,6 +1664,10 @@ msgstr ""
 
 #: src/Rest/PlayerController.php:50
 msgid "This lesson has no video yet."
+msgstr ""
+
+#: src/Offline/OfflineService.php:42
+msgid "This lesson is already downloaded on the maximum number of your devices. Remove it from another device first."
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:88
@@ -1626,7 +1718,7 @@ msgstr ""
 msgid "Too many posts. Please wait a minute."
 msgstr ""
 
-#: src/Rest/ScormController.php:54 src/Rest/MetricsController.php:24
+#: src/Rest/ScormController.php:54 src/Rest/MetricsController.php:24 src/Rest/OfflineController.php:27
 msgid "Too many requests."
 msgstr ""
 
@@ -1642,12 +1734,16 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:108
+#: src/Privacy/PrivacyService.php:111
 msgid "Type"
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:70
 msgid "Unhide"
+msgstr ""
+
+#: src/Offline/OfflineService.php:36
+msgid "Unknown device."
 msgstr ""
 
 #: src/Rest/MetricsController.php:27
@@ -1662,7 +1758,7 @@ msgstr ""
 msgid "Upcoming"
 msgstr ""
 
-#: src/Admin/AdminPages.php:177
+#: src/Admin/AdminPages.php:181
 msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
 msgstr ""
 
@@ -1674,7 +1770,7 @@ msgstr ""
 msgid "Upload package (.zip)"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:108
+#: src/Admin/Metaboxes.php:110
 msgid "Uploading and checking the package…"
 msgstr ""
 
@@ -1686,7 +1782,7 @@ msgstr ""
 msgid "Use institute colour"
 msgstr ""
 
-#: src/Admin/AdminPages.php:114
+#: src/Admin/AdminPages.php:118
 msgid "Use the course builder to add questions to your videos."
 msgstr ""
 
@@ -1726,7 +1822,7 @@ msgstr ""
 msgid "Verify link"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:87
+#: src/Privacy/PrivacyService.php:90
 msgid "Video notes"
 msgstr ""
 
@@ -1830,6 +1926,10 @@ msgstr ""
 msgid "You earned it"
 msgstr ""
 
+#: src/Offline/OfflineService.php:43
+msgid "You have reached the limit of downloaded lessons. Remove one first."
+msgstr ""
+
 #: src/Notes/NoteService.php:50
 msgid "You have reached the note limit for this lesson."
 msgstr ""
@@ -1880,7 +1980,7 @@ msgstr ""
 msgid "[Nimikh] Weekly report: needs attention"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:146
+#: src/Privacy/PrivacyService.php:149
 msgid "[removed by the author]"
 msgstr ""
 
@@ -1924,7 +2024,7 @@ msgstr ""
 msgid "under %d ms"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:74
+#: src/Admin/Metaboxes.php:75
 msgid "…or direct video URL (dev / other CDN)"
 msgstr ""
 

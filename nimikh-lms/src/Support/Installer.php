@@ -18,6 +18,7 @@ final class Installer {
 		3 => '003-notes.php',
 		4 => '004-metrics.php',
 		5 => '005-scorm.php',
+		6 => '006-offline.php',
 	];
 
 	public static function migrate(): void {

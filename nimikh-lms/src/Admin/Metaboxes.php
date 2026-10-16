@@ -70,6 +70,7 @@ final class Metaboxes {
 		wp_nonce_field('nimikh_video_' . $post->ID, 'nimikh_video_nonce');
 		$enabled = get_post_meta($post->ID, 'nimikh_interactive_enabled', true) === '1';
 		printf('<p><label><input type="checkbox" name="nimikh_interactive_enabled" value="1" %s> %s</label></p>', checked($enabled, true, false), esc_html__('Use the interactive player (anti-skip + MCQ pop-ups) for this lesson', 'nimikh-lms'));
+		printf('<p><label><input type="checkbox" name="nimikh_offline_enabled" value="1" %s> %s</label><br><small>%s</small></p>', checked(get_post_meta($post->ID, 'nimikh_offline_enabled', true) === '1', true, false), esc_html__('Let learners download this lesson for offline viewing', 'nimikh-lms'), esc_html__('Needs the MP4 fallback enabled on your Bunny library (or a direct .mp4 URL). Copies expire and are limited per learner; this is not DRM.', 'nimikh-lms'));
 		printf('<p><label>%s <input class="regular-text" type="text" name="nimikh_bunny_video_id" value="%s"></label></p>', esc_html__('Bunny video ID', 'nimikh-lms'), esc_attr((string) get_post_meta($post->ID, 'nimikh_bunny_video_id', true)));
 		printf('<p><label>%s <input class="large-text" type="url" name="nimikh_video_url" value="%s" placeholder="https://… .m3u8 / .mp4"></label><br><small>%s</small></p>', esc_html__('…or direct video URL (dev / other CDN)', 'nimikh-lms'), esc_attr((string) get_post_meta($post->ID, 'nimikh_video_url', true)), esc_html__('Save the lesson, then add questions below. Duration is detected automatically.', 'nimikh-lms'));
 		if (get_post_status($post) === 'auto-draft') {
@@ -93,6 +94,7 @@ final class Metaboxes {
 			&& isset($_POST['nimikh_video_nonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['nimikh_video_nonce'])), 'nimikh_video_' . $postId)
 			&& current_user_can('edit_post', $postId) && current_user_can(Roles::CAP_AUTHOR)) {
 			update_post_meta($postId, 'nimikh_interactive_enabled', empty($_POST['nimikh_interactive_enabled']) ? '0' : '1');
+			update_post_meta($postId, 'nimikh_offline_enabled', empty($_POST['nimikh_offline_enabled']) ? '0' : '1');
 			update_post_meta($postId, 'nimikh_bunny_video_id', sanitize_text_field(wp_unslash((string) ($_POST['nimikh_bunny_video_id'] ?? ''))));
 			update_post_meta($postId, 'nimikh_video_url', esc_url_raw(wp_unslash((string) ($_POST['nimikh_video_url'] ?? ''))));
 		}

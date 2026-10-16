@@ -1,6 +1,6 @@
 # What is left from the PRD, and why
 
-Status after plugin v0.4.0. Everything in the PRD that is code, and that the PRD does not defer or leave to a decision, is built.
+Status after plugin v0.5.0. Everything in the PRD that is code, and that the PRD does not defer or leave to a decision, is built.
 The sections below are what remains. None of it is hidden or half-built.
 
 ## Needs people, not code (PRD phase 0)
@@ -22,15 +22,15 @@ The sections below are what remains. None of it is hidden or half-built.
 
 ## Deferred by the PRD itself (phase 3 and "out of MVP")
 
-These need a product decision or a security design before anyone should build them.
-
-| Item | Why it is not built yet |
+| Item | State |
 | --- | --- |
-| SCORM import | Serving third-party SCORM packages means running untrusted JavaScript. On the same origin as WordPress that is an XSS route to admin accounts, so it needs a separate sandbox domain first. Decide whether SCORM is really needed before paying for that design. |
-| Offline video downloads | Conflicts with the PRD's own content-protection requirement (signed, expiring URLs and a watermark): an offline copy cannot expire. Needs a DRM decision (Bunny DRM is USD 99/month) before any design. |
-| Native mobile app | The PRD says PWA first. The PWA is built (installable, offline-safe progress). A native app is only worth starting after the PWA's usage data says it is needed. |
-| WordPress multisite white-label | Institute portals work inside one site today (branded pages, certificates, scoped admins). True per-institute sites are a hosting and operations change, to be taken once an institute actually needs full isolation. |
+| SCORM import | **Built** (v0.5.0): sandboxed, signed-URL delivery, SCORM 1.2 and 2004. Limits are in `docs/SCORM-AND-OFFLINE.md` (self-reported completion, single launch file, no sequencing). |
+| Offline video downloads | **Built** (v0.5.0): per-lesson opt-in, expiring and device-limited licences, playback through the service worker, offline answers graded on sync. It is not DRM: a determined learner can copy a valid download. |
+| DRM-grade protection for offline | Not built. Needs a Bunny DRM subscription (about USD 99/month) and EME playback; decide whether the content justifies the cost. |
+| Native mobile app | Not built. The PRD says PWA first; the PWA (installable, offline lessons) exists. Start a native app only if usage data asks for it. |
+| WordPress multisite white-label | Not built. Institute portals work inside one site (branded pages, certificates, scoped admins). Separate per-institute sites are a hosting and operations change, for when an institute needs full isolation. |
 
-## Built in this round
+## Built in the last rounds
 
+- SCORM import and offline downloads (v0.5.0), see `docs/SCORM-AND-OFFLINE.md`.
 - Opt-in course leaderboard (`[nimikh_leaderboard]`). The PRD lists gamification leaderboards as later phase. It is off for everyone by default, shows first name and initial only, and every learner can see their own private rank without joining.

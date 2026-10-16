@@ -11,6 +11,8 @@ use Nimikh\LMS\Ai\QuestionGenerator;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Discussion\DiscussionService;
 use Nimikh\LMS\Auth\AuthService;
+use Nimikh\LMS\Offline\OfflineService;
+use Nimikh\LMS\Rest\OfflineController;
 use Nimikh\LMS\Rest\ScormController;
 use Nimikh\LMS\Scorm\ContentRoute;
 use Nimikh\LMS\Scorm\ScormPlayer;
@@ -23,6 +25,7 @@ use Nimikh\LMS\Ops\ErrorReporter;
 use Nimikh\LMS\Ops\WeeklyReport;
 use Nimikh\LMS\Rest\HealthController;
 use Nimikh\LMS\Frontend\ChecklistShortcode;
+use Nimikh\LMS\Frontend\DownloadsShortcode;
 use Nimikh\LMS\Frontend\LeaderboardShortcode;
 use Nimikh\LMS\Frontend\LoginShortcode;
 use Nimikh\LMS\Leaderboard\LeaderboardService;
@@ -124,6 +127,7 @@ final class Plugin {
 		$notes         = new NoteService($this->progress);
 		$metrics       = new MetricsService($this->tutor);
 		$scorm         = new ScormService(new TrackingRepository(), $this->tutor);
+		$offline       = new OfflineService($this->tutor);
 		$this->exams   = $exams = new ExamService($this->tutor, $progressRepo, $attemptsRepo);
 
 		$controllers = [
@@ -142,6 +146,7 @@ final class Plugin {
 			new HealthController($this->tutor),
 			new MetricsController($this->tutor, $metrics),
 			new ScormController($this->tutor, $scorm),
+			new OfflineController($this->tutor, $offline),
 		];
 		add_action('rest_api_init', static function () use ($controllers): void {
 			foreach ($controllers as $c) {
@@ -158,10 +163,12 @@ final class Plugin {
 		(new ChecklistShortcode($this->tutor, $this->certificates, $exams))->register();
 		(new LoginLimiter())->register();
 		(new ContentRoute($scorm))->register();
+		add_action('nimikh_enrolment_cancelled', [$offline, 'revokeForCourse'], 10, 2);
 		(new ScormPlayer())->register();
 		(new ErrorReporter())->register();
 		(new WeeklyReport())->register();
 		(new LoginShortcode())->register();
+		(new DownloadsShortcode())->register();
 		(new LeaderboardShortcode($this->tutor, new LeaderboardService($this->tutor)))->register();
 		$badges->register();
 		$sms->register();

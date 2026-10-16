@@ -39,6 +39,8 @@ the ones that can be built and tested in the plugin are now closed.
 | PRD 4.1 success metrics (completion, MCQ answer rate, first-attempt exam pass rate, verification views per certificate, paid enrolments, video start < 3 s, LCP < 2.5 s) | Nimikh LMS → *Success metrics* page and `GET /metrics/kpis` with the PRD targets. Real-user timings come from the player (anonymous), verification views are counted per day. Paid enrolments need a gateway: supply them with the `nimikh_lms_paid_enrolments` filter. | `src/Metrics/`, `src/Admin/KpiPage.php`, `migrations/004-metrics.php` |
 | Instructor guidance "one question every 3–5 min, never in the first 30 s" | Advice shown under the timeline editor (not enforced) | `src/Video/Guidance.php` |
 | Gamification leaderboard (PRD: later phase) | Opt-in per learner, first name + initial, private own rank | `src/Leaderboard/` |
+| SCORM import (out of MVP) | SCORM 1.2/2004 packages in a sandbox, signed URLs, whitelisted data model, completion feeds certificates | `src/Scorm/`, `docs/SCORM-AND-OFFLINE.md` |
+| Offline downloads (out of MVP) | Expiring, device-limited licences; playback through the service worker; offline answers graded on sync | `src/Offline/`, `assets/js/offline.js`, `src/Pwa/PwaAssets.php` |
 | Local env, Nginx, Cloudflare, backups + restore drill, monitoring, deploy pipeline | Config files and scripts | `ops/`, `.github/workflows/deploy.yml` |
 | Interview guides, survey, usability plan, clickable prototype | Discovery kit | `docs/discovery/`, `docs/prototype/` |
 
