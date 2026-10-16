@@ -46,7 +46,7 @@ foreach (['administrator', 'tutor_instructor'] as $roleName) {
 		$role->remove_cap('nimikh_author_video');
 	}
 }
-$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ('nimikh_profile_public','nimikh_phone','nimikh_google_sub','nimikh_sms_optout','nimikh_demo') OR meta_key LIKE 'nimikh_demo_enrolled_%' OR meta_key LIKE 'nimikh_exam_last_attempt_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+$wpdb->query("DELETE FROM {$wpdb->usermeta} WHERE meta_key IN ('nimikh_profile_public','nimikh_phone','nimikh_google_sub','nimikh_leaderboard_optin','nimikh_sms_optout','nimikh_demo') OR meta_key LIKE 'nimikh_demo_enrolled_%' OR meta_key LIKE 'nimikh_exam_last_attempt_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE 'nimikh\\_%'"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 foreach (get_posts(['post_type' => 'nimikh_cert_template', 'post_status' => 'any', 'numberposts' => -1, 'fields' => 'ids']) as $id) {
 	wp_delete_post((int) $id, true);

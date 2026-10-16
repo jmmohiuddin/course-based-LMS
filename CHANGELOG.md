@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Opt-in course leaderboard (`[nimikh_leaderboard course="ID"]`): off by default, first name and initial only, private own-rank for everyone; erased with the learner's data
+- `docs/REMAINING-PRD.md`: what is left from the PRD and exactly why
+- 4 new Bangla strings
+
 ## 0.3.0
 
 - Success-metrics page (Nimikh LMS → Success metrics) and `GET /nimikh/v1/metrics/kpis`: the seven PRD 4.1 targets with on-target / below-target status

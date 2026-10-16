@@ -1630,3 +1630,15 @@ msgstr "প্রতি ৫টি সার্টিফিকেটে কমপ
 
 msgid "under %d ms"
 msgstr "%d মি.সে.-এর কম"
+
+msgid "Leaderboard"
+msgstr "লিডারবোর্ড"
+
+msgid "Nobody has joined the leaderboard yet."
+msgstr "এখনও কেউ লিডারবোর্ডে যোগ দেয়নি।"
+
+msgid "Show me on leaderboards as first name and initial"
+msgstr "লিডারবোর্ডে আমাকে প্রথম নাম ও আদ্যক্ষর দিয়ে দেখান"
+
+msgid "Your rank: %1$d of %2$d (%3$s points). Only you can see this unless you join."
+msgstr "আপনার র‍্যাঙ্ক: %2$d জনের মধ্যে %1$d (%3$s পয়েন্ট)। যোগ না দিলে শুধু আপনিই এটি দেখতে পাবেন।"

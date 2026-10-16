@@ -172,5 +172,22 @@ echo "== instructor guidance\n";
 [$s, $d] = call('GET', "/lessons/$l1/interactions", null, $inst);
 ok($s === 200 && !empty($d['guidance']) && $d['guidance'][0]['code'] === 'too_early', 'a question in the first 30 s produces advice', json_encode($d['guidance'] ?? null));
 
+echo "== leaderboard (opt-in)\n";
+$sam = user('sam'); tutor_utils()->do_enroll($course, 0, $sam);
+$wpdb->replace($wpdb->prefix . 'nimikh_watch_progress', ['user_id' => $rafi, 'lesson_id' => $l1, 'furthest_second' => 300, 'last_second' => 300, 'watched_ranges' => '[[0,300]]', 'percent' => 100, 'completed_at' => gmdate('Y-m-d H:i:s'), 'updated_at' => gmdate('Y-m-d H:i:s')]);
+$board = new \Nimikh\LMS\Leaderboard\LeaderboardService($P->tutor);
+$d = $board->forCourse($course, $rafi);
+ok($d['top'] === [] && $d['me'] !== null && $d['me']['optin'] === false && $d['me']['score'] >= 10, 'nobody is listed until they opt in; the learner still sees their own private rank', json_encode($d));
+\Nimikh\LMS\Leaderboard\LeaderboardService::setOptIn($rafi, true);
+$d = $board->forCourse($course, $sam);
+ok(count($d['top']) === 1 && $d['top'][0]['name'] === 'Rafi' && $d['top'][0]['rank'] === 1 && $d['me']['optin'] === false, 'an opted-in learner appears to others by first name only', json_encode($d));
+wp_set_current_user($rafi);
+$html = do_shortcode("[nimikh_leaderboard course=\"$course\"]");
+ok(str_contains($html, 'nk-board__list') && str_contains($html, 'aria-current'), 'shortcode shows the list and marks the viewer');
+wp_set_current_user($stranger);
+ok(do_shortcode("[nimikh_leaderboard course=\"$course\"]") === '', 'non-enrolled users see nothing');
+\Nimikh\LMS\Leaderboard\LeaderboardService::setOptIn($rafi, false);
+ok($board->forCourse($course, $sam)['top'] === [], 'opting out removes the learner again');
+
 echo "\n$n checks, $fail failed\n";
 exit($fail ? 1 : 0);

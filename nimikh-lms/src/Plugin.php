@@ -18,7 +18,9 @@ use Nimikh\LMS\Ops\ErrorReporter;
 use Nimikh\LMS\Ops\WeeklyReport;
 use Nimikh\LMS\Rest\HealthController;
 use Nimikh\LMS\Frontend\ChecklistShortcode;
+use Nimikh\LMS\Frontend\LeaderboardShortcode;
 use Nimikh\LMS\Frontend\LoginShortcode;
+use Nimikh\LMS\Leaderboard\LeaderboardService;
 use Nimikh\LMS\Rest\AuthController;
 use Nimikh\LMS\Frontend\Shortcodes;
 use Nimikh\LMS\Support\LoginLimiter;
@@ -151,6 +153,7 @@ final class Plugin {
 		(new ErrorReporter())->register();
 		(new WeeklyReport())->register();
 		(new LoginShortcode())->register();
+		(new LeaderboardShortcode($this->tutor, new LeaderboardService($this->tutor)))->register();
 		$badges->register();
 		$sms->register();
 		$subscriptions->register();

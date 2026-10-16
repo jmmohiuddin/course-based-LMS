@@ -78,3 +78,11 @@
 .nk-auth__or { text-align: center; color: var(--nk-ink-muted); }
 .nk-auth__status { min-height: 1.5em; color: var(--nk-ink-muted); }
 .nk-auth__step[hidden] { display: none; }
+
+/* Leaderboard */
+.nk-board { border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); padding: 16px; margin: 16px 0; }
+.nk-board__list { margin: 0 0 12px; padding-left: 28px; }
+.nk-board__list li { padding: 4px 0; }
+.nk-board__list li[aria-current] { font-weight: 700; color: var(--nk-primary); }
+.nk-board__score { float: right; color: var(--nk-ink-muted); }
+.nk-board__me { color: var(--nk-ink-muted); }

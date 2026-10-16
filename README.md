@@ -30,6 +30,8 @@ is Tutor LMS configuration, not custom code.
 | --- | --- | --- |
 | ![Reports](docs/screenshots/reports-dashboard.png) | ![Verify](docs/screenshots/verify-bangla.png) | ![Institute](docs/screenshots/institute-portal.png) |
 
+**0.4.0:** opt-in course leaderboard (`[nimikh_leaderboard]`); what remains from the PRD is in `docs/REMAINING-PRD.md`.
+
 **0.3.0:** *Success metrics* admin page (the PRD's seven targets), anonymous video-start/LCP timings, question-placement advice for instructors.
 
 **0.2.0 additions:** exam retake cooldown and rewatch suggestions (course screen → *Wait between failed exam attempts*), phone-OTP / Google sign-in
@@ -186,7 +188,7 @@ authenticated and capability-checked.
 
 ```bash
 cd nimikh-lms && composer install
-vendor/bin/phpunit -c phpunit.xml.dist                          # 60 unit tests (pure logic, translation guards, Tutor contract checker)
+vendor/bin/phpunit -c phpunit.xml.dist                          # 64 unit tests (pure logic, translation guards, Tutor contract checker)
 NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 28 browser checks: player incl. notes (needs ffmpeg + Playwright Chromium)
 NODE_PATH=$(npm root -g) node tests/browser/phase23.spec.cjs     # 23 browser checks: PWA offline, discussion, live, reports
 php tests/integration/e2e.php                                    # 52 checks on a real WordPress (phase 1)
@@ -234,8 +236,7 @@ php tests/integration/e2e-uninstall.php                          # MySQL only: u
 - Instructor editor lives on the lesson edit screen. Tutor's React course builder has no stable hook for a
   custom tab, so embedding it there is future work.
 - Question text is plain text (no rich text/LaTeX) in this version.
-- Not built: native mobile apps (the PWA is the mobile story), **leaderboards (deliberately skipped: ranking learners
-  publicly is a privacy and motivation trade-off that needs a product decision)**, WordPress-multisite white-labelling,
+- Not built: native mobile apps (the PWA is the mobile story), an opt-in leaderboard exists, no public rankings), WordPress-multisite white-labelling,
   SCORM import, DevOps (Cloudflare, Redis, CI deploy, Sentry).
 - The demo seeder writes Tutor-style data (courses, topics, lessons, quizzes, enrolment posts, quiz attempts limited to the
   columns your Tutor schema has) but was run against a Tutor stand-in, not real Tutor. Review it on staging first.

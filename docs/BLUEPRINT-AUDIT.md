@@ -38,10 +38,14 @@ the ones that can be built and tested in the plugin are now closed.
 | `/health` endpoint, Sentry error reporting, weekly ops email | Public `GET /nimikh/v1/health`; SDK-free Sentry reporter for fatals in this plugin and JS errors (off until a DSN is saved); optional weekly report. | `src/Ops/`, `src/Rest/HealthController.php` |
 | PRD 4.1 success metrics (completion, MCQ answer rate, first-attempt exam pass rate, verification views per certificate, paid enrolments, video start < 3 s, LCP < 2.5 s) | Nimikh LMS → *Success metrics* page and `GET /metrics/kpis` with the PRD targets. Real-user timings come from the player (anonymous), verification views are counted per day. Paid enrolments need a gateway: supply them with the `nimikh_lms_paid_enrolments` filter. | `src/Metrics/`, `src/Admin/KpiPage.php`, `migrations/004-metrics.php` |
 | Instructor guidance "one question every 3–5 min, never in the first 30 s" | Advice shown under the timeline editor (not enforced) | `src/Video/Guidance.php` |
+| Gamification leaderboard (PRD: later phase) | Opt-in per learner, first name + initial, private own rank | `src/Leaderboard/` |
 | Local env, Nginx, Cloudflare, backups + restore drill, monitoring, deploy pipeline | Config files and scripts | `ops/`, `.github/workflows/deploy.yml` |
 | Interview guides, survey, usability plan, clickable prototype | Discovery kit | `docs/discovery/`, `docs/prototype/` |
 
 ## Still open
+
+See `docs/REMAINING-PRD.md` for the full list with reasons and next steps.
+
 
 | Item | Reason |
 | --- | --- |

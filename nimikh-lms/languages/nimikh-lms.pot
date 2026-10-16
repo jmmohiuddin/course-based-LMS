@@ -275,7 +275,7 @@ msgstr ""
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:187
+#: src/Plugin.php:190
 msgid "Certificate templates"
 msgstr ""
 
@@ -734,6 +734,10 @@ msgstr ""
 msgid "Last year"
 msgstr ""
 
+#: src/Frontend/LeaderboardShortcode.php:31
+msgid "Leaderboard"
+msgstr ""
+
 #: src/Badges/BadgeCatalog.php:13
 msgid "Learned 3 days in a row."
 msgstr ""
@@ -978,6 +982,10 @@ msgstr ""
 msgid "No questions yet. Be the first to ask."
 msgstr ""
 
+#: src/Frontend/LeaderboardShortcode.php:39
+msgid "Nobody has joined the leaderboard yet."
+msgstr ""
+
 #: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:152 src/Admin/AdminPages.php:189
 msgid "Not allowed."
 msgstr ""
@@ -1218,7 +1226,7 @@ msgstr ""
 msgid "SMS template: %s"
 msgstr ""
 
-#: src/Profile/ProfileShortcodes.php:62
+#: src/Profile/ProfileShortcodes.php:62 src/Frontend/LeaderboardShortcode.php:55
 msgid "Save"
 msgstr ""
 
@@ -1284,6 +1292,10 @@ msgstr ""
 
 #: src/Badges/BadgeCatalog.php:18
 msgid "Sharp mind"
+msgstr ""
+
+#: src/Frontend/LeaderboardShortcode.php:54
+msgid "Show me on leaderboards as first name and initial"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:61
@@ -1706,6 +1718,10 @@ msgstr ""
 
 #: src/Frontend/ChecklistShortcode.php:33
 msgid "Your path to the certificate"
+msgstr ""
+
+#: src/Frontend/LeaderboardShortcode.php:44
+msgid "Your rank: %1$d of %2$d (%3$s points). Only you can see this unless you join."
 msgstr ""
 
 #: src/Ops/WeeklyReport.php:82
