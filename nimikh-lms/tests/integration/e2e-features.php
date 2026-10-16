@@ -28,7 +28,7 @@ $P = \Nimikh\LMS\Plugin::instance();
 
 echo "== schema 003\n";
 ok((bool) $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($wpdb->prefix . 'nimikh_notes'))), 'table nimikh_notes');
-ok((int) get_option('nimikh_lms_db_version') === 3, 'schema version is 3');
+ok((int) get_option('nimikh_lms_db_version') === 4, 'schema version is 4');
 
 $inst = user('inst', 'nimikh_instructor'); $rafi = user('rafi'); $sara = user('sara'); $stranger = user('stranger');
 $course = wp_insert_post(['post_type' => 'courses', 'post_title' => 'Excel Basics', 'post_status' => 'publish', 'post_author' => $inst]);

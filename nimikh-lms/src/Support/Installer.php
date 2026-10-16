@@ -16,6 +16,7 @@ final class Installer {
 		1 => '001-initial.php',
 		2 => '002-phase2-3.php',
 		3 => '003-notes.php',
+		4 => '004-metrics.php',
 	];
 
 	public static function migrate(): void {

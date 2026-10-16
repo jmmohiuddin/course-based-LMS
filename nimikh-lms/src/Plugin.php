@@ -11,6 +11,9 @@ use Nimikh\LMS\Ai\QuestionGenerator;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Discussion\DiscussionService;
 use Nimikh\LMS\Auth\AuthService;
+use Nimikh\LMS\Admin\KpiPage;
+use Nimikh\LMS\Metrics\MetricsService;
+use Nimikh\LMS\Rest\MetricsController;
 use Nimikh\LMS\Ops\ErrorReporter;
 use Nimikh\LMS\Ops\WeeklyReport;
 use Nimikh\LMS\Rest\HealthController;
@@ -112,6 +115,7 @@ final class Plugin {
 		$live          = new LiveService($this->tutor);
 		$ai            = new QuestionGenerator();
 		$notes         = new NoteService($this->progress);
+		$metrics       = new MetricsService($this->tutor);
 		$this->exams   = $exams = new ExamService($this->tutor, $progressRepo, $attemptsRepo);
 
 		$controllers = [
@@ -128,6 +132,7 @@ final class Plugin {
 			new NoteController($this->tutor, $notes),
 			new AuthController($this->tutor, $auth),
 			new HealthController($this->tutor),
+			new MetricsController($this->tutor, $metrics),
 		];
 		add_action('rest_api_init', static function () use ($controllers): void {
 			foreach ($controllers as $c) {
@@ -137,7 +142,7 @@ final class Plugin {
 
 		(new ExamGuard($this->tutor, $exams))->register();
 		(new TutorHooks($this->tutor, $this->certificates, $progressRepo))->register();
-		(new VerifyRoute($this->certificates, $certRepo))->register();
+		(new VerifyRoute($this->certificates, $certRepo, $metrics))->register();
 		(new FrontendPlayer($this->tutor, $interactions))->register();
 		(new ProfileShortcodes($this->tutor, $certRepo, $this->certificates, $badges, $subscriptions))->register();
 		(new Shortcodes($this->tutor))->register();
@@ -161,6 +166,7 @@ final class Plugin {
 			(new AdminPages($this->tutor, $certRepo, $this->certificates))->register();
 			(new Metaboxes($this->tutor))->register();
 			(new CertificateEditor())->register();
+			(new KpiPage($metrics))->register();
 			(new Phase3Pages($this->tutor, $subscriptions, $orgRepo, $orgs, $live))->register();
 			(new DemoPage())->register();
 		}

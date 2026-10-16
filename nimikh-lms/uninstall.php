@@ -15,7 +15,7 @@ if (empty($settings['remove_data_on_uninstall'])) {
 
 global $wpdb;
 foreach (['questions', 'video_interactions', 'watch_progress', 'interaction_attempts', 'certificates', 'user_badges', 'activity_days',
-	'discussions', 'plans', 'subscriptions', 'orgs', 'org_members', 'org_courses', 'live_sessions', 'live_attendance', 'sms_log', 'notes'] as $table) {
+	'discussions', 'plans', 'subscriptions', 'orgs', 'org_members', 'org_courses', 'live_sessions', 'live_attendance', 'sms_log', 'notes', 'verify_views', 'rum'] as $table) {
 	$wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'nimikh_' . $table); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 }
 

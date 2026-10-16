@@ -30,6 +30,8 @@ is Tutor LMS configuration, not custom code.
 | --- | --- | --- |
 | ![Reports](docs/screenshots/reports-dashboard.png) | ![Verify](docs/screenshots/verify-bangla.png) | ![Institute](docs/screenshots/institute-portal.png) |
 
+**0.3.0:** *Success metrics* admin page (the PRD's seven targets), anonymous video-start/LCP timings, question-placement advice for instructors.
+
 **0.2.0 additions:** exam retake cooldown and rewatch suggestions (course screen → *Wait between failed exam attempts*), phone-OTP / Google sign-in
 (`[nimikh_login]`; enable in Settings, needs the SMS gateway for OTP and a Google web client ID), a drag-and-drop certificate editor (Certificate
 templates → edit), `/health`, optional Sentry and weekly email. Infrastructure is in `ops/`, research kit in `docs/discovery/`, clickable prototype in `docs/prototype/`.
@@ -159,7 +161,7 @@ three live classes (one past, with attendance), so every report and page has som
   Erasure deletes progress, answers, notes, badges, streaks, attendance, SMS log and memberships; discussion questions others
   replied to are anonymised; certificates and subscription records are **kept anonymised** (the certificate is revoked, its file
   deleted, and the public page shows no name). Mention this in your privacy policy. Tutor's own data is Tutor's to erase.
-- **Bangla:** set the site language to Bangla (বাংলা). All 397 strings are translated: the learner experience (player, questions,
+- **Bangla:** set the site language to Bangla (বাংলা). All 434 strings are translated: the learner experience (player, questions,
   verify page, dashboard, badges, discussion, live classes, emails) and also wp-admin screens and instructor-facing messages.
   **The translation is a draft: please have a native speaker review it.** To add or change strings: `php tools/make-pot.php`, edit
   `languages/nimikh-lms-bn_BD.po`, then `php tools/compile-mo.php languages/nimikh-lms-bn_BD.po`. A unit test fails if the
@@ -184,7 +186,7 @@ authenticated and capability-checked.
 
 ```bash
 cd nimikh-lms && composer install
-vendor/bin/phpunit -c phpunit.xml.dist                          # 54 unit tests (pure logic, translation guards, Tutor contract checker)
+vendor/bin/phpunit -c phpunit.xml.dist                          # 60 unit tests (pure logic, translation guards, Tutor contract checker)
 NODE_PATH=$(npm root -g) node tests/browser/player.spec.cjs      # 28 browser checks: player incl. notes (needs ffmpeg + Playwright Chromium)
 NODE_PATH=$(npm root -g) node tests/browser/phase23.spec.cjs     # 23 browser checks: PWA offline, discussion, live, reports
 php tests/integration/e2e.php                                    # 52 checks on a real WordPress (phase 1)
@@ -207,7 +209,7 @@ php tests/integration/e2e-uninstall.php                          # MySQL only: u
 | FR-09 learner profile | Dashboard + opt-in public profile built; visual polish left to the theme |
 | FR-10 payments | Tutor checkout; SSLCommerz/bKash/Stripe gateway plugins to be installed and configured |
 | FR-11 analytics, FR-14 CSV batch enrolment | Built, including the charts dashboard |
-| FR-12 Bangla/English | All 397 strings translated (draft Bangla, needs native review) |
+| FR-12 Bangla/English | All 434 strings translated (draft Bangla, needs native review) |
 | FR-13 notifications | Email + SMS (configurable gateway) for enrolment, exam result, certificate, live-class reminder |
 | FR-15 content protection | Signed expiring Bunny URLs + moving dynamic watermark. DRM not included |
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+- Success-metrics page (Nimikh LMS → Success metrics) and `GET /nimikh/v1/metrics/kpis`: the seven PRD 4.1 targets with on-target / below-target status
+- Anonymous real-user timings from the player (video start, LCP) and per-day certificate verification counts (schema version 4)
+- Question-placement advice in the instructor editor (first 30 s, crowded, 5+ minutes without a question)
+- 37 new Bangla strings
+
 ## 0.2.0
 
 - Final-exam retake cooldown (per-course, default 24 h) and lessons-to-rewatch suggestions after a failed exam

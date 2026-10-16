@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Nimikh\LMS\Certificates;
 
+use Nimikh\LMS\Metrics\MetricsService;
 use Nimikh\LMS\Support\RateLimiter;
 
 /**
@@ -17,7 +18,7 @@ final class VerifyRoute {
 	public const QV_CODE     = 'nimikh_code';
 	public const QV_DOWNLOAD = 'nimikh_cert_download';
 
-	public function __construct(private CertificateService $service, private CertificateRepository $certs) {}
+	public function __construct(private CertificateService $service, private CertificateRepository $certs, private ?MetricsService $metrics = null) {}
 
 	public function register(): void {
 		add_action('init', [self::class, 'addRewriteRules']);
@@ -63,6 +64,9 @@ final class VerifyRoute {
 				wp_die(esc_html__('Too many lookups. Try again in a minute.', 'nimikh-lms'), '', ['response' => 429]);
 			}
 			$result = $this->service->verify($raw);
+			if ($this->metrics && $result['status'] !== 'not_found') {
+				$this->metrics->recordVerifyView($result['code']); // PRD 4.1: verification views per certificate
+			}
 		}
 
 		if (!headers_sent()) {

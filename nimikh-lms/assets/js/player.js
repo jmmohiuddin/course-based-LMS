@@ -51,6 +51,22 @@
     save: function (id, ranges) { try { if (ranges.length) { localStorage.setItem(store.key(id), JSON.stringify(ranges)); } else { localStorage.removeItem(store.key(id)); } } catch (e) { /* storage unavailable */ } }
   };
 
+  // Real-user timings for the PRD targets (video start < 3 s, LCP < 2.5 s). Anonymous: only the number is sent.
+  var rumSent = {};
+  function rum(metric, ms) {
+    if (rumSent[metric] || !isFinite(ms) || ms < 0) { return; }
+    rumSent[metric] = true;
+    try {
+      fetch(cfg.restUrl + '/metrics/rum', { method: 'POST', credentials: 'same-origin', keepalive: true,
+        headers: { 'X-WP-Nonce': cfg.nonce, 'Content-Type': 'application/json' }, body: JSON.stringify({ metric: metric, value: Math.round(ms) }) }).catch(function () {});
+    } catch (e) { /* timing must never break playback */ }
+  }
+  var lcp = 0;
+  try {
+    new PerformanceObserver(function (list) { var e = list.getEntries(); lcp = e[e.length - 1].startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+    document.addEventListener('visibilitychange', function () { if (document.hidden && lcp > 0) { rum('lcp', lcp); } });
+  } catch (e) { /* not supported */ }
+
   function Player(root) {
     this.root = root;
     this.lessonId = parseInt(root.getAttribute('data-lesson'), 10);
@@ -103,7 +119,9 @@
       }, { once: true });
     });
 
-    video.addEventListener('play', function () { self.open = [video.currentTime, video.currentTime]; });
+    var startedAt = 0;
+    video.addEventListener('play', function () { self.open = [video.currentTime, video.currentTime]; if (!startedAt) { startedAt = performance.now(); } });
+    video.addEventListener('playing', function () { if (startedAt && !rumSent.video_start) { rum('video_start', performance.now() - startedAt); } });
     video.addEventListener('pause', function () { self.closeRange(); self.heartbeat(); });
     video.addEventListener('ended', function () { self.closeRange(); self.heartbeat(); });
     video.addEventListener('timeupdate', function () { self.onTime(); });

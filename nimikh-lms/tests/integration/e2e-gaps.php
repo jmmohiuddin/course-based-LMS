@@ -143,5 +143,34 @@ $out = $renderer->html($tpl, ['name' => 'Rafi <b>', 'course' => 'Excel', 'brand_
 ok(!str_contains($out, 'HAND-WRITTEN') && str_contains($out, 'Rafi &lt;b&gt;') && str_contains($out, 'class="page"') && str_contains($out, '#1E4FD8') && !str_contains($out, '{{'), 'a saved layout replaces the HTML; every placeholder is filled and escaped');
 wp_set_current_user($adm ?? 0);
 
+echo "== success metrics (PRD 4.1)\n";
+ok(cnt('verify_views') >= 0 && cnt('rum') >= 0, 'metrics tables exist');
+$mcert = (new \Nimikh\LMS\Certificates\CertificateRepository())->insert($rafi, $course, 0, 88.0);
+$M = new \Nimikh\LMS\Metrics\MetricsService($P->tutor);
+$M->recordVerifyView($mcert['code']); $M->recordVerifyView($mcert['code']); $M->recordVerifyView('NOSUCHCODE');
+ok((int) $wpdb->get_var("SELECT SUM(views) FROM {$wpdb->prefix}nimikh_verify_views WHERE certificate_id = {$mcert['id']}") === 2, 'verification views are counted per certificate per day; unknown codes ignored');
+[$s] = call('POST', '/metrics/rum', ['metric' => 'video_start', 'value' => 1800], $rafi);
+ok($s === 200, 'a learner can report a video start time');
+[$s] = call('POST', '/metrics/rum', ['metric' => 'evil', 'value' => 5], $rafi);
+ok($s === 400, 'unknown metric rejected');
+[$s] = call('POST', '/metrics/rum', ['metric' => 'lcp', 'value' => 999999], $rafi);
+ok($s === 400, 'absurd value rejected');
+[$s] = call('POST', '/metrics/rum', ['metric' => 'lcp', 'value' => 1000], 0);
+ok($s === 401 || $s === 403, 'anonymous visitors cannot post timings');
+[$s] = call('GET', '/metrics/kpis', null, $rafi);
+ok($s === 403, 'learners cannot read the KPI dashboard');
+$adminId = user('kpiadmin', 'administrator'); get_userdata($adminId)->add_cap('nimikh_manage');
+[$s, $d] = call('GET', '/metrics/kpis', null, $adminId);
+$by = $d ? array_column($d, null, 'key') : [];
+ok($s === 200 && count($d) === 7 && isset($by['completion'], $by['mcq_answer'], $by['first_pass'], $by['verify_views'], $by['paid'], $by['video_start'], $by['lcp']), 'admin gets all seven PRD metrics', json_encode(array_keys($by)));
+ok($by['video_start']['value'] === 1800.0 && $by['video_start']['status'] === 'met', 'video start time p75 is computed from reported timings', json_encode($by['video_start'] ?? null));
+ok($by['paid']['status'] === 'no_data', 'paid enrolments report "no data" until a gateway filter supplies them');
+ok($by['verify_views']['value'] !== null, 'verification views per certificate is computed');
+
+echo "== instructor guidance\n";
+[$s, $d] = call('POST', "/lessons/$l1/interactions", ['at_second' => 12, 'question' => ['stem' => 'Early?', 'options' => ['a', 'b'], 'correct_index' => 0]], $inst);
+[$s, $d] = call('GET', "/lessons/$l1/interactions", null, $inst);
+ok($s === 200 && !empty($d['guidance']) && $d['guidance'][0]['code'] === 'too_early', 'a question in the first 30 s produces advice', json_encode($d['guidance'] ?? null));
+
 echo "\n$n checks, $fail failed\n";
 exit($fail ? 1 : 0);

@@ -109,9 +109,12 @@ final class AuthoringController extends BaseController {
 	// ---- timeline --------------------------------------------------------------
 
 	public function listInteractions(\WP_REST_Request $req) {
+		$duration = (int) get_post_meta((int) $req['id'], 'nimikh_video_duration', true);
+		$items    = $this->interactions->forLesson((int) $req['id']);
 		return rest_ensure_response([
-			'duration'     => (int) get_post_meta((int) $req['id'], 'nimikh_video_duration', true),
-			'interactions' => $this->interactions->forLesson((int) $req['id']),
+			'duration'     => $duration,
+			'interactions' => $items,
+			'guidance'     => $this->guidance(array_map(static fn(array $i): int => (int) $i['at_second'], $items), $duration),
 		]);
 	}
 
@@ -186,6 +189,27 @@ final class AuthoringController extends BaseController {
 	public function setDuration(\WP_REST_Request $req) {
 		update_post_meta((int) $req['id'], 'nimikh_video_duration', (int) $req['duration']);
 		return rest_ensure_response(['duration' => (int) $req['duration']]);
+	}
+
+	/**
+	 * @param int[] $times
+	 * @return array<int, array{code:string, at:int, message:string}>
+	 */
+	private function guidance(array $times, int $duration): array {
+		$out = [];
+		foreach (\Nimikh\LMS\Video\Guidance::check($times, $duration) as $w) {
+			$at  = sprintf('%d:%02d', intdiv($w['at'], 60), $w['at'] % 60);
+			$gap = (int) round($w['gap'] / 60);
+			$out[] = ['code' => $w['code'], 'at' => $w['at'], 'message' => match ($w['code']) {
+				/* translators: %s: time such as 0:20 */
+				'too_early' => sprintf(__('The question at %s is in the first 30 seconds. Let learners settle in first.', 'nimikh-lms'), $at),
+				/* translators: 1: time such as 2:10, 2: seconds since the previous question */
+				'crowded'   => sprintf(__('The question at %1$s comes only %2$d s after the previous one.', 'nimikh-lms'), $at, $w['gap']),
+				/* translators: 1: time such as 2:10, 2: minutes without a question */
+				default     => sprintf(__('About %2$d minutes pass with no question after %1$s. Aim for one every 3–5 minutes.', 'nimikh-lms'), $at, $gap),
+			}];
+		}
+		return $out;
 	}
 
 	/** @param array<string, mixed> $p */

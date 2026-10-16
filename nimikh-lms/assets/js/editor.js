@@ -34,11 +34,17 @@
       api('/lessons/' + this.lessonId + '/interactions'),
       api('/lessons/' + this.lessonId + '/player').catch(function () { return null; })
     ]).then(function (res) {
-      self.items = res[0].interactions; self.duration = res[0].duration;
+      self.items = res[0].interactions; self.duration = res[0].duration; self.guidance = res[0].guidance || [];
       if (!res[1]) { root.appendChild(el('p', { text: 'Save a video ID or URL on this lesson first, then reload.' })); return; }
       self.build(res[1].source);
     }).catch(function (e) { root.appendChild(el('p', { text: (e && e.message) || 'Could not load the editor.' })); });
   }
+
+  Editor.prototype.drawGuidance = function () {
+    var ul = this.guidanceEl; if (!ul) { return; }
+    ul.textContent = '';
+    (this.guidance || []).forEach(function (g) { ul.appendChild(el('li', { 'data-code': g.code, text: g.message })); });
+  };
 
   Editor.prototype.say = function (t, kind) { this.msg.textContent = t || ''; this.msg.setAttribute('data-kind', kind || ''); };
 
@@ -55,6 +61,8 @@
     this.formHost = el('div');
     this.root.appendChild(this.video);
     this.root.appendChild(this.track);
+    this.guidanceEl = el('ul', { 'class': 'nk-editor__guidance', 'aria-label': 'Question placement tips' });
+    this.root.appendChild(this.guidanceEl);
     var ai = el('button', { type: 'button', 'class': 'button', text: 'Suggest questions (AI)' });
     ai.addEventListener('click', function () { self.openAi(); });
     this.aiHost = el('div');
@@ -158,11 +166,12 @@
 
   Editor.prototype.reload = function () {
     var self = this;
-    return api('/lessons/' + this.lessonId + '/interactions').then(function (r) { self.items = r.interactions; self.drawList(); });
+    return api('/lessons/' + this.lessonId + '/interactions').then(function (r) { self.items = r.interactions; self.guidance = r.guidance || []; self.drawList(); });
   };
 
   Editor.prototype.drawList = function () {
     var self = this;
+    this.drawGuidance();
     this.list.textContent = '';
     this.items.forEach(function (it) {
       var edit = el('button', { type: 'button', 'class': 'button', text: 'Edit' });

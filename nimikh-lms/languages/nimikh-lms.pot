@@ -17,8 +17,28 @@ msgstr ""
 msgid "%1$d h %2$d min"
 msgstr ""
 
+#: src/Metrics/MetricsService.php:61
+msgid "%1$d of %2$d enrolments earned the certificate"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:73
+msgid "%1$d of %2$d learners passed first time (all time)"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:67
+msgid "%1$d of %2$d questions reached were answered"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:79
+msgid "%1$d views for %2$d certificates issued. Views served from a CDN cache are not counted."
+msgstr ""
+
 #: src/Profile/ProfileShortcodes.php:159
 msgid "%1$s — active until %2$s"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:71
+msgid "%1$s–%2$s%% (higher means the exam may be too easy)"
 msgstr ""
 
 #: src/Ops/WeeklyReport.php:41
@@ -31,6 +51,10 @@ msgstr ""
 
 #: src/Ops/WeeklyReport.php:45
 msgid "%d certificate(s) have no file yet. Is the cron job running?"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:94
+msgid "%d measurements from real learners"
 msgstr ""
 
 #: src/Exam/Cooldown.php:32
@@ -91,6 +115,10 @@ msgstr ""
 msgid "AI suggestions are not enabled. An administrator can turn them on in the settings."
 msgstr ""
 
+#: src/Rest/AuthoringController.php:209
+msgid "About %2$d minutes pass with no question after %1$s. Aim for one every 3–5 minutes."
+msgstr ""
+
 #: src/Certificates/CertificateEditor.php:80
 msgid "Add"
 msgstr ""
@@ -117,6 +145,10 @@ msgstr ""
 
 #: src/Certificates/CertificateEditor.php:83
 msgid "Alignment"
+msgstr ""
+
+#: src/Admin/KpiPage.php:30
+msgid "All time"
 msgstr ""
 
 #: src/Orgs/OrgRepository.php:16
@@ -183,6 +215,10 @@ msgstr ""
 msgid "Batch enrolment"
 msgstr ""
 
+#: src/Admin/KpiPage.php:36
+msgid "Below target"
+msgstr ""
+
 #: src/Certificates/CertificateEditor.php:83
 msgid "Bold"
 msgstr ""
@@ -227,7 +263,7 @@ msgstr ""
 msgid "Certificate checklist"
 msgstr ""
 
-#: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:86
+#: src/Rest/CertificateController.php:71 src/Certificates/VerifyRoute.php:90
 msgid "Certificate not found."
 msgstr ""
 
@@ -239,8 +275,12 @@ msgstr ""
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:181
+#: src/Plugin.php:187
 msgid "Certificate templates"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:76
+msgid "Certificate verification views per certificate"
 msgstr ""
 
 #: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:75
@@ -271,11 +311,15 @@ msgstr ""
 msgid "Check your email to confirm your request."
 msgstr ""
 
+#: src/Admin/KpiPage.php:37
+msgid "Check: possibly too easy"
+msgstr ""
+
 #: src/Live/LiveService.php:49
 msgid "Choose a start time in the future."
 msgstr ""
 
-#: src/Rest/AuthoringController.php:196
+#: src/Rest/AuthoringController.php:220
 msgid "Choose a time for the question."
 msgstr ""
 
@@ -307,6 +351,10 @@ msgstr ""
 msgid "Completed your first lesson."
 msgstr ""
 
+#: src/Admin/KpiPage.php:45
+msgid "Completion is measured on the learners who enrolled in the period. Timings come from real learners’ browsers and store no personal data."
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:57
 msgid "Continue"
 msgstr ""
@@ -329,6 +377,10 @@ msgstr ""
 
 #: src/Admin/AdminPages.php:180
 msgid "Course ID"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:57
+msgid "Course completion rate"
 msgstr ""
 
 #: src/Rest/OrgController.php:74 src/Support/BatchEnrol.php:23
@@ -393,6 +445,10 @@ msgstr ""
 
 #: src/Admin/DemoPage.php:31
 msgid "Demo data loaded. These passwords are shown once:"
+msgstr ""
+
+#: src/Admin/KpiPage.php:33
+msgid "Detail"
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:39
@@ -469,6 +525,10 @@ msgstr ""
 
 #: src/Badges/BadgeCatalog.php:11
 msgid "First step"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:70
+msgid "First-attempt final exam pass rate"
 msgstr ""
 
 #: src/Discussion/DiscussionService.php:132
@@ -550,6 +610,10 @@ msgstr ""
 msgid "Image URL (https)"
 msgstr ""
 
+#: src/Metrics/MetricsService.php:64
+msgid "In-video question answer rate"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:69
 msgid "In-video question answers"
 msgstr ""
@@ -594,7 +658,7 @@ msgstr ""
 msgid "Instructor access required."
 msgstr ""
 
-#: src/Rest/AuthoringController.php:152 src/Rest/AuthoringController.php:179
+#: src/Rest/AuthoringController.php:155 src/Rest/AuthoringController.php:182
 msgid "Interaction not found."
 msgstr ""
 
@@ -650,8 +714,24 @@ msgstr ""
 msgid "Joined"
 msgstr ""
 
+#: src/Metrics/MetricsService.php:87
+msgid "Largest contentful paint on lesson pages (75th percentile)"
+msgstr ""
+
+#: src/Admin/KpiPage.php:30
+msgid "Last 30 days"
+msgstr ""
+
+#: src/Admin/KpiPage.php:30
+msgid "Last 90 days"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:65
 msgid "Last activity"
+msgstr ""
+
+#: src/Admin/KpiPage.php:30
+msgid "Last year"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:13
@@ -782,6 +862,10 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
+#: src/Admin/KpiPage.php:33
+msgid "Metric"
+msgstr ""
+
 #: src/Admin/Metaboxes.php:34
 msgid "Min % of each video watched"
 msgstr ""
@@ -874,6 +958,10 @@ msgstr ""
 msgid "No courses are published yet."
 msgstr ""
 
+#: src/Admin/KpiPage.php:38
+msgid "No data yet"
+msgstr ""
+
 #: src/Admin/AdminPages.php:204
 msgid "No file uploaded."
 msgstr ""
@@ -890,12 +978,16 @@ msgstr ""
 msgid "No questions yet. Be the first to ask."
 msgstr ""
 
-#: src/Admin/AdminPages.php:152 src/Admin/AdminPages.php:189 src/Admin/DemoPage.php:64
+#: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:152 src/Admin/AdminPages.php:189
 msgid "Not allowed."
 msgstr ""
 
 #: templates/verify.php:13
 msgid "Not found"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:85
+msgid "Not measured here: connect your payment gateway with the nimikh_lms_paid_enrolments filter."
 msgstr ""
 
 #: src/Video/FrontendPlayer.php:61
@@ -914,12 +1006,20 @@ msgstr ""
 msgid "Nothing needs attention this week."
 msgstr ""
 
+#: src/Admin/KpiPage.php:33
+msgid "Now"
+msgstr ""
+
 #: src/Privacy/PrivacyService.php:102
 msgid "Number"
 msgstr ""
 
 #: src/Badges/BadgeCatalog.php:12
 msgid "On a roll"
+msgstr ""
+
+#: src/Admin/KpiPage.php:35
+msgid "On target"
 msgstr ""
 
 #: src/Ops/WeeklyReport.php:24
@@ -944,6 +1044,10 @@ msgstr ""
 
 #: src/Certificates/CertificateEditor.php:84
 msgid "Page colour"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:82
+msgid "Paid enrolments"
 msgstr ""
 
 #: src/Frontend/ChecklistShortcode.php:91
@@ -1214,7 +1318,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:77
+#: src/Admin/KpiPage.php:33 src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124
 msgid "Status"
 msgstr ""
 
@@ -1224,6 +1328,14 @@ msgstr ""
 
 #: src/Privacy/PrivacyService.php:94
 msgid "Subscriptions"
+msgstr ""
+
+#: src/Admin/KpiPage.php:19 src/Admin/KpiPage.php:29
+msgid "Success metrics"
+msgstr ""
+
+#: src/Admin/KpiPage.php:33
+msgid "Target"
 msgstr ""
 
 #: src/Certificates/CertificateEditor.php:72 src/Certificates/CertificateEditor.php:83
@@ -1270,11 +1382,19 @@ msgstr ""
 msgid "The correct answer is highlighted."
 msgstr ""
 
-#: src/Rest/AuthoringController.php:199
+#: src/Rest/AuthoringController.php:207
+msgid "The question at %1$s comes only %2$d s after the previous one."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:205
+msgid "The question at %s is in the first 30 seconds. Let learners settle in first."
+msgstr ""
+
+#: src/Rest/AuthoringController.php:223
 msgid "The question must appear before the video ends."
 msgstr ""
 
-#: src/Rest/AuthoringController.php:203
+#: src/Rest/AuthoringController.php:227
 msgid "The rewind point must be before the question."
 msgstr ""
 
@@ -1294,7 +1414,7 @@ msgstr ""
 msgid "This certificate exists but its file failed an integrity check. Please contact the issuer."
 msgstr ""
 
-#: src/Certificates/VerifyRoute.php:89
+#: src/Certificates/VerifyRoute.php:93
 msgid "This certificate has been revoked."
 msgstr ""
 
@@ -1354,12 +1474,16 @@ msgstr ""
 msgid "Too many lookups."
 msgstr ""
 
-#: src/Certificates/VerifyRoute.php:63
+#: src/Certificates/VerifyRoute.php:64
 msgid "Too many lookups. Try again in a minute."
 msgstr ""
 
 #: src/Discussion/DiscussionService.php:29
 msgid "Too many posts. Please wait a minute."
+msgstr ""
+
+#: src/Rest/MetricsController.php:24
+msgid "Too many requests."
 msgstr ""
 
 #: src/Certificates/CertificateEditor.php:81
@@ -1380,6 +1504,10 @@ msgstr ""
 
 #: src/Frontend/Shortcodes.php:70
 msgid "Unhide"
+msgstr ""
+
+#: src/Rest/MetricsController.php:27
+msgid "Unknown metric."
 msgstr ""
 
 #: src/Admin/Phase3Pages.php:250
@@ -1440,6 +1568,10 @@ msgstr ""
 
 #: src/Privacy/PrivacyService.php:81
 msgid "Video notes"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:87
+msgid "Video start time (75th percentile)"
 msgstr ""
 
 #: src/Profile/ProfileShortcodes.php:65
@@ -1558,7 +1690,7 @@ msgstr ""
 msgid "Your certificate for %s"
 msgstr ""
 
-#: src/Certificates/VerifyRoute.php:93
+#: src/Certificates/VerifyRoute.php:97
 msgid "Your certificate is still being prepared. Check again in a minute."
 msgstr ""
 
@@ -1588,6 +1720,18 @@ msgstr ""
 msgid "[removed by the author]"
 msgstr ""
 
+#: src/Metrics/MetricsService.php:84
+msgid "at least %d in 90 days"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:59 src/Metrics/MetricsService.php:65
+msgid "at least %s%%"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:77
+msgid "at least 1 view per 5 certificates (20%)"
+msgstr ""
+
 #: src/Integrations/Tutor/TutorHooks.php:70
 msgid "not passed yet"
 msgstr ""
@@ -1602,6 +1746,10 @@ msgstr ""
 
 #: src/Admin/Phase3Pages.php:185
 msgid "portal"
+msgstr ""
+
+#: src/Metrics/MetricsService.php:92
+msgid "under %d ms"
 msgstr ""
 
 #: src/Admin/Metaboxes.php:51

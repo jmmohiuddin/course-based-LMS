@@ -16,3 +16,5 @@
 .nk-editor__msg { min-height: 20px; margin: 4px 0; }
 .nk-editor__msg[data-kind="error"] { color: #B91C1C; }
 .nk-editor__msg[data-kind="ok"] { color: #15803D; }
+.nk-editor__guidance { margin: 8px 0; padding-left: 18px; color: #B45309; font-size: 13px; }
+.nk-editor__guidance:empty { display: none; }
