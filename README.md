@@ -236,7 +236,7 @@ php tests/integration/e2e-uninstall.php                          # MySQL only: u
 - Instructor editor lives on the lesson edit screen. Tutor's React course builder has no stable hook for a
   custom tab, so embedding it there is future work.
 - Question text is plain text (no rich text/LaTeX) in this version.
-- Not built: native mobile apps (the PWA is the mobile story), an opt-in leaderboard exists, no public rankings), WordPress-multisite white-labelling,
+- Not built: native mobile apps (the PWA is the mobile story), WordPress-multisite white-labelling,
   SCORM import, DevOps (Cloudflare, Redis, CI deploy, Sentry).
 - The demo seeder writes Tutor-style data (courses, topics, lessons, quizzes, enrolment posts, quiz attempts limited to the
   columns your Tutor schema has) but was run against a Tutor stand-in, not real Tutor. Review it on staging first.
