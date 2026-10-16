@@ -63,6 +63,7 @@ final class AdminPages {
 			'google_client_id'    => [__('Google sign-in client ID (empty = off)', 'nimikh-lms'), 'text'],
 			'sentry_dsn'          => [__('Sentry DSN for error reporting (https; empty = off)', 'nimikh-lms'), 'text'],
 			'weekly_report_enabled' => [__('Email a weekly operations report to the site admin', 'nimikh-lms'), 'checkbox'],
+			'scorm_min_seconds'   => [__('SCORM: least seconds before a package may complete a lesson', 'nimikh-lms'), 'number'],
 			'ai_enabled'          => [__('AI question suggestions (sends transcripts to Anthropic)', 'nimikh-lms'), 'checkbox'],
 			'ai_api_key'          => [__('Anthropic API key', 'nimikh-lms'), 'password'],
 			'ai_model'            => [__('AI model ID', 'nimikh-lms'), 'text'],

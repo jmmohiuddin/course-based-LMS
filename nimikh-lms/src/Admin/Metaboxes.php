@@ -24,6 +24,7 @@ final class Metaboxes {
 
 	public function add(): void {
 		add_meta_box('nimikh-rules', __('Nimikh completion rules', 'nimikh-lms'), [$this, 'rulesBox'], TutorAdapter::COURSE_POST_TYPE, 'side');
+		add_meta_box('nimikh-scorm', __('SCORM package', 'nimikh-lms'), [$this, 'scormBox'], TutorAdapter::LESSON_POST_TYPE, 'normal', 'default');
 		add_meta_box('nimikh-video', __('Interactive video', 'nimikh-lms'), [$this, 'videoBox'], TutorAdapter::LESSON_POST_TYPE, 'normal', 'high');
 	}
 
@@ -41,6 +42,28 @@ final class Metaboxes {
 		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_rules[certificate_template_id]" value="%d" class="small-text"></label></p>', esc_html__('Certificate template ID (0 = default)', 'nimikh-lms'), (int) $r['certificate_template_id']);
 		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_rules[exam_cooldown_hours]" value="%d" class="small-text"></label></p>', esc_html__('Wait between failed exam attempts (hours, 0 = none)', 'nimikh-lms'), (int) $r['exam_cooldown_hours']);
 		printf('<p><label>%s<br><input type="number" min="0" name="nimikh_exam_quiz_id" value="%d" class="small-text"></label></p>', esc_html__('Final exam quiz ID (0 = last quiz)', 'nimikh-lms'), (int) get_post_meta($post->ID, 'nimikh_exam_quiz_id', true));
+	}
+
+	public function scormBox(\WP_Post $post): void {
+		$p = \Nimikh\LMS\Scorm\PackageStore::forLesson($post->ID);
+		echo '<div id="nk-scorm-admin" data-lesson="' . (int) $post->ID . '">';
+		if ($p) {
+			printf(
+				'<p><strong>%s</strong> (SCORM %s, %d %s, %s)</p>',
+				esc_html($p['title'] !== '' ? $p['title'] : __('Untitled package', 'nimikh-lms')),
+				esc_html($p['version']),
+				(int) $p['files'],
+				esc_html__('files', 'nimikh-lms'),
+				esc_html(size_format((int) $p['bytes']))
+			);
+		} else {
+			echo '<p>' . esc_html__('No package yet. A SCORM lesson replaces the video player: the package reports completion and the score.', 'nimikh-lms') . '</p>';
+		}
+		echo '<p><input type="file" accept=".zip,application/zip" id="nk-scorm-file"> <button type="button" class="button" id="nk-scorm-upload">' . esc_html__('Upload package (.zip)', 'nimikh-lms') . '</button>';
+		if ($p) {
+			echo ' <button type="button" class="button-link-delete" id="nk-scorm-remove">' . esc_html__('Remove package', 'nimikh-lms') . '</button>';
+		}
+		echo '</p><p class="description">' . esc_html__('SCORM 1.2 and SCORM 2004. The package runs in a sandbox. It reports its own completion, so use the interactive video for content that must be tamper-resistant.', 'nimikh-lms') . '</p><p id="nk-scorm-msg" role="status"></p></div>';
 	}
 
 	public function videoBox(\WP_Post $post): void {
@@ -75,11 +98,28 @@ final class Metaboxes {
 		}
 	}
 
+	private function scormAssets(): void {
+		wp_enqueue_script('nimikh-scorm-admin', NIMIKH_LMS_URL . 'assets/js/scorm-admin.js', [], NIMIKH_LMS_VERSION, ['in_footer' => true]);
+		wp_localize_script('nimikh-scorm-admin', 'NimikhScormAdmin', [
+			'restUrl' => esc_url_raw(rest_url('nimikh/v1')),
+			'nonce'   => wp_create_nonce('wp_rest'),
+			'i18n'    => [
+				'choose'   => __('Choose a .zip file first.', 'nimikh-lms'),
+				'uploading' => __('Uploading and checking the package…', 'nimikh-lms'),
+				'done'     => __('Package installed. Reloading…', 'nimikh-lms'),
+				'removed'  => __('Package removed. Reloading…', 'nimikh-lms'),
+				'confirm'  => __('Remove this package? Learners’ SCORM progress is kept.', 'nimikh-lms'),
+				'error'    => __('The upload failed.', 'nimikh-lms'),
+			],
+		]);
+	}
+
 	public function assets(string $hook): void {
 		$screen = get_current_screen();
 		if (!$screen || $screen->post_type !== TutorAdapter::LESSON_POST_TYPE || !in_array($hook, ['post.php', 'post-new.php'], true)) {
 			return;
 		}
+		$this->scormAssets();
 		$v = NIMIKH_LMS_VERSION;
 		wp_enqueue_style('nimikh-editor', NIMIKH_LMS_URL . 'assets/css/editor.css', [], $v);
 		wp_enqueue_style('nimikh-tokens', NIMIKH_LMS_URL . 'assets/css/tokens.css', [], $v);

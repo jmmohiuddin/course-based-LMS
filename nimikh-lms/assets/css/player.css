@@ -86,3 +86,9 @@
 .nk-board__list li[aria-current] { font-weight: 700; color: var(--nk-primary); }
 .nk-board__score { float: right; color: var(--nk-ink-muted); }
 .nk-board__me { color: var(--nk-ink-muted); }
+
+/* SCORM host */
+.nk-scorm__frame { display: block; width: 100%; height: 75vh; min-height: 420px; border: 1px solid var(--nk-border); border-radius: var(--nk-radius-card); background: var(--nk-surface); }
+.nk-scorm__status { min-height: 1.5em; color: var(--nk-ink-muted); }
+.nk-scorm__status[data-kind="success"] { color: var(--nk-success); font-weight: 600; }
+.nk-scorm__status[data-kind="error"] { color: var(--nk-danger); }

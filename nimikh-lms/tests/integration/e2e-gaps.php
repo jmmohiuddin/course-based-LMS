@@ -189,5 +189,56 @@ ok(do_shortcode("[nimikh_leaderboard course=\"$course\"]") === '', 'non-enrolled
 \Nimikh\LMS\Leaderboard\LeaderboardService::setOptIn($rafi, false);
 ok($board->forCourse($course, $sam)['top'] === [], 'opting out removes the learner again');
 
+echo "== SCORM\n";
+$manifest = '<?xml version="1.0"?><manifest identifier="m" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"><metadata><schemaversion>1.2</schemaversion></metadata><organizations default="o"><organization identifier="o"><title>Safety</title><item identifier="i" identifierref="r"><title>t</title><adlcp:masteryscore>80</adlcp:masteryscore></item></organization></organizations><resources><resource identifier="r" type="webcontent" href="index.html"/></resources></manifest>';
+$zipPath = sys_get_temp_dir() . '/nk-e2e-' . $rid . '.zip';
+$z = new ZipArchive(); $z->open($zipPath, ZipArchive::CREATE); $z->addFromString('imsmanifest.xml', $manifest); $z->addFromString('index.html', '<html><head></head><body>SCO</body></html>'); $z->close();
+$sco = wp_insert_post(['post_type' => 'lesson', 'post_title' => 'SCORM lesson', 'post_status' => 'publish', 'post_author' => $inst, 'menu_order' => 3]);
+update_post_meta($sco, '_tutor_course_id_for_lesson', $course);
+// upload through the REST route (instructor), as the metabox does
+add_filter('nimikh_lms_allow_nonhttp_upload', '__return_true');
+wp_set_current_user($inst);
+$req = new WP_REST_Request('POST', "/nimikh/v1/lessons/$sco/scorm");
+$req->set_file_params(['package' => ['name' => 'p.zip', 'tmp_name' => $zipPath, 'error' => UPLOAD_ERR_OK, 'size' => filesize($zipPath), 'type' => 'application/zip']]);
+$res = rest_do_request($req);
+ok($res->get_status() === 201 && $res->get_data()['version'] === '1.2' && $res->get_data()['title'] === 'Safety', 'instructor uploads a SCORM package through REST', json_encode($res->get_data()));
+$pkg = \Nimikh\LMS\Scorm\PackageStore::forLesson($sco);
+ok($pkg && is_file(\Nimikh\LMS\Scorm\PackageStore::dir($pkg['id']) . '/index.html'), 'files were extracted under uploads/nimikh-scorm');
+$req = new WP_REST_Request('POST', "/nimikh/v1/lessons/$sco/scorm");
+$req->set_file_params(['package' => ['name' => 'p.zip', 'tmp_name' => $zipPath, 'error' => UPLOAD_ERR_OK, 'size' => 1, 'type' => 'application/zip']]);
+wp_set_current_user($rafi);
+ok(rest_do_request($req)->get_status() === 403, 'a learner cannot upload a package');
+
+[$s, $d] = call('POST', "/lessons/$sco/scorm/launch", [], $stranger);
+ok($s === 403, 'a learner who is not enrolled cannot launch');
+[$s, $d] = call('POST', "/lessons/$sco/scorm/launch", [], $rafi);
+ok($s === 200 && str_contains($d['url'], '/nimikh-scorm/' . $sco . '.' . $rafi . '.') && str_ends_with($d['url'], '/index.html') && $d['completed'] === false, 'an enrolled learner gets a signed content URL', json_encode($d));
+$tok = explode('/', parse_url($d['url'], PHP_URL_PATH))[2];
+ok(\Nimikh\LMS\Scorm\Token::verify($tok, $pkg['id'], time(), \Nimikh\LMS\Scorm\ScormService::secret()) !== null, 'the token verifies for this package');
+ok(\Nimikh\LMS\Scorm\Token::verify($tok, 'ffffffffffffffff', time(), \Nimikh\LMS\Scorm\ScormService::secret()) === null, 'and not for another package');
+
+[$s, $d] = call('POST', "/lessons/$sco/scorm/commit", ['data' => ['cmi.core.lesson_status' => 'completed', 'cmi.core.score.raw' => '90', 'cmi.core.student_id' => '999', 'evil' => 'x', 'cmi.suspend_data' => 'page=4']], $rafi);
+ok($s === 200 && $d['completed'] === false && $d['deferred'] === true, 'completion reported straight after launch is held back (minimum time)', json_encode($d));
+$trk = (new \Nimikh\LMS\Scorm\TrackingRepository())->find($rafi, $sco);
+ok($trk && !isset($trk['data']['evil']) && !isset($trk['data']['cmi.core.student_id']) && $trk['data']['cmi.suspend_data'] === 'page=4', 'only whitelisted data is stored');
+ok(!$P->tutor->isLessonComplete($rafi, $sco), 'the lesson is not complete yet');
+$wpdb->query("UPDATE {$wpdb->prefix}nimikh_scorm_tracking SET started_at = '" . gmdate('Y-m-d H:i:s', time() - 120) . "' WHERE user_id = $rafi AND lesson_id = $sco");
+[$s, $d] = call('POST', "/lessons/$sco/scorm/commit", ['data' => []], $rafi);
+ok($s === 200 && $d['completed'] === true && $d['score'] === 90.0, 'after the minimum time a re-check completes the lesson', json_encode($d));
+ok($P->tutor->isLessonComplete($rafi, $sco), 'Tutor sees the lesson as complete');
+$_POST['lesson_id'] = $sco; wp_set_current_user($rafi);
+try { (new \Nimikh\LMS\Integrations\Tutor\TutorHooks($P->tutor, $P->certificates, new \Nimikh\LMS\Progress\ProgressRepository()))->guardManualComplete(); ok(true, 'manual "Mark as complete" passes once the package completed it'); } catch (\Throwable $e) { ok(false, 'manual complete guard', $e->getMessage()); }
+[$s, $d] = call('POST', "/lessons/$sco/scorm/launch", [], $rafi);
+ok($d['completed'] === true, 'relaunching shows the completed state');
+$flat = json_encode(\Nimikh\LMS\Scorm\ContentRoute::url('1.2.3.' . str_repeat('a', 64), 'content/a b.html', '?x=1'));
+ok(str_contains($flat, 'content\/a%20b.html') && str_ends_with($flat, '?x=1"'), 'content URLs encode each path segment');
+$exp = (new \Nimikh\LMS\Privacy\PrivacyService())->export(get_userdata($rafi)->user_email);
+ok(count(array_filter($exp['data'], fn($i) => $i['group_id'] === 'nimikh-scorm')) === 1, 'SCORM progress is part of the privacy export');
+(new \Nimikh\LMS\Privacy\PrivacyService())->eraseUser($rafi);
+ok((new \Nimikh\LMS\Scorm\TrackingRepository())->find($rafi, $sco) === null, 'and is erased with the learner');
+\Nimikh\LMS\Scorm\PackageStore::remove($sco);
+ok(!is_dir(\Nimikh\LMS\Scorm\PackageStore::dir($pkg['id'])) && \Nimikh\LMS\Scorm\PackageStore::forLesson($sco) === null, 'removing the package deletes its files');
+@unlink($zipPath);
+
 echo "\n$n checks, $fail failed\n";
 exit($fail ? 1 : 0);

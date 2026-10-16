@@ -17,6 +17,7 @@ final class Installer {
 		2 => '002-phase2-3.php',
 		3 => '003-notes.php',
 		4 => '004-metrics.php',
+		5 => '005-scorm.php',
 	];
 
 	public static function migrate(): void {

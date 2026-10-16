@@ -32,6 +32,7 @@ final class Settings {
 		'google_client_id'    => '',     // Google Identity Services web client ID; empty = off
 		'sentry_dsn'          => '',     // optional error reporting; empty = off
 		'weekly_report_enabled' => 0,    // weekly operations email to the site admin
+		'scorm_min_seconds'   => 20,     // a SCORM package cannot complete a lesson sooner than this after launch
 		'pwa_enabled'         => 1,
 		'pwa_start_url'       => '',
 		'pwa_icon_url'        => '',
@@ -72,6 +73,7 @@ final class Settings {
 			'google_client_id'    => preg_match('/^[A-Za-z0-9._\-]{10,200}$/', (string) ($input['google_client_id'] ?? '')) === 1 ? (string) $input['google_client_id'] : '',
 			'sentry_dsn'          => \Nimikh\LMS\Ops\SentryDsn::parse((string) ($input['sentry_dsn'] ?? '')) !== null ? trim((string) $input['sentry_dsn']) : '',
 			'weekly_report_enabled' => empty($input['weekly_report_enabled']) ? 0 : 1,
+			'scorm_min_seconds'   => min(3600, max(0, (int) ($input['scorm_min_seconds'] ?? 20))),
 			'pwa_enabled'         => empty($input['pwa_enabled']) ? 0 : 1,
 			'pwa_start_url'       => esc_url_raw((string) ($input['pwa_start_url'] ?? '')),
 			'pwa_icon_url'        => esc_url_raw((string) ($input['pwa_icon_url'] ?? '')),

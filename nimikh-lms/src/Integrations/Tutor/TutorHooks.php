@@ -85,6 +85,12 @@ final class TutorHooks {
 	/** Runs before Tutor's own handler (priority 1). */
 	public function guardManualComplete(): void {
 		$lessonId = isset($_POST['lesson_id']) ? (int) $_POST['lesson_id'] : 0; // phpcs:ignore WordPress.Security.NonceVerification -- Tutor verifies the nonce in its own handler
+		if ($lessonId > 0 && \Nimikh\LMS\Scorm\PackageStore::forLesson($lessonId)) {
+			if ((new \Nimikh\LMS\Scorm\TrackingRepository())->isCompleted(get_current_user_id(), $lessonId)) {
+				return;
+			}
+			wp_die(esc_html__('Finish the lesson to complete it. The package reports your progress.', 'nimikh-lms'), '', ['response' => 403, 'back_link' => true]);
+		}
 		if ($lessonId <= 0 || !FrontendPlayerGuard::isInteractive($lessonId)) {
 			return;
 		}

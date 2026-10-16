@@ -15,7 +15,7 @@ if (empty($settings['remove_data_on_uninstall'])) {
 
 global $wpdb;
 foreach (['questions', 'video_interactions', 'watch_progress', 'interaction_attempts', 'certificates', 'user_badges', 'activity_days',
-	'discussions', 'plans', 'subscriptions', 'orgs', 'org_members', 'org_courses', 'live_sessions', 'live_attendance', 'sms_log', 'notes', 'verify_views', 'rum'] as $table) {
+	'discussions', 'plans', 'subscriptions', 'orgs', 'org_members', 'org_courses', 'live_sessions', 'live_attendance', 'sms_log', 'notes', 'verify_views', 'rum', 'scorm_tracking'] as $table) {
 	$wpdb->query('DROP TABLE IF EXISTS ' . $wpdb->prefix . 'nimikh_' . $table); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 }
 
@@ -31,8 +31,16 @@ if (is_dir($dir)) {
 	@rmdir($dir); // phpcs:ignore WordPress.PHP.NoSilencedErrors
 }
 
+// SCORM packages (extracted folders) and their lesson meta.
+$scorm = trailingslashit($uploads['basedir']) . 'nimikh-scorm';
+if (is_dir($scorm)) {
+	require_once __DIR__ . '/src/Scorm/PackageStore.php';
+	\Nimikh\LMS\Scorm\PackageStore::rrmdir($scorm);
+}
+$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE meta_key IN ('nimikh_scorm', 'nimikh_offline_enabled')"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+
 // Options, scheduled jobs, roles, per-user meta, post meta and certificate templates.
-foreach (['nimikh_lms_settings', 'nimikh_lms_db_version', 'nimikh_demo_manifest', 'nimikh_sms_template_enrolled', 'nimikh_sms_template_certificate_issued', 'nimikh_sms_template_exam_result', 'nimikh_sms_template_live_reminder'] as $opt) {
+foreach (['nimikh_lms_settings', 'nimikh_lms_db_version', 'nimikh_lms_rewrite_version', 'nimikh_demo_manifest', 'nimikh_sms_template_enrolled', 'nimikh_sms_template_certificate_issued', 'nimikh_sms_template_exam_result', 'nimikh_sms_template_live_reminder'] as $opt) {
 	delete_option($opt);
 }
 foreach (['nimikh_expire_subscriptions', 'nimikh_live_reminders', 'nimikh_render_certificate', 'nimikh_weekly_report'] as $hook) {

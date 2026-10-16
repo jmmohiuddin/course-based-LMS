@@ -11,6 +11,11 @@ use Nimikh\LMS\Ai\QuestionGenerator;
 use Nimikh\LMS\Badges\BadgeService;
 use Nimikh\LMS\Discussion\DiscussionService;
 use Nimikh\LMS\Auth\AuthService;
+use Nimikh\LMS\Rest\ScormController;
+use Nimikh\LMS\Scorm\ContentRoute;
+use Nimikh\LMS\Scorm\ScormPlayer;
+use Nimikh\LMS\Scorm\ScormService;
+use Nimikh\LMS\Scorm\TrackingRepository;
 use Nimikh\LMS\Admin\KpiPage;
 use Nimikh\LMS\Metrics\MetricsService;
 use Nimikh\LMS\Rest\MetricsController;
@@ -118,6 +123,7 @@ final class Plugin {
 		$ai            = new QuestionGenerator();
 		$notes         = new NoteService($this->progress);
 		$metrics       = new MetricsService($this->tutor);
+		$scorm         = new ScormService(new TrackingRepository(), $this->tutor);
 		$this->exams   = $exams = new ExamService($this->tutor, $progressRepo, $attemptsRepo);
 
 		$controllers = [
@@ -135,6 +141,7 @@ final class Plugin {
 			new AuthController($this->tutor, $auth),
 			new HealthController($this->tutor),
 			new MetricsController($this->tutor, $metrics),
+			new ScormController($this->tutor, $scorm),
 		];
 		add_action('rest_api_init', static function () use ($controllers): void {
 			foreach ($controllers as $c) {
@@ -150,6 +157,8 @@ final class Plugin {
 		(new Shortcodes($this->tutor))->register();
 		(new ChecklistShortcode($this->tutor, $this->certificates, $exams))->register();
 		(new LoginLimiter())->register();
+		(new ContentRoute($scorm))->register();
+		(new ScormPlayer())->register();
 		(new ErrorReporter())->register();
 		(new WeeklyReport())->register();
 		(new LoginShortcode())->register();
@@ -161,6 +170,14 @@ final class Plugin {
 		(new PortalRoute($orgRepo))->register();
 		(new Pwa())->register();
 		(new PrivacyService())->register();
+
+		// New rewrite rules (/verify, /institute, /nimikh-scorm ...) must be flushed once after an upgrade, not only on activation.
+		add_action('init', static function (): void {
+			if (get_option('nimikh_lms_rewrite_version') !== NIMIKH_LMS_VERSION) {
+				flush_rewrite_rules(false);
+				update_option('nimikh_lms_rewrite_version', NIMIKH_LMS_VERSION, false);
+			}
+		}, 99);
 
 		add_action(CertificateService::RENDER_HOOK, [$this->certificates, 'render']);
 		add_action('init', [$this, 'registerContentTypes']);

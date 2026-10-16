@@ -1642,3 +1642,120 @@ msgstr "লিডারবোর্ডে আমাকে প্রথম না
 
 msgid "Your rank: %1$d of %2$d (%3$s points). Only you can see this unless you join."
 msgstr "আপনার র‍্যাঙ্ক: %2$d জনের মধ্যে %1$d (%3$s পয়েন্ট)। যোগ না দিলে শুধু আপনিই এটি দেখতে পাবেন।"
+
+msgid "Choose a .zip file first."
+msgstr ".zip ফাইল আগে বেছে নিন।"
+
+msgid "Could not create the package folder."
+msgstr "প্যাকেজের ফোল্ডার তৈরি করা যায়নি।"
+
+msgid "Could not open this lesson. Please refresh."
+msgstr "এই পাঠ খোলা যায়নি। অনুগ্রহ করে রিফ্রেশ করুন।"
+
+msgid "Could not read a file inside the package."
+msgstr "প্যাকেজের ভেতরের একটি ফাইল পড়া যায়নি।"
+
+msgid "Finish the lesson to complete it. The package reports your progress."
+msgstr "পাঠ শেষ করলেই এটি সম্পন্ন হবে। প্যাকেজ আপনার অগ্রগতি জানাবে।"
+
+msgid "Interactive lesson"
+msgstr "ইন্টারঅ্যাকটিভ পাঠ"
+
+msgid "Launch the package first."
+msgstr "আগে প্যাকেজটি চালু করুন।"
+
+msgid "Loading the lesson…"
+msgstr "পাঠ লোড হচ্ছে…"
+
+msgid "No package yet. A SCORM lesson replaces the video player: the package reports completion and the score."
+msgstr "এখনও কোনো প্যাকেজ নেই। SCORM পাঠ ভিডিও প্লেয়ারের জায়গা নেয়: প্যাকেজ নিজেই সম্পন্ন হওয়া ও স্কোর জানায়।"
+
+msgid "Package installed. Reloading…"
+msgstr "প্যাকেজ ইনস্টল হয়েছে। রিলোড হচ্ছে…"
+
+msgid "Package removed. Reloading…"
+msgstr "প্যাকেজ সরানো হয়েছে। রিলোড হচ্ছে…"
+
+msgid "Please log in to open this lesson."
+msgstr "এই পাঠ খুলতে অনুগ্রহ করে লগইন করুন।"
+
+msgid "Remove package"
+msgstr "প্যাকেজ সরান"
+
+msgid "Remove this package? Learners’ SCORM progress is kept."
+msgstr "এই প্যাকেজ সরাবেন? শিক্ষার্থীদের SCORM অগ্রগতি রেখে দেওয়া হবে।"
+
+msgid "SCORM 1.2 and SCORM 2004. The package runs in a sandbox. It reports its own completion, so use the interactive video for content that must be tamper-resistant."
+msgstr "SCORM 1.2 ও SCORM 2004। প্যাকেজ স্যান্ডবক্সে চলে। এটি নিজেই সম্পন্ন হওয়া জানায়, তাই কারসাজি-প্রতিরোধী কনটেন্টের জন্য ইন্টারঅ্যাকটিভ ভিডিও ব্যবহার করুন।"
+
+msgid "SCORM lesson progress"
+msgstr "SCORM পাঠের অগ্রগতি"
+
+msgid "SCORM package"
+msgstr "SCORM প্যাকেজ"
+
+msgid "SCORM: least seconds before a package may complete a lesson"
+msgstr "SCORM: প্যাকেজ পাঠ সম্পন্ন করার আগে ন্যূনতম সেকেন্ড"
+
+msgid "That file is not a valid zip archive."
+msgstr "ফাইলটি বৈধ zip আর্কাইভ নয়।"
+
+msgid "The PHP zip extension is not installed on this server."
+msgstr "এই সার্ভারে PHP zip এক্সটেনশন ইনস্টল করা নেই।"
+
+msgid "The launch file named in the manifest is not in the package."
+msgstr "ম্যানিফেস্টে উল্লিখিত লঞ্চ ফাইলটি প্যাকেজে নেই।"
+
+msgid "The package contains a file type that is not allowed (for example PHP or executables)."
+msgstr "প্যাকেজে অননুমোদিত ধরনের ফাইল আছে (যেমন PHP বা এক্সিকিউটেবল)।"
+
+msgid "The package contains a symbolic link and was refused."
+msgstr "প্যাকেজে সিমবলিক লিংক থাকায় তা প্রত্যাখ্যান করা হয়েছে।"
+
+msgid "The package contains an unsafe file path and was refused."
+msgstr "প্যাকেজে অনিরাপদ ফাইল পাথ থাকায় তা প্রত্যাখ্যান করা হয়েছে।"
+
+msgid "The package contains two files whose names differ only by capital letters."
+msgstr "প্যাকেজে এমন দুটি ফাইল আছে যাদের নামে শুধু বড় হাতের অক্ষরের তফাত।"
+
+msgid "The package has no readable imsmanifest.xml, or it is not SCORM 1.2 or SCORM 2004."
+msgstr "প্যাকেজে পড়ার মতো imsmanifest.xml নেই, অথবা এটি SCORM 1.2 বা SCORM 2004 নয়।"
+
+msgid "The package has too many files."
+msgstr "প্যাকেজে ফাইলের সংখ্যা অনেক বেশি।"
+
+msgid "The package is too large (limit 300 MB, 150 MB per file)."
+msgstr "প্যাকেজটি খুব বড় (সীমা ৩০০ MB, প্রতি ফাইল ১৫০ MB)।"
+
+msgid "The package looks like a decompression bomb and was refused."
+msgstr "প্যাকেজটি ডিকমপ্রেশন বোমার মতো দেখাচ্ছে, তাই প্রত্যাখ্যান করা হয়েছে।"
+
+msgid "The package reported too much data."
+msgstr "প্যাকেজ অনেক বেশি ডেটা পাঠিয়েছে।"
+
+msgid "The upload failed."
+msgstr "আপলোড ব্যর্থ হয়েছে।"
+
+msgid "This lesson has no SCORM package."
+msgstr "এই পাঠে কোনো SCORM প্যাকেজ নেই।"
+
+msgid "Time spent (seconds)"
+msgstr "ব্যয়িত সময় (সেকেন্ড)"
+
+msgid "Untitled package"
+msgstr "নামহীন প্যাকেজ"
+
+msgid "Upload a SCORM zip file. If it is large, check the server upload limits."
+msgstr "একটি SCORM zip ফাইল আপলোড করুন। ফাইল বড় হলে সার্ভারের আপলোড সীমা দেখুন।"
+
+msgid "Upload package (.zip)"
+msgstr "প্যাকেজ আপলোড (.zip)"
+
+msgid "Uploading and checking the package…"
+msgstr "প্যাকেজ আপলোড ও যাচাই হচ্ছে…"
+
+msgid "files"
+msgstr "ফাইল"
+
+msgid "imsmanifest.xml must be at the top level of the zip."
+msgstr "imsmanifest.xml অবশ্যই zip-এর সর্বোচ্চ স্তরে থাকতে হবে।"

@@ -9,7 +9,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: nimikh-lms\n"
 
-#: src/Admin/AdminPages.php:171
+#: src/Admin/AdminPages.php:172
 msgid "%1$d enrolled, %2$d created, %3$d skipped."
 msgstr ""
 
@@ -103,11 +103,11 @@ msgstr ""
 msgid "A reason is required."
 msgstr ""
 
-#: src/Admin/AdminPages.php:68
+#: src/Admin/AdminPages.php:69
 msgid "AI model ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:66
+#: src/Admin/AdminPages.php:67
 msgid "AI question suggestions (sends transcripts to Anthropic)"
 msgstr ""
 
@@ -163,15 +163,15 @@ msgstr ""
 msgid "Answered at"
 msgstr ""
 
-#: src/Admin/AdminPages.php:67
+#: src/Admin/AdminPages.php:68
 msgid "Anthropic API key"
 msgstr ""
 
-#: src/Admin/AdminPages.php:71
+#: src/Admin/AdminPages.php:72
 msgid "App icon URL (optional, SVG or PNG)"
 msgstr ""
 
-#: src/Admin/AdminPages.php:70
+#: src/Admin/AdminPages.php:71
 msgid "App start URL (e.g. the dashboard page)"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Assign course"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:82
+#: src/Privacy/PrivacyService.php:88
 msgid "At second"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Average at least %s%% on in-video questions"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:91
+#: src/Privacy/PrivacyService.php:97
 msgid "Awarded"
 msgstr ""
 
@@ -203,15 +203,15 @@ msgstr ""
 msgid "Background jobs are running %d minutes late."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:91
+#: src/Privacy/PrivacyService.php:97
 msgid "Badge"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:91
+#: src/Privacy/PrivacyService.php:97
 msgid "Badges"
 msgstr ""
 
-#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:165
+#: src/Admin/AdminPages.php:30 src/Admin/AdminPages.php:166
 msgid "Batch enrolment"
 msgstr ""
 
@@ -239,7 +239,7 @@ msgstr ""
 msgid "Bunny token authentication key"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:50
+#: src/Admin/Metaboxes.php:73
 msgid "Bunny video ID"
 msgstr ""
 
@@ -267,15 +267,15 @@ msgstr ""
 msgid "Certificate not found."
 msgstr ""
 
-#: src/Admin/AdminPages.php:118
+#: src/Admin/AdminPages.php:119
 msgid "Certificate revoked."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:41
+#: src/Admin/Metaboxes.php:42
 msgid "Certificate template ID (0 = default)"
 msgstr ""
 
-#: src/Plugin.php:190
+#: src/Plugin.php:207
 msgid "Certificate templates"
 msgstr ""
 
@@ -283,11 +283,11 @@ msgstr ""
 msgid "Certificate verification views per certificate"
 msgstr ""
 
-#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:116 src/Privacy/PrivacyService.php:75
+#: src/Admin/AdminPages.php:29 src/Admin/AdminPages.php:117 src/Privacy/PrivacyService.php:75
 msgid "Certificates"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:119
+#: src/Privacy/PrivacyService.php:125
 msgid "Certificates and subscription records were kept in anonymised form (they no longer identify you). Their files were deleted."
 msgstr ""
 
@@ -315,6 +315,10 @@ msgstr ""
 msgid "Check: possibly too easy"
 msgstr ""
 
+#: src/Admin/Metaboxes.php:107
+msgid "Choose a .zip file first."
+msgstr ""
+
 #: src/Live/LiveService.php:49
 msgid "Choose a start time in the future."
 msgstr ""
@@ -323,7 +327,7 @@ msgstr ""
 msgid "Choose a time for the question."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:99
+#: src/Privacy/PrivacyService.php:105
 msgid "Class"
 msgstr ""
 
@@ -339,7 +343,7 @@ msgstr ""
 msgid "Complete all lessons (%1$s of %2$s)"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:65
+#: src/Privacy/PrivacyService.php:65 src/Privacy/PrivacyService.php:83
 msgid "Completed"
 msgstr ""
 
@@ -363,19 +367,31 @@ msgstr ""
 msgid "Correct"
 msgstr ""
 
+#: src/Scorm/PackageStore.php:68
+msgid "Could not create the package folder."
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:71
 msgid "Could not load the video. Please refresh."
+msgstr ""
+
+#: src/Scorm/ScormPlayer.php:46
+msgid "Could not open this lesson. Please refresh."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:80
+msgid "Could not read a file inside the package."
 msgstr ""
 
 #: src/Video/FrontendPlayer.php:78
 msgid "Could not save the note."
 msgstr ""
 
-#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
+#: src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:243 src/Admin/Phase3Pages.php:250
 msgid "Course"
 msgstr ""
 
-#: src/Admin/AdminPages.php:180
+#: src/Admin/AdminPages.php:181
 msgid "Course ID"
 msgstr ""
 
@@ -415,7 +431,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/Admin/AdminPages.php:72
+#: src/Admin/AdminPages.php:73
 msgid "Delete ALL Nimikh data (tables, certificates, files) when the plugin is deleted"
 msgstr ""
 
@@ -459,7 +475,7 @@ msgstr ""
 msgid "Discussion is turned off."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:86
+#: src/Privacy/PrivacyService.php:92
 msgid "Discussion posts"
 msgstr ""
 
@@ -487,11 +503,11 @@ msgstr ""
 msgid "Email a weekly operations report to the site admin"
 msgstr ""
 
-#: src/Admin/AdminPages.php:85
+#: src/Admin/AdminPages.php:86
 msgid "Enabled"
 msgstr ""
 
-#: src/Admin/AdminPages.php:182
+#: src/Admin/AdminPages.php:183
 msgid "Enrol learners"
 msgstr ""
 
@@ -503,7 +519,7 @@ msgstr ""
 msgid "Every five minutes"
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:101
 msgid "Expires"
 msgstr ""
 
@@ -511,15 +527,19 @@ msgstr ""
 msgid "Facebook"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:36
+#: src/Admin/Metaboxes.php:37
 msgid "Final exam pass mark %"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:43
+#: src/Admin/Metaboxes.php:44
 msgid "Final exam quiz ID (0 = last quiz)"
 msgstr ""
 
-#: src/Integrations/Tutor/TutorHooks.php:96
+#: src/Integrations/Tutor/TutorHooks.php:92
+msgid "Finish the lesson to complete it. The package reports your progress."
+msgstr ""
+
+#: src/Integrations/Tutor/TutorHooks.php:102
 msgid "Finish watching the video and answer its questions to complete this lesson."
 msgstr ""
 
@@ -598,7 +618,7 @@ msgstr ""
 msgid "I earned a certificate in %s:"
 msgstr ""
 
-#: src/Admin/AdminPages.php:121
+#: src/Admin/AdminPages.php:122
 msgid "ID"
 msgstr ""
 
@@ -622,11 +642,11 @@ msgstr ""
 msgid "Install the app"
 msgstr ""
 
-#: src/Admin/AdminPages.php:69
+#: src/Admin/AdminPages.php:70
 msgid "Installable app (PWA)"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:111
 msgid "Institute"
 msgstr ""
 
@@ -638,7 +658,7 @@ msgstr ""
 msgid "Institute admin access required."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:111
 msgid "Institute memberships"
 msgstr ""
 
@@ -662,7 +682,11 @@ msgstr ""
 msgid "Interaction not found."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:27
+#: src/Scorm/ScormPlayer.php:49
+msgid "Interactive lesson"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:28
 msgid "Interactive video"
 msgstr ""
 
@@ -674,7 +698,7 @@ msgstr ""
 msgid "Issue date"
 msgstr ""
 
-#: src/Admin/AdminPages.php:121 src/Privacy/PrivacyService.php:77 templates/verify.php:70
+#: src/Admin/AdminPages.php:122 src/Privacy/PrivacyService.php:77 templates/verify.php:70
 msgid "Issued"
 msgstr ""
 
@@ -710,7 +734,7 @@ msgstr ""
 msgid "Join link must be an https URL."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:99
+#: src/Privacy/PrivacyService.php:105
 msgid "Joined"
 msgstr ""
 
@@ -734,6 +758,10 @@ msgstr ""
 msgid "Last year"
 msgstr ""
 
+#: src/Scorm/ScormService.php:50
+msgid "Launch the package first."
+msgstr ""
+
 #: src/Frontend/LeaderboardShortcode.php:31
 msgid "Leaderboard"
 msgstr ""
@@ -750,7 +778,7 @@ msgstr ""
 msgid "Learned 7 days in a row."
 msgstr ""
 
-#: src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124
+#: src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:124
 msgid "Learner"
 msgstr ""
 
@@ -770,11 +798,11 @@ msgstr ""
 msgid "Length (minutes)"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:87
+#: src/Privacy/PrivacyService.php:64 src/Privacy/PrivacyService.php:82 src/Privacy/PrivacyService.php:88
 msgid "Lesson"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:66
+#: src/Scorm/ScormPlayer.php:47 src/Video/FrontendPlayer.php:66
 msgid "Lesson complete"
 msgstr ""
 
@@ -814,7 +842,7 @@ msgstr ""
 msgid "Line %d: invalid email"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:99
+#: src/Privacy/PrivacyService.php:105
 msgid "Live class attendance"
 msgstr ""
 
@@ -832,6 +860,10 @@ msgstr ""
 
 #: src/Admin/DemoPage.php:48
 msgid "Load demo data"
+msgstr ""
+
+#: src/Scorm/ScormPlayer.php:45
+msgid "Loading the lesson…"
 msgstr ""
 
 #: src/Admin/DemoPage.php:37
@@ -870,11 +902,11 @@ msgstr ""
 msgid "Metric"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:34
+#: src/Admin/Metaboxes.php:35
 msgid "Min % of each video watched"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:35
+#: src/Admin/Metaboxes.php:36
 msgid "Min average in-video MCQ % (0 = off)"
 msgstr ""
 
@@ -926,7 +958,7 @@ msgstr ""
 msgid "Nimikh LMS learning data"
 msgstr ""
 
-#: src/Admin/AdminPages.php:74
+#: src/Admin/AdminPages.php:75
 msgid "Nimikh LMS settings"
 msgstr ""
 
@@ -966,7 +998,7 @@ msgstr ""
 msgid "No data yet"
 msgstr ""
 
-#: src/Admin/AdminPages.php:204
+#: src/Admin/AdminPages.php:205
 msgid "No file uploaded."
 msgstr ""
 
@@ -978,6 +1010,10 @@ msgstr ""
 msgid "No notes yet. Pause the video and jot something down."
 msgstr ""
 
+#: src/Admin/Metaboxes.php:60
+msgid "No package yet. A SCORM lesson replaces the video player: the package reports completion and the score."
+msgstr ""
+
 #: src/Frontend/Shortcodes.php:73
 msgid "No questions yet. Be the first to ask."
 msgstr ""
@@ -986,7 +1022,7 @@ msgstr ""
 msgid "Nobody has joined the leaderboard yet."
 msgstr ""
 
-#: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:152 src/Admin/AdminPages.php:189
+#: src/Admin/KpiPage.php:24 src/Admin/AdminPages.php:153 src/Admin/AdminPages.php:190
 msgid "Not allowed."
 msgstr ""
 
@@ -1002,7 +1038,7 @@ msgstr ""
 msgid "Not quite. Have another go."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:82
+#: src/Privacy/PrivacyService.php:88
 msgid "Note"
 msgstr ""
 
@@ -1018,7 +1054,7 @@ msgstr ""
 msgid "Now"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:102
+#: src/Privacy/PrivacyService.php:108
 msgid "Number"
 msgstr ""
 
@@ -1050,6 +1086,14 @@ msgstr ""
 msgid "Option chosen"
 msgstr ""
 
+#: src/Admin/Metaboxes.php:109
+msgid "Package installed. Reloading…"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:110
+msgid "Package removed. Reloading…"
+msgstr ""
+
 #: src/Certificates/CertificateEditor.php:84
 msgid "Page colour"
 msgstr ""
@@ -1078,7 +1122,7 @@ msgstr ""
 msgid "Phone-OTP sign-in (needs the SMS gateway above)"
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:95
+#: src/Admin/Phase3Pages.php:124 src/Privacy/PrivacyService.php:101
 msgid "Plan"
 msgstr ""
 
@@ -1098,6 +1142,10 @@ msgstr ""
 msgid "Playback speed is limited for this course"
 msgstr ""
 
+#: src/Scorm/ScormPlayer.php:35
+msgid "Please log in to open this lesson."
+msgstr ""
+
 #: src/Profile/ProfileShortcodes.php:41
 msgid "Please log in to see your dashboard."
 msgstr ""
@@ -1110,11 +1158,11 @@ msgstr ""
 msgid "Please log in."
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:87
+#: src/Privacy/PrivacyService.php:93
 msgid "Post"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:87
+#: src/Privacy/PrivacyService.php:93
 msgid "Posted"
 msgstr ""
 
@@ -1122,7 +1170,7 @@ msgstr ""
 msgid "Price label"
 msgstr ""
 
-#: src/Video/FrontendPlayer.php:72
+#: src/Scorm/ScormPlayer.php:48 src/Video/FrontendPlayer.php:72
 msgid "Progress saved"
 msgstr ""
 
@@ -1146,7 +1194,7 @@ msgstr ""
 msgid "Quick check!"
 msgstr ""
 
-#: src/Admin/AdminPages.php:139 templates/verify.php:77
+#: src/Admin/AdminPages.php:140 templates/verify.php:77
 msgid "Reason"
 msgstr ""
 
@@ -1162,8 +1210,16 @@ msgstr ""
 msgid "Remove demo data"
 msgstr ""
 
+#: src/Admin/Metaboxes.php:64
+msgid "Remove package"
+msgstr ""
+
 #: src/Certificates/CertificateEditor.php:33
 msgid "Remove the visual layout and use the HTML below"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:111
+msgid "Remove this package? Learners’ SCORM progress is kept."
 msgstr ""
 
 #: src/Frontend/Shortcodes.php:66
@@ -1186,7 +1242,7 @@ msgstr ""
 msgid "Reset to default layout"
 msgstr ""
 
-#: src/Admin/AdminPages.php:140
+#: src/Admin/AdminPages.php:141
 msgid "Revoke"
 msgstr ""
 
@@ -1198,8 +1254,24 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:105
+#: src/Privacy/PrivacyService.php:111
 msgid "Role"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:66
+msgid "SCORM 1.2 and SCORM 2004. The package runs in a sandbox. It reports its own completion, so use the interactive video for content that must be tamper-resistant."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:81
+msgid "SCORM lesson progress"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:27
+msgid "SCORM package"
+msgstr ""
+
+#: src/Admin/AdminPages.php:66
+msgid "SCORM: least seconds before a package may complete a lesson"
 msgstr ""
 
 #: src/Admin/AdminPages.php:60
@@ -1210,7 +1282,7 @@ msgstr ""
 msgid "SMS gateway URL (https; use {to} {message} {sender} {api_key})"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:102
+#: src/Privacy/PrivacyService.php:108
 msgid "SMS notifications"
 msgstr ""
 
@@ -1222,7 +1294,7 @@ msgstr ""
 msgid "SMS sender ID"
 msgstr ""
 
-#: src/Admin/AdminPages.php:102
+#: src/Admin/AdminPages.php:103
 msgid "SMS template: %s"
 msgstr ""
 
@@ -1230,11 +1302,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:53
+#: src/Admin/Metaboxes.php:76
 msgid "Save the lesson once to enable the timeline editor."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:51
+#: src/Admin/Metaboxes.php:74
 msgid "Save the lesson, then add questions below. Duration is detected automatically."
 msgstr ""
 
@@ -1246,7 +1318,7 @@ msgstr ""
 msgid "Schedule class"
 msgstr ""
 
-#: src/Admin/AdminPages.php:121 src/Certificates/CertificateEditor.php:71 src/Privacy/PrivacyService.php:77
+#: src/Admin/AdminPages.php:122 src/Certificates/CertificateEditor.php:71 src/Scorm/ScormPlayer.php:50
 msgid "Score"
 msgstr ""
 
@@ -1270,7 +1342,7 @@ msgstr ""
 msgid "Send code"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:102
+#: src/Privacy/PrivacyService.php:108
 msgid "Sent"
 msgstr ""
 
@@ -1322,7 +1394,7 @@ msgstr ""
 msgid "Something went wrong. Please try again."
 msgstr ""
 
-#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:95
+#: src/Admin/Phase3Pages.php:245 src/Admin/Phase3Pages.php:250 src/Privacy/PrivacyService.php:101
 msgid "Starts"
 msgstr ""
 
@@ -1330,7 +1402,7 @@ msgstr ""
 msgid "State"
 msgstr ""
 
-#: src/Admin/KpiPage.php:33 src/Admin/AdminPages.php:121 src/Admin/Phase3Pages.php:124
+#: src/Admin/KpiPage.php:33 src/Admin/AdminPages.php:122 src/Admin/Phase3Pages.php:124
 msgid "Status"
 msgstr ""
 
@@ -1338,7 +1410,7 @@ msgstr ""
 msgid "Stay here"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:94
+#: src/Privacy/PrivacyService.php:100
 msgid "Subscriptions"
 msgstr ""
 
@@ -1370,6 +1442,10 @@ msgstr ""
 msgid "That does not look like a certificate ID."
 msgstr ""
 
+#: src/Scorm/PackageStore.php:33 src/Scorm/PackageStore.php:40
+msgid "That file is not a valid zip archive."
+msgstr ""
+
 #: src/Discussion/DiscussionService.php:26
 msgid "That is too long."
 msgstr ""
@@ -1390,8 +1466,52 @@ msgstr ""
 msgid "The AI service did not respond. Try again in a moment."
 msgstr ""
 
+#: src/Scorm/PackageStore.php:29
+msgid "The PHP zip extension is not installed on this server."
+msgstr ""
+
 #: src/Video/FrontendPlayer.php:63
 msgid "The correct answer is highlighted."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:61
+msgid "The launch file named in the manifest is not in the package."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:149
+msgid "The package contains a file type that is not allowed (for example PHP or executables)."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:147
+msgid "The package contains a symbolic link and was refused."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:146
+msgid "The package contains an unsafe file path and was refused."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:148
+msgid "The package contains two files whose names differ only by capital letters."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:57
+msgid "The package has no readable imsmanifest.xml, or it is not SCORM 1.2 or SCORM 2004."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:142
+msgid "The package has too many files."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:143
+msgid "The package is too large (limit 300 MB, 150 MB per file)."
+msgstr ""
+
+#: src/Scorm/PackageStore.php:144
+msgid "The package looks like a decompression bomb and was refused."
+msgstr ""
+
+#: src/Scorm/ScormService.php:55
+msgid "The package reported too much data."
 msgstr ""
 
 #: src/Rest/AuthoringController.php:207
@@ -1408,6 +1528,10 @@ msgstr ""
 
 #: src/Rest/AuthoringController.php:227
 msgid "The rewind point must be before the question."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:112
+msgid "The upload failed."
 msgstr ""
 
 #: src/Demo/DemoSeeder.php:130
@@ -1442,6 +1566,10 @@ msgstr ""
 msgid "This is not your question."
 msgstr ""
 
+#: src/Scorm/ScormService.php:25
+msgid "This lesson has no SCORM package."
+msgstr ""
+
 #: src/Progress/ProgressService.php:85
 msgid "This lesson has no video duration set."
 msgstr ""
@@ -1456,6 +1584,10 @@ msgstr ""
 
 #: src/Rest/AuthoringController.php:92
 msgid "This question is used in a video. Remove it from the timeline first."
+msgstr ""
+
+#: src/Privacy/PrivacyService.php:83
+msgid "Time spent (seconds)"
 msgstr ""
 
 #: src/Admin/DemoPage.php:38
@@ -1494,7 +1626,7 @@ msgstr ""
 msgid "Too many posts. Please wait a minute."
 msgstr ""
 
-#: src/Rest/MetricsController.php:24
+#: src/Rest/ScormController.php:54 src/Rest/MetricsController.php:24
 msgid "Too many requests."
 msgstr ""
 
@@ -1510,7 +1642,7 @@ msgstr ""
 msgid "Try again"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:102
+#: src/Privacy/PrivacyService.php:108
 msgid "Type"
 msgstr ""
 
@@ -1522,12 +1654,28 @@ msgstr ""
 msgid "Unknown metric."
 msgstr ""
 
+#: src/Admin/Metaboxes.php:53
+msgid "Untitled package"
+msgstr ""
+
 #: src/Admin/Phase3Pages.php:250
 msgid "Upcoming"
 msgstr ""
 
-#: src/Admin/AdminPages.php:176
+#: src/Admin/AdminPages.php:177
 msgid "Upload a CSV with columns: email, name (name optional). Unknown emails get a new learner account and a password-reset email."
+msgstr ""
+
+#: src/Rest/ScormController.php:36
+msgid "Upload a SCORM zip file. If it is large, check the server upload limits."
+msgstr ""
+
+#: src/Admin/Metaboxes.php:62
+msgid "Upload package (.zip)"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:108
+msgid "Uploading and checking the package…"
 msgstr ""
 
 #: src/Frontend/LoginShortcode.php:40
@@ -1538,11 +1686,11 @@ msgstr ""
 msgid "Use institute colour"
 msgstr ""
 
-#: src/Admin/AdminPages.php:113
+#: src/Admin/AdminPages.php:114
 msgid "Use the course builder to add questions to your videos."
 msgstr ""
 
-#: src/Admin/Metaboxes.php:49
+#: src/Admin/Metaboxes.php:72
 msgid "Use the interactive player (anti-skip + MCQ pop-ups) for this lesson"
 msgstr ""
 
@@ -1578,7 +1726,7 @@ msgstr ""
 msgid "Verify link"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:81
+#: src/Privacy/PrivacyService.php:87
 msgid "Video notes"
 msgstr ""
 
@@ -1594,7 +1742,7 @@ msgstr ""
 msgid "Visual layout"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:42
+#: src/Admin/Metaboxes.php:43
 msgid "Wait between failed exam attempts (hours, 0 = none)"
 msgstr ""
 
@@ -1732,7 +1880,7 @@ msgstr ""
 msgid "[Nimikh] Weekly report: needs attention"
 msgstr ""
 
-#: src/Privacy/PrivacyService.php:140
+#: src/Privacy/PrivacyService.php:146
 msgid "[removed by the author]"
 msgstr ""
 
@@ -1746,6 +1894,14 @@ msgstr ""
 
 #: src/Metrics/MetricsService.php:77
 msgid "at least 1 view per 5 certificates (20%)"
+msgstr ""
+
+#: src/Admin/Metaboxes.php:56
+msgid "files"
+msgstr ""
+
+#: src/Scorm/PackageStore.php:145
+msgid "imsmanifest.xml must be at the top level of the zip."
 msgstr ""
 
 #: src/Integrations/Tutor/TutorHooks.php:70
@@ -1768,7 +1924,7 @@ msgstr ""
 msgid "under %d ms"
 msgstr ""
 
-#: src/Admin/Metaboxes.php:51
+#: src/Admin/Metaboxes.php:74
 msgid "…or direct video URL (dev / other CDN)"
 msgstr ""
 
